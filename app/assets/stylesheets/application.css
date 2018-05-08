@@ -13,3 +13,33 @@
  *= require_tree .
  *= require_self
  */
+header {
+  height: 100px;
+  width: 100%;
+}
+#navbar-links {
+ background-color: grey;
+ list-style: none;
+ display: flex;
+ flex-direction: row;
+ justify-content: center;
+ align-items: baseline;
+ flex-wrap: nowrap;
+}
+
+ #navbar-links > li {
+   display: inline-block;
+   text-align: center;
+   width: fit-content;
+   /* padding: 10px;
+   margin: 10px; */
+ }
+
+ #navbar-links > li > h2 {
+   padding-top: 0px;
+   padding-bottom: 0px;
+ }
+
+ .session-link {
+   align-self: flex-end;
+ }
