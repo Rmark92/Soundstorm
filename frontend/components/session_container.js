@@ -8,7 +8,7 @@ const Session = (props) => {
   function renderLoggedIn(){
     return (
       <div>
-        Welcome, {props.user.username}!
+        {props.username}
         <button onClick={props.logout}>Sign Out</button>
       </div>
     );
@@ -17,7 +17,6 @@ const Session = (props) => {
   function renderLoggedOut(){
     return (
     <div>
-      Welcome!
       <Link className="session-link" to='/signup'>Create Account</Link>
       <Link className="session-link" to='/login'>Sign In</Link>
     </div>
