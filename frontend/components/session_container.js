@@ -37,44 +37,6 @@ class Session extends React.Component {
     return this.props.user ? this.renderLoggedIn() : this.renderLoggedOut();
   }
 }
-// const Session = (props) => {
-//
-//   function renderLoggedIn(){
-//     return (
-//       <div>
-//         {props.username}
-//         <button onClick={props.logout}>Sign Out</button>
-//       </div>
-//     );
-//   }
-//
-//   // function renderLoggedOut(){
-//   //   return (
-//   //   <div className="session-links">
-//   //     <Link to='/login'><div id="signin-link">Sign in</div></Link>
-//   //     <Link to='/signup'><div id="signup-link">Create account</div></Link>
-//   //   </div>
-//   //   );
-//   // }
-//
-//   function handleNewRequest(type) {
-//     return (event) => {
-//       props.openModal(type);
-//     };
-//   }
-//
-//
-//   function renderLoggedOut() {
-//     return (
-//       <div className="session-links">
-//         <button id="signin-link" onClick={this.handleNewRequest('login')}>Sign in</button>
-//         <button id="signup-link" onClick={this.handleNewRequest('signup')}>Create account</button>
-//       </div>
-//     );
-//   }
-//
-//   return props.user ? renderLoggedIn() : renderLoggedOut();
-// };
 
 const mapStateToProps = (state, ownProps) =>{
   return {

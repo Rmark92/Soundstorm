@@ -15,6 +15,7 @@
  */
 body {
   margin: 0px;
+  font-family: 'Open Sans', sans-serif;
 }
 
 header {
@@ -28,7 +29,6 @@ header > nav {
   margin: auto;
   width: 1150px;
   height: 100%;
-  font-family: 'Open Sans', sans-serif;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -108,13 +108,52 @@ img {
   bottom: 0;
   right: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(242, 242, 242, 0.9);
   z-index: 10;
 }
 
 .modal-child {
   position: absolute;
-  top: 50%;
+  top: 225px;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 450px;
+  background-color: white;
+  border-radius: 2px;
+  text-align: center;
+}
+
+#session-form > input {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 5px;
+  font-size: 15px;
+  margin: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #f50;
+  width: 80%;
+}
+
+#session-form > button {
+  background-color: #f50;
+  color: white;
+  width: 80%;
+  border-radius: 2px;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+#otherForm {
+  font-size: 13px;
+  margin: 10px;
+}
+
+#switch-form {
+  color: blue;
+}
+
+#switch-form:hover {
+  cursor: pointer;
 }

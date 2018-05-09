@@ -31,21 +31,13 @@ export default class SessionForm extends React.Component {
   render() {
     return (
       <div>
-        <h2>{ this.props.formType === "signup" ? "Sign Up" : "Log In"}</h2>
+        <h2>{this.props.formType === 'login' ? 'Sign in' : 'Create your account'}</h2>
         <ul>
           {this.renderErrors()}
         </ul>
-        <form>
-          <label>
-            Username:
-            <input onChange={this.handleInput('username')} value={this.state.username}></input>
-          </label>
-
-          <label>
-            Password:
-            <input onChange={this.handleInput('password')} value={this.state.password}></input>
-          </label>
-
+        <form id="session-form">
+          <input onChange={this.handleInput('username')} value={this.state.username} placeholder='username'></input>
+          <input onChange={this.handleInput('password')} value={this.state.password} placeholder='password'></input>
           <button onClick={this.handleSubmit}>Submit</button>
         </form>
         {this.props.otherForm}
@@ -53,3 +45,13 @@ export default class SessionForm extends React.Component {
     );
   }
 }
+
+// <label>
+//   Username:
+//   <input onChange={this.handleInput('username')} value={this.state.username} placeholder='Username:'></input>
+// </label>
+//
+// <label>
+//   Password:
+//   <input onChange={this.handleInput('password')} value={this.state.password} placeholder='Password:'></input>
+// </label>
