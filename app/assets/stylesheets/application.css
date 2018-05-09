@@ -13,20 +13,26 @@
  *= require_tree .
  *= require_self
  */
+body {
+  margin: 0px;
+}
+
 header {
-  height: 100px;
+  height: 46px;
   width: 100%;
+  background-color: #313131;
+  color: #fff;
 }
 
 header > nav {
-  background-color: #333;
-  color: #fff;
-  font: "Lucida";
-  list-style: none;
+  margin: auto;
+  width: 1250px;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   flex-wrap: nowrap;
 }
 
@@ -34,36 +40,36 @@ header > nav > h2 {
   margin: auto;
 }
 
+img {
+  height: 100%;
+  width: 75px;
+}
+
+#logo {
+  background-image: url('logo.png');
+  background-size: contain;
+  background-position: center;
+  height: 100%;
+  width: 112px;
+}
+
+#charts-link {
+  width: 100px;
+  line-height: 46px;
+  text-align: center;
+  border-right: 1px solid black;
+}
+
+nav a {
+  text-decoration: none;
+  color: #ccc6c6;
+  font-size: 15px;
+}
+
+nav a:hover {
+  color: white;
+}
+
 .session-link {
   padding: 5px;
 }
-
-
-
-
-/* #navbar-links {
- background-color: grey;
- list-style: none;
- display: flex;
- flex-direction: row;
- justify-content: center;
- align-items: baseline;
- flex-wrap: nowrap;
-} */
-
- /* #navbar-links > li {
-   display: inline-block;
-   text-align: center;
-   width: fit-content;
-   /* padding: 10px;
-   /* margin: 10px; */
- /* }
-
- #navbar-links > li > h2 {
-   padding-top: 0px;
-   padding-bottom: 0px;
- }
-
- .session-link {
-   align-self: flex-end;
- } */ */ */

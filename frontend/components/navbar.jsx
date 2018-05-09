@@ -6,22 +6,14 @@ const navBar = () => (
   <header>
     <nav>
       <div id="logo"></div>
-      <Link to="/charts">Charts</Link>
+      <Link to="/charts" id="charts-link">Charts</Link>
       <h2>Soundstorm</h2>
       <Session></Session>
     </nav>
   </header>
 );
 
-// <ul id="navbar-links">
-//   <li>
-//     <div id="logo"></div>
-//   </li>
-//   <li>
-//     <Link to="/charts">Charts</Link>
-//   </li>
-//   <li><h2>Soundstorm</h2></li>
-//   <li><Session></Session></li>
-// </ul>
+// <Link to="/charts"><div id="charts-link">Charts</div></Link>
+
 
 export default(navBar);
