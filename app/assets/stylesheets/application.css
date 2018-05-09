@@ -58,15 +58,12 @@ img {
   line-height: 46px;
   text-align: center;
   border-right: 1px solid black;
-}
-
-nav a {
   text-decoration: none;
   color: #ccc6c6;
   font-size: 14px;
 }
 
-nav a:hover {
+#charts-link:hover {
   color: white;
 }
 
@@ -74,33 +71,35 @@ nav a:hover {
   display: flex;
 }
 
-.session-links > a {
-  padding: 15px;
-}
-
 #signup-link {
-  width: 120px;
+  width: 125px;
   background-color: #f2662d;
   border: 1px solid #f2662d;
 }
 
 #signin-link {
-  width: 60px;
-  border: 1px solid #666;
-}
-
-#signin-link:hover {
+  width: 65px;
+  background-color: #313131;
   border: 1px solid white;
 }
 
-.session-links div {
-  height: 22px;
+#signin-link:hover {
+  border: 1px solid #666;
+}
+
+.session-links button {
+  font-size: 14px;
+  margin: 15px;
+  padding: 4px;
   position: relative;
-  top: 2px;
   right: 10px;
   text-align: center;
   color: white;
-  border-radius: 3px;
+  border-radius: 4px;
+}
+
+.session-links button:hover {
+  cursor: pointer;
 }
 
 .modal-background {
