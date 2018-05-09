@@ -7,7 +7,7 @@ const navBar = () => (
     <nav>
       <div id="logo"></div>
       <Link to="/charts" id="charts-link">Charts</Link>
-      <h2>Soundstorm</h2>
+      <h2>soundstorm</h2>
       <Session></Session>
     </nav>
   </header>

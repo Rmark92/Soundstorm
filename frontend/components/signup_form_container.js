@@ -1,19 +1,26 @@
+import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { openModal, closeModal } from '../actions/modal_actions.js';
 import { signup } from '../actions/session_actions.js';
 import sessionForm from './session_form.jsx';
 
 const mapStateToProps = (state) => {
   return {
     errors: state.errors.sessionErrors,
-    formType: 'sign_up'
+    formType: 'signup'
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    processForm: (credentials) => dispatch(signup(credentials))
+    processForm: (credentials) => dispatch(signup(credentials)),
+    otherForm: (
+      <button onClick={() => dispatch(openModal('login'))}>
+        Signup
+      </button>
+    ),
+    closeModal: () => dispatch(closeModal())
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(sessionForm));
+export default connect(mapStateToProps, mapDispatchToProps)(sessionForm);

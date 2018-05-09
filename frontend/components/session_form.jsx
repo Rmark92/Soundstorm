@@ -12,7 +12,7 @@ export default class SessionForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.processForm(this.state).then( () => {
-      this.props.history.push('/');
+      this.props.closeModal();
     });
   }
 
@@ -20,24 +20,6 @@ export default class SessionForm extends React.Component {
     return (event) => {
       this.setState( { [inputType] : event.currentTarget.value });
     };
-  }
-
-  renderOtherOption() {
-    if (this.props.formType === "log_in") {
-      return (
-        <p>
-          Don't have an account?
-          <Link to="/signup">Sign Up</Link>
-        </p>
-      );
-    } else {
-      return (
-        <p>
-          Already have an account?
-          <Link to="/login">Log In</Link>
-        </p>
-      );
-    }
   }
 
   renderErrors() {
@@ -49,7 +31,7 @@ export default class SessionForm extends React.Component {
   render() {
     return (
       <div>
-        <h2>{ this.props.formType === "sign_up" ? "Sign Up" : "Log In"}</h2>
+        <h2>{ this.props.formType === "signup" ? "Sign Up" : "Log In"}</h2>
         <ul>
           {this.renderErrors()}
         </ul>
@@ -66,7 +48,7 @@ export default class SessionForm extends React.Component {
 
           <button onClick={this.handleSubmit}>Submit</button>
         </form>
-        {this.renderOtherOption()}
+        {this.props.otherForm}
       </div>
     );
   }
