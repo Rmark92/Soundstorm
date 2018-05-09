@@ -1,11 +1,17 @@
 class User < ApplicationRecord
   validates :username, :password_digest, :session_token, presence: true
   validates :username, uniqueness: true
+  validates :username, length: { minimum: 4, maximum: 50 }
   validates :password, length: { minimum: 6, allow_nil: true }
 
   attr_reader :password
 
   after_initialize { ensure_session_token }
+
+  has_many :tracks,
+    foreign_key: :artist_id,
+    class_name: 'Track',
+    primary_key: :id
 
   def self.find_by_credentials(username, password)
     user = User.find_by({ username: username });

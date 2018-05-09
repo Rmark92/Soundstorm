@@ -4,6 +4,7 @@ import { AuthRoute } from '../util/route_util.js';
 import NavBar from './navbar.jsx';
 import Modal from './modal.jsx';
 import SplashMain from './splash_main.jsx';
+// import TrackForm from './track_form.jsx';
 
 const App = () => (
   <div>
