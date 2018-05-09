@@ -16,9 +16,9 @@ const Session = (props) => {
 
   function renderLoggedOut(){
     return (
-    <div>
-      <Link className="session-link" to='/signup'>Create Account</Link>
-      <Link className="session-link" to='/login'>Sign In</Link>
+    <div className="session-links">
+      <Link to='/login'><div id="signin-link">Sign in</div></Link>
+      <Link to='/signup'><div id="signup-link">Create account</div></Link>
     </div>
     );
   }
