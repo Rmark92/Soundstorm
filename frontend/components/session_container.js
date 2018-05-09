@@ -1,12 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { logout } from '../actions/session_actions.js';
 import { openModal } from '../actions/modal_actions.js';
 
 class Session extends React.Component {
   constructor(props) {
     super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout(event) {
+    this.props.logout().then( () => {
+      this.props.history.push('/');
+    });
   }
 
   renderLoggedOut() {
@@ -20,9 +27,10 @@ class Session extends React.Component {
 
   renderLoggedIn(){
     return (
-      <div>
-        {this.props.username}
-        <button onClick={this.props.logout}>Sign Out</button>
+      <div id="nav-user-details">
+        <div id="nav-user-profpic"></div>
+        <p id="nav-username">{this.props.user.username}</p>
+        <button onClick={this.handleLogout} id="signout-link">Sign Out</button>
       </div>
     );
   }
@@ -51,4 +59,4 @@ const mapDispatchToProps= (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Session);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Session));

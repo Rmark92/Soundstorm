@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login } from '../actions/session_actions.js';
+import { login, demoLogin } from '../actions/session_actions.js';
 import { openModal, closeModal } from '../actions/modal_actions.js';
 import sessionForm from './session_form.jsx';
 
@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch) => {
   const switchForm = () => dispatch(openModal('signup'));
   return {
     processForm: (credentials) => dispatch(login(credentials)),
+    demoLogin: () => dispatch(demoLogin()).then( () => dispatch(closeModal())),
     otherForm: (
       <div id="otherForm">
         {"Don't have an account"}? <span onClick={switchForm} id="switch-form">Create one</span>

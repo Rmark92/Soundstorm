@@ -34,3 +34,7 @@ export const signup = (credentials) => {
     return APIUtil.signup(credentials).then( user => dispatch(receiveLogin(user)) ).fail( error => dispatch(addSessionErrors(error.responseJSON)));
   };
 };
+
+export const demoLogin = () => {
+  return login({ username: 'demo_user', password: 'password' });
+};
