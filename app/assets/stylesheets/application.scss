@@ -308,6 +308,10 @@ img {
   border-radius: 3px;
 }
 
+#audio-file-input-label:hover {
+  cursor: pointer;
+}
+
 #track-form-details > .track-image-default, .track-image {
   width: 240px;
   height: 240px;
@@ -328,6 +332,10 @@ img {
   font-size: 14px;
 }
 
+#image-file-input-label:hover {
+  cursor: pointer;
+}
+
 #image-file-input-label > #camera-icon {
   padding-right: 5px;
   position: relative;
@@ -345,7 +353,9 @@ img {
 
 #track-form-details {
   padding: 20px;
-  border: 1px solid black;
+  border: 1px solid #e8d4d4;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -357,10 +367,21 @@ img {
 }
 
 #track-form-text-details > div {
+  border-color: #e8d4d4;
   margin-left: 10px;
   text-align: left;
   width: 400px;
   font-size: 14px;
+}
+
+#track-form-text-details label {
+  margin-bottom: 3px;
+  font-size: 13px;
+}
+
+#track-form-text-details input, textarea {
+  border-radius: 4px;
+  border: 1px solid #e2d8d8;
 }
 
 #track-form-text-details > div > * {
@@ -374,4 +395,44 @@ img {
 #description-input {
   width: 100%;
   height: 100px;
+}
+
+#track-form-submit {
+  position: absolute;
+}
+
+#track-form-submit-buttons {
+  margin-top: 0px;
+  padding: 15px 0px 15px 0px;
+  border-right: 1px solid #e8d4d4;
+  border-left: 1px solid #e8d4d4;
+  border-bottom: 1px solid #e8d4d4;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+#track-form-cancel {
+  margin-right: 50px;
+  background: none;
+  border-radius: 4px;
+}
+
+#track-form-cancel:hover {
+  border: 1px solid black;
+}
+
+#track-form-submit {
+  background-color: #f50;
+  border-radius: 4px;
+  color: white;
+}
+
+#track-form-submit-buttons > button {
+  cursor: pointer;
+  position: relative;
+  right: 70px;
+  padding: 4px 8px 4px 8px;
+  font-size: 15px;
 }

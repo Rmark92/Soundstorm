@@ -1,11 +1,13 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import FaCamera from 'react-icons/lib/fa/camera';
 
-export default class TrackForm extends React.Component {
+class TrackForm extends React.Component {
   constructor(props) {
     super(props);
     this.updateFile = this.updateFile.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     const defaultState = { audioFile: null, audioURL: null, imageFile: null, imageURL: null, title: '', description: '' };
     this.state = Object.assign(this.props.track, defaultState);
   }
@@ -87,6 +89,10 @@ export default class TrackForm extends React.Component {
     }
   }
 
+  handleCancel() {
+    this.props.history.goBack();
+  }
+
   // setBackgroundImage() {
   //   if (this.state.imageURL) {
   //     return `background-image = {this.state.imageURL}`;
@@ -111,12 +117,17 @@ export default class TrackForm extends React.Component {
             </div>
             <div id="track-form-description-input">
               <label htmlFor="description-input">Description</label>
-              <input id="description-input" type="textarea" value={this.state.description} onChange={this.handleTextInput('description')}></input>
+              <textarea id="description-input" value={this.state.description} onChange={this.handleTextInput('description')}></textarea>
             </div>
           </ul>
         </div>
-        <button onClick={this.handleSubmit}>Save</button>
+        <div id="track-form-submit-buttons">
+          <button onClick={this.handleCancel} id="track-form-cancel">Cancel</button>
+          <button onClick={this.handleSubmit} id="track-form-submit">Save</button>
+        </div>
       </form>
     );
   }
 }
+
+export default withRouter(TrackForm);
