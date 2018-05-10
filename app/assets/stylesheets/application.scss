@@ -13,9 +13,23 @@
  *= require_tree .
  *= require_self
  */
+html {
+  height: 100%;
+}
+
 body {
   margin: 0px;
   font-family: 'Open Sans', sans-serif;
+  background-color: #f2f2f2;
+  height: 100%
+}
+
+#root {
+  height: 100%;
+}
+
+#root > div {
+  height: 100%;
 }
 
 header {
@@ -27,7 +41,7 @@ header {
 
 header > nav {
   margin: auto;
-  width: 1150px;
+  width: 1220px;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -203,10 +217,12 @@ img {
   cursor: pointer;
 }
 
-#splash {
+#main {
+  background-color: #ffffff;
+  width: 1220px;
   margin: auto;
-  width: 1150px;
   height: 100%;
+  text-align: center;
 }
 
 #splash-image {
@@ -265,4 +281,28 @@ img {
   color: #f2662d;
   /* margin: 1px; */
   font-size: 12px;
+}
+
+#track-form {
+  margin: auto;
+  position: absolute;
+  top: 90px;
+  width: 50%;
+  left: 25%;
+  height: 500px;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#audio-file-input-label {
+  padding: 5px 10px 5px 10px;
+  background-color: #f50;
+  color: white;
 }

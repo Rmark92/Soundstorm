@@ -12,6 +12,7 @@ export default class TrackForm extends React.Component {
     const file = event.currentTarget.files[0];
     const fileReader = new FileReader();
     fileReader.onloadend = function () {
+      debugger
       this.setState({ audioFile: file, fileURL: fileReader.result });
     }.bind(this);
 
@@ -39,10 +40,10 @@ export default class TrackForm extends React.Component {
 
   render() {
     return (
-      <form>
+      <form id="track-form">
         <h2>Upload to soundstorm</h2>
-        <label htmlFor="audio-file-input">Choose a file to upload</label>
-        <input id="audio-file-input" type="file" onChange={this.updateFile}></input>
+        <label htmlFor="audio-file-input" id="audio-file-input-label">Choose a file to upload</label>
+        <input id="audio-file-input" type="file" onChange={this.updateFile} className="inputfile"></input>
         <div id="image-upload-btn"></div>
         <label htmlFor="title-input">Title</label>
         <input id="title-input" type="text" value={this.state.title} onChange={this.handleTextInput('title')}></input>

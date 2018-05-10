@@ -10,8 +10,10 @@ const App = () => (
   <div>
     <Modal></Modal>
     <NavBar></NavBar>
-    <AuthRoute exact path="/" component={SplashMain}></AuthRoute>
-    <ProtectedRoute exact path="/tracks/new" component={TrackCreateForm}></ProtectedRoute>
+    <div id="main">
+      <AuthRoute exact path="/" component={SplashMain}></AuthRoute>
+      <ProtectedRoute exact path="/tracks/new" component={TrackCreateForm}></ProtectedRoute>
+    </div>
   </div>
 );
 
