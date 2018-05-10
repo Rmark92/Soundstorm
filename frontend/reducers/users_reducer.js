@@ -9,7 +9,7 @@ export default (state = {}, action) => {
       return _.merge({}, state, { [action.user.id]: action.user });
     case RECEIVE_TRACK:
       const user = state[action.user.id];
-      if (user) {
+      if (user && user.trackIds) {
         const currentTrackIds = user.trackIds;
         action.user.trackIds = currentTrackIds.concat([action.track.id]);
       }
