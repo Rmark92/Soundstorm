@@ -75,6 +75,7 @@ img {
   text-decoration: none;
   color: #ccc6c6;
   font-size: 14px;
+
 }
 
 #charts-link:hover {
@@ -180,18 +181,50 @@ img {
 
 #nav-user-details {
   display: flex;
+  align-items: center;
+}
+
+#upload-link {
+  width: 100px;
+  margin-right: 25px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  text-decoration: none;
+  color: #ccc6c6;
+  font-size: 14px;
+  text-align: center;
+  line-height: 46px;
+}
+
+#upload-link:hover {
+  color: white;
 }
 
 #nav-user-profpic {
-  background-image: image_url('member_avatar.png');
-  background-color: #f2662d;
   height: 35px;
   width: 35px;
   border-radius: 50%;
-  background-size: contain;
-  background-position: center;
   position: relative;
-  top: 10px;
+  left: 5px;
+}
+
+// #nav-user-profpic {
+//   background-image: image_url('member_avatar.png');
+//   background-color: #f2662d;
+//   height: 35px;
+//   width: 35px;
+//   border-radius: 50%;
+//   background-size: contain;
+//   background-position: center;
+//   position: relative;
+//   top: 10px;
+// }
+
+#default-prof-pic {
+  background-image: linear-gradient(135deg,#846170,#70929c);
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
 }
 
 #nav-username {
@@ -203,7 +236,7 @@ img {
   font-size: 14px;
   margin: 15px;
   padding: 4px;
-  margin-left: 40px;
+  margin-left: 25px;
   text-align: center;
   color: white;
   border-radius: 4px;

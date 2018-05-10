@@ -28,11 +28,29 @@ class Session extends React.Component {
   renderLoggedIn(){
     return (
       <div id="nav-user-details">
-        <div id="nav-user-profpic"></div>
+        <Link to="/tracks/new" id="upload-link">Upload</Link>
+        {this.renderProfPic()}
         <p id="nav-username">{this.props.user.username}</p>
         <button onClick={this.handleLogout} id="signout-link">Sign Out</button>
       </div>
     );
+  }
+  // <div id="nav-user-profpic"></div>
+  
+  renderProfPic() {
+    if (this.props.user.image) {
+      return (
+        <div id="nav-user-profpic">
+          <img src={this.props.user.image} />
+        </div>
+      );
+    } else {
+      return (
+        <div id="nav-user-profpic">
+          <div id="default-prof-pic"></div>
+        </div>
+      );
+    }
   }
 
   handleNewRequest(type) {
