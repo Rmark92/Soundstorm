@@ -36,7 +36,7 @@ class Session extends React.Component {
     );
   }
   // <div id="nav-user-profpic"></div>
-  
+
   renderProfPic() {
     if (this.props.user.image) {
       return (
@@ -47,7 +47,7 @@ class Session extends React.Component {
     } else {
       return (
         <div id="nav-user-profpic">
-          <div id="default-prof-pic"></div>
+          <div id="default-nav-prof-pic"></div>
         </div>
       );
     }

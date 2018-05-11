@@ -85,8 +85,11 @@ class TrackForm extends React.Component {
     this.props.history.goBack();
   }
 
-  // <div id="chosen-file-name">{this.state.audioFile ? this.state.audioFile.name : ''}</div>
-
+  renderErrors() {
+    return this.props.errors.map( (error, idx) => {
+      return <div key={idx} className="track-form-error-message">{error}</div>;
+    });
+  }
 
   render() {
     return (
@@ -111,6 +114,9 @@ class TrackForm extends React.Component {
           </ul>
         </div>
         <div id="track-form-submit-buttons">
+          <div className="track-form-error-list">
+            {this.renderErrors()}
+          </div>
           <button onClick={this.handleCancel} id="track-form-cancel">Cancel</button>
           <button onClick={this.handleSubmit} id="track-form-submit">Save</button>
         </div>

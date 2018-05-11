@@ -16,7 +16,7 @@ class Api::TracksController < ApplicationController
       @user = current_user
       render :show
     else
-      render json: @track.errors.full_messages
+      render json: @track.errors.full_messages, status: 422
     end
   end
 

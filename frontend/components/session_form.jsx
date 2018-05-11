@@ -24,7 +24,7 @@ export default class SessionForm extends React.Component {
 
   renderErrors() {
     return this.props.errors.map( (error, idx) => {
-      return <div key={idx} class="error-message">{error}</div>;
+      return <div key={idx} className="error-message">{error}</div>;
     });
   }
 

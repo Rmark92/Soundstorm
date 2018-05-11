@@ -19,6 +19,20 @@ export default class TrackShow extends React.Component {
     }
   }
 
+  renderArtistImage() {
+    if (this.props.artist.image_url) {
+      return (
+        <div className="user-avatar-medium">
+          <img src={this.props.artist.image_url}></img>
+        </div>
+      );
+    } else {
+      return (
+        <div className="user-avatar-medium-default"></div>
+      );
+    }
+  }
+
   render() {
     return (
       <div id="track-show">
@@ -39,22 +53,14 @@ export default class TrackShow extends React.Component {
         </div>
         <div className="track-comments-container">
           <div className="track-artist-details">
-            <div className="user-avatar-medium">
-              
-            </div>
+            {this.renderArtistImage()}
+            <p>{this.props.artist.username}</p>
           </div>
           <div className="track-comments">
-            <p>{this.props.track.description}</p>
+            <p className="track-description">{this.props.track.description}</p>
           </div>
         </div>
       </div>
     );
   }
 }
-
-// <div id="track-show-title">
-//   <Link id="track-artist" to={`/users/${this.props.artist.id}`}>
-//     {this.props.artist.username}
-//   </Link>
-//   <p id="track-name">{this.props.track.title}</p>
-// </div>
