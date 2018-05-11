@@ -57,7 +57,10 @@ class TrackForm extends React.Component {
     if (this.state.imageFile) {
       formData.append("track[image]", this.state.imageFile);
     }
-    this.props.processForm(formData);
+    this.props.processForm(formData).then((action) => {
+      debugger
+      this.props.history.push(`/tracks/${track.id}`);
+    });
   }
 
   renderImage() {
@@ -91,6 +94,7 @@ class TrackForm extends React.Component {
       <form id="track-form">
         <div id="track-form-audio-upload">
           <h2>Upload to SoundStorm</h2>
+          <div id="chosen-file-name">{this.state.audioFile ? this.state.audioFile.name : ''}</div>
           <label htmlFor="audio-file-input" id="audio-file-input-label">Choose a file to upload</label>
           <input id="audio-file-input" type="file" onChange={this.updateFile('audio')} className="inputfile"></input>
         </div>

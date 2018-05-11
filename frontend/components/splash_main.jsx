@@ -16,10 +16,7 @@ const SplashMain = ( {demoLogin} ) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     demoLogin: () => dispatch(demoLogin())
-  }
-}
+  };
+};
 
 export default connect(null, mapDispatchToProps)(SplashMain);
-
-
-// <h2>{'Discover more with soundstorm'}</h2>

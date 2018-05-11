@@ -3,8 +3,8 @@ class Api::TracksController < ApplicationController
   end
 
   def show
-    @track = Track.find(id)
-    @user = @track.user
+    @track = Track.find(params[:id])
+    @user = @track.artist
   end
 
   def create

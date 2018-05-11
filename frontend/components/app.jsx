@@ -1,10 +1,11 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util.js';
 import NavBar from './navbar.jsx';
 import Modal from './modal.jsx';
 import SplashMain from './splash_main.jsx';
 import TrackCreateForm from './track_create_form_container.js';
+import TrackShow from './track_show_container.js';
 
 const App = () => (
   <div>
@@ -12,10 +13,12 @@ const App = () => (
     <NavBar></NavBar>
     <div id="main">
       <AuthRoute exact path="/" component={SplashMain}></AuthRoute>
-      <ProtectedRoute exact path="/tracks/new" component={TrackCreateForm}></ProtectedRoute>
+      <Switch>
+        <ProtectedRoute exact path="/tracks/new" component={TrackCreateForm}></ProtectedRoute>
+        <Route exact path='/tracks/:trackId' component={TrackShow}></Route>
+      </Switch>
     </div>
   </div>
 );
-
 
 export default App;
