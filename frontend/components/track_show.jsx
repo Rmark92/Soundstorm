@@ -19,6 +19,14 @@ export default class TrackShow extends React.Component {
     }
   }
 
+  // renderTrackImage() {
+  //   if (this.props.track.image_url) {
+  //     return (
+  //       <div className="cover"
+  //     );
+  //   }
+  // }
+
   renderArtistImage() {
     if (this.props.artist.image_url) {
       return (
