@@ -23,20 +23,8 @@ class TrackForm extends React.Component {
       if (file) {
         fileReader.readAsDataURL(file);
       }
-    }
+    };
   }
-  //
-  // updateFile(event) {
-  //   const file = event.currentTarget.files[0];
-  //   const fileReader = new FileReader();
-  //   fileReader.onloadend = function () {
-  //     this.setState({ audioFile: file, audioURL: fileReader.result });
-  //   }.bind(this);
-  //
-  //   if (file) {
-  //     fileReader.readAsDataURL(file);
-  //   }
-  // }
 
   updateImageFile(event) {
     const file = event.currentTarget.files[0];
@@ -57,6 +45,7 @@ class TrackForm extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     const formData = new FormData();
     formData.append("track[title]", this.state.title);
     formData.append("track[description]", this.state.description);
@@ -71,13 +60,14 @@ class TrackForm extends React.Component {
     this.props.processForm(formData);
   }
 
-  renderImageForm() {
+  renderImage() {
     if (this.state.imageURL) {
       return (
-        <img src={this.state.imageURL} className="track-image">
+        <div className="track-image">
+          <img src={this.state.imageURL} />
           <label htmlFor="image-file-input" id="image-file-input-label"><FaCamera id="camera-icon"></FaCamera>Update Image</label>
           <input id="image-file-input" type="file" onChange={this.updateFile('image')} className="inputfile"></input>
-        </img>
+        </div>
       );
     } else {
       return (
@@ -93,12 +83,8 @@ class TrackForm extends React.Component {
     this.props.history.goBack();
   }
 
-  // setBackgroundImage() {
-  //   if (this.state.imageURL) {
-  //     return `background-image = {this.state.imageURL}`;
-  //   }
-  // }
-  // background-image={this.state.imageURL || "inherit"}
+  // <div id="chosen-file-name">{this.state.audioFile ? this.state.audioFile.name : ''}</div>
+
 
   render() {
     return (
@@ -109,7 +95,7 @@ class TrackForm extends React.Component {
           <input id="audio-file-input" type="file" onChange={this.updateFile('audio')} className="inputfile"></input>
         </div>
         <div id="track-form-details">
-          {this.renderImageForm()}
+          {this.renderImage()}
           <ul id="track-form-text-details">
             <div id="track-form-title-input">
               <label htmlFor="title-input">Title</label>

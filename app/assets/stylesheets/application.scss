@@ -312,17 +312,16 @@ img {
 
 .error-message {
   color: #f2662d;
-  /* margin: 1px; */
   font-size: 12px;
 }
 
 #track-form {
-  margin: auto;
-  position: absolute;
-  top: 90px;
-  width: 50%;
-  left: 25%;
+  width: 700px;
   height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 80px;
 }
 
 .inputfile {
@@ -351,8 +350,20 @@ img {
   border: 1px solid rgba(199, 190, 190, 0.8);
 }
 
+.track-image-default, .track-image {
+  width: 240px;
+  height: 240px;
+  border: 1px solid rgba(199, 190, 190, 0.8);
+  position: relative;
+}
+
 .track-image-default {
   background-image: linear-gradient(135deg,#846170,#70929c);
+}
+
+.track-image > img {
+  width: 100%;
+  height: 100%;
 }
 
 #image-file-input-label {
@@ -360,8 +371,9 @@ img {
   border: 1px solid rgba(70, 67, 67, 0.8);
   padding: 1px 5px 1px 5px;
   border-radius: 3px;
-  position: relative;
-  top: 190px;
+  position: absolute;
+  top: 193px;
+  left: 60px;
   font-size: 14px;
 }
 
@@ -382,6 +394,7 @@ img {
 
 #track-form-audio-upload > h2 {
   margin-bottom: 55px;
+  margin-top: 0px;
 }
 
 #track-form-details {
@@ -396,6 +409,7 @@ img {
 
 #track-form-text-details {
   display: inline-block;
+  padding-left: 10px;
   font-size: 14px;
 }
 
@@ -468,4 +482,14 @@ img {
   right: 70px;
   padding: 4px 8px 4px 8px;
   font-size: 15px;
+}
+
+#chosen-file-name {
+  height: 12px;
+  font-size: 12px;
+  padding: 0px;
+  position: relative;
+  bottom: 35px;
+  color: #f50;
+  font-style: italic;
 }
