@@ -90,7 +90,7 @@ class TrackForm extends React.Component {
 
   renderErrors() {
     return this.props.errors.map( (error, idx) => {
-      return <div key={idx} className="track-form-error-message">{error}</div>;
+      return <div key={idx} className="error-message">{error}</div>;
     });
   }
 
@@ -116,12 +116,14 @@ class TrackForm extends React.Component {
             </div>
           </ul>
         </div>
-        <div id="track-form-submit-buttons">
+        <div className="track-form-submission">
           <div className="track-form-error-list">
             {this.renderErrors()}
           </div>
-          <button onClick={this.handleCancel} id="track-form-cancel">Cancel</button>
-          <button onClick={this.handleSubmit} id="track-form-submit">Save</button>
+          <div className="track-form-submit-buttons">
+            <button onClick={this.handleCancel} id="track-form-cancel">Cancel</button>
+            <button onClick={this.handleSubmit} id="track-form-submit">Save</button>
+          </div>
         </div>
       </form>
     );

@@ -131,20 +131,22 @@
   height: 100px;
 }
 
-#track-form-submit {
-  position: absolute;
-}
-
-#track-form-submit-buttons {
+.track-form-submission {
   margin-top: 0px;
   padding: 15px 0px 15px 0px;
   border-right: 1px solid #e8d4d4;
   border-left: 1px solid #e8d4d4;
   border-bottom: 1px solid #e8d4d4;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
+}
+
+.track-form-error-list {
+  width: 200px;
+  height: 80%;
 }
 
 #track-form-cancel {
@@ -163,12 +165,24 @@
   color: white;
 }
 
-#track-form-submit-buttons > button {
-  cursor: pointer;
-  position: relative;
+.track-form-submit-buttons {
+  width: 200px;
+  display: flex;
   right: 70px;
+}
+
+.track-form-submit-buttons > button {
+  cursor: pointer;
   padding: 4px 8px 4px 8px;
   font-size: 15px;
+}
+
+.track-form-error-list {
+  width: 200px;
+  height: 80%;
+  position: relative;
+  left: 78px;
+  text-align: left;
 }
 
 #chosen-file-name {
