@@ -9,7 +9,8 @@
   // background-image: linear-gradient(45deg, rgba(33,124,173,1) 0%, rgba(33,124,173,0.94) 13%, rgba(0,16,245,0.81) 42%, rgba(39,5,235,0.67) 74%, rgba(29,93,156,0.59) 91%, rgba(32,124,229,0.55) 99%, rgba(32,124,229,0.55) 100%);
   // background-image: linear-gradient(135deg, rgb(149, 130, 116) 0%, rgb(78, 90, 106) 100%);
   // background-image: linear-gradient(135deg, rgb(215, 204, 193) 0%, rgb(125, 139, 153) 100%);
-  background-image: linear-gradient(135deg, rgb(162, 126, 90) 0%, rgb(113, 99, 91) 100%);
+  background-image: linear-gradient(135deg,#8e8485,#e6846e);
+  // background-image: linear-gradient(135deg, rgb(162, 126, 90) 0%, rgb(113, 99, 91) 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -131,6 +132,6 @@
   height: 100px;
   width: 100px;
   border-radius: 50%;
-  background-image: linear-gradient(135deg,#846170,#70929c);
+  // background-image: linear-gradient(135deg,#846170,#70929c);
   box-shadow: rgba(0,0,0,.1)0 0 0 1px inset;
 }

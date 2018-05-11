@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { timeSince } from '../util/format_time.js';
+import generateRandomGradient from '../util/generate_random_gradient';
 
 export default class TrackShow extends React.Component {
   constructor(props) {
@@ -19,13 +20,20 @@ export default class TrackShow extends React.Component {
     }
   }
 
-  // renderTrackImage() {
-  //   if (this.props.track.image_url) {
-  //     return (
-  //       <div className="cover"
-  //     );
-  //   }
-  // }
+  renderTrackImage() {
+    if (this.props.track.image_url) {
+      return (
+        <div className="cover-art-large"><img src={this.props.track.image_url}/></div>
+      );
+    } else {
+      const divStyle = {
+        backgroundImage: generateRandomGradient()
+      };
+      return (
+        <div className="cover-art-large" style={divStyle}></div>
+      );
+    }
+  }
 
   renderArtistImage() {
     if (this.props.artist.image_url) {
@@ -35,16 +43,22 @@ export default class TrackShow extends React.Component {
         </div>
       );
     } else {
+      const divStyle = {
+        backgroundImage: generateRandomGradient()
+      };
       return (
-        <div className="user-avatar-medium-default"></div>
+        <div className="user-avatar-medium-default" style={divStyle}></div>
       );
     }
   }
 
   render() {
+    const showImgStyle = {
+      backgroundImage: generateRandomGradient()
+    };
     return (
       <div id="track-show">
-        <div className="show-image">
+        <div className="show-image" style={showImgStyle}>
           <div className="track-links">
             <div className="play-btn-large"></div>
             <div id="track-show-title">
@@ -56,7 +70,7 @@ export default class TrackShow extends React.Component {
           </div>
           <div className="cover-art-container-large">
             <p className="track-time-elapsed">{timeSince( new Date(this.props.track.createdAt) )}</p>
-            <div className="cover-art-large"><img src={this.props.track.image_url}/></div>
+            {this.renderTrackImage()}
           </div>
         </div>
         <div className="track-comments-container">
@@ -72,3 +86,5 @@ export default class TrackShow extends React.Component {
     );
   }
 }
+
+// <div className="cover-art-large"><img src={this.props.track.image_url}/></div>
