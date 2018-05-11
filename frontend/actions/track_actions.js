@@ -14,7 +14,6 @@ export const receiveTrack = (track) => {
 export const createTrack = (trackData) => {
   return (dispatch) => {
     return APIUtil.createTrack(trackData).then( response => {
-      debugger
       dispatch(receiveTrack(response));
       return response.track;
     }).fail( errors => dispatch(addTrackErrors));

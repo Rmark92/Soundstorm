@@ -57,8 +57,7 @@ class TrackForm extends React.Component {
     if (this.state.imageFile) {
       formData.append("track[image]", this.state.imageFile);
     }
-    this.props.processForm(formData).then((action) => {
-      debugger
+    this.props.processForm(formData).then((track) => {
       this.props.history.push(`/tracks/${track.id}`);
     });
   }

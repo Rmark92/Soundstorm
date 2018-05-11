@@ -1,0 +1,182 @@
+#track-form {
+  width: 700px;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 80px;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#audio-file-input-label {
+  padding: 2px 10px 2px 10px;
+  background-color: #f50;
+  color: white;
+  border-radius: 3px;
+}
+
+#audio-file-input-label:hover {
+  cursor: pointer;
+}
+
+#track-form-details > .track-image-default, .track-image {
+  width: 240px;
+  height: 240px;
+  border: 1px solid rgba(199, 190, 190, 0.8);
+}
+
+.track-image-default, .track-image {
+  width: 240px;
+  height: 240px;
+  border: 1px solid rgba(199, 190, 190, 0.8);
+  position: relative;
+}
+
+.track-image-default {
+  background-image: linear-gradient(135deg,#846170,#70929c);
+}
+
+.track-image > img {
+  width: 100%;
+  height: 100%;
+}
+
+#image-file-input-label {
+  background-color: rgba(253, 253, 253, 0.7);
+  border: 1px solid rgba(70, 67, 67, 0.8);
+  padding: 1px 5px 1px 5px;
+  border-radius: 3px;
+  position: absolute;
+  top: 193px;
+  left: 60px;
+  font-size: 14px;
+}
+
+#image-file-input-label:hover {
+  cursor: pointer;
+}
+
+#image-file-input-label > #camera-icon {
+  padding-right: 5px;
+  position: relative;
+  bottom: 1px;
+}
+
+
+#track-form-audio-upload {
+  margin-bottom: 50px;
+}
+
+#track-form-audio-upload > h2 {
+  margin-bottom: 55px;
+  margin-top: 0px;
+}
+
+#track-form-details {
+  padding: 20px;
+  border: 1px solid #e8d4d4;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#track-form-text-details {
+  display: inline-block;
+  padding-left: 10px;
+  font-size: 14px;
+}
+
+#track-form-text-details > div {
+  border-color: #e8d4d4;
+  margin-left: 10px;
+  text-align: left;
+  width: 400px;
+  font-size: 14px;
+}
+
+#track-form-text-details label {
+  margin-bottom: 3px;
+  font-size: 13px;
+}
+
+#track-form-text-details input, textarea {
+  border-radius: 4px;
+  border: 1px solid #e2d8d8;
+}
+
+#track-form-text-details > div > * {
+  display: block;
+}
+
+#track-form-title-input {
+  margin-bottom: 40px;
+}
+
+#title-input {
+  width: 400px;
+}
+
+#description-input {
+  width: 100%;
+  height: 100px;
+}
+
+#track-form-submit {
+  position: absolute;
+}
+
+#track-form-submit-buttons {
+  margin-top: 0px;
+  padding: 15px 0px 15px 0px;
+  border-right: 1px solid #e8d4d4;
+  border-left: 1px solid #e8d4d4;
+  border-bottom: 1px solid #e8d4d4;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+#track-form-cancel {
+  margin-right: 50px;
+  background: none;
+  border-radius: 4px;
+}
+
+#track-form-cancel:hover {
+  border: 1px solid black;
+}
+
+#track-form-submit {
+  background-color: #f50;
+  border-radius: 4px;
+  color: white;
+}
+
+#track-form-submit-buttons > button {
+  cursor: pointer;
+  position: relative;
+  right: 70px;
+  padding: 4px 8px 4px 8px;
+  font-size: 15px;
+}
+
+#chosen-file-name {
+  height: 12px;
+  font-size: 12px;
+  padding: 0px;
+  position: relative;
+  bottom: 35px;
+  color: #f50;
+  font-style: italic;
+}

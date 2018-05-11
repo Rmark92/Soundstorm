@@ -8,7 +8,9 @@ export default class TrackShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchTrack(this.props.trackId);
+    if (!this.props.track.id) {
+      this.props.fetchTrack(this.props.trackId);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -21,17 +23,38 @@ export default class TrackShow extends React.Component {
     return (
       <div id="track-show">
         <div className="show-image">
-          <div className="play-btn-large"></div>
-          <div id="track-show-title">
-            <Link id="track-artist" to={`/users/${this.props.artist.id}`}>
-              {this.props.artist.username}
-            </Link>
-            <p id="track-name">{this.props.track.title}</p>
+          <div className="track-links">
+            <div className="play-btn-large"></div>
+            <div id="track-show-title">
+              <Link id="track-artist" to={`/users/${this.props.artist.id}`}>
+                {this.props.artist.username}
+              </Link>
+              <p id="track-name">{this.props.track.title}</p>
+            </div>
           </div>
-          <p className="track-time-elapsed">{timeSince( new Date(this.props.track.createdAt) )}</p>
-          <div className="cover-art-large"><img src={this.props.track.image_url}/></div>
+          <div className="cover-art-container-large">
+            <p className="track-time-elapsed">{timeSince( new Date(this.props.track.createdAt) )}</p>
+            <div className="cover-art-large"><img src={this.props.track.image_url}/></div>
+          </div>
+        </div>
+        <div className="track-comments-container">
+          <div className="track-artist-details">
+            <div className="user-avatar-medium">
+              
+            </div>
+          </div>
+          <div className="track-comments">
+            <p>{this.props.track.description}</p>
+          </div>
         </div>
       </div>
     );
   }
 }
+
+// <div id="track-show-title">
+//   <Link id="track-artist" to={`/users/${this.props.artist.id}`}>
+//     {this.props.artist.username}
+//   </Link>
+//   <p id="track-name">{this.props.track.title}</p>
+// </div>
