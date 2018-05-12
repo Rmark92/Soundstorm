@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PlayButton from './play_button_container';
 import { timeSince } from '../util/format_time.js';
 
 const TrackIndexItem = ( {rank, track, artist} ) => {
@@ -9,6 +10,7 @@ const TrackIndexItem = ( {rank, track, artist} ) => {
         <div className="track-index-item-rank">{rank}</div>
         <div className="track-index-item-info">
           <div className="cover-art-small">
+            <PlayButton size="medium" trackId={track.id}></PlayButton>
             <img src={track.imageURL} />
           </div>
           <div className="track-index-item-text-details">
