@@ -1,0 +1,102 @@
+.track-index-container {
+  width: 900px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 100px;
+}
+
+.track-index-container > * {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 100px;
+}
+
+.track-index-header {
+  color: #6f6868;
+}
+
+.track-index-item {
+  margin-bottom: 120px;
+}
+
+.track-info-cols {
+  display: flex;
+  align-items: center;
+}
+
+.track-index-item-rank {
+  font-weight: bold;
+}
+
+.track-index-item-details {
+  display: flex;
+  align-items: center;
+}
+
+.track-index-item-info {
+  display: flex;
+  align-items: top;
+}
+
+.cover-art-small {
+  height: 100px;
+  width: 100px;
+  margin-left: 57px;
+}
+
+.track-index-item-text-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 31px;
+  font-size: 12px;
+  position: relative;
+  top: 5px;
+}
+
+.track-index-item-text-details > a {
+  text-decoration: none;
+  padding: 1px 2px 1px 2px;
+  border-radius: 2px;
+}
+
+.track-index-item-text-details > a:hover {
+  background-color: #ff4141b8;
+  color: white;
+}
+
+.track-index-item-artist-link {
+  color: #928787;
+  margin-bottom: 5px;
+}
+
+.track-index-item-track-link {
+  color: black;
+}
+
+.track-info-header {
+  margin-left: 158px;
+}
+
+
+.track-index-item-text-details > *:hover {
+  color: white;
+}
+
+.cover-art-small > img {
+  height: 100%;
+  width: 100%;
+}
+
+.track-index-item-details, .track-info-cols {
+  margin-left: 53px;
+}
+
+.track-index-item-data {
+  font-size: 14px;
+  color: #928787;
+}

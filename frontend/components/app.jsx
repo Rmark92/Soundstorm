@@ -6,8 +6,7 @@ import Modal from './modal.jsx';
 import SplashMain from './splash_main.jsx';
 import TrackCreateForm from './track_create_form_container.js';
 import TrackShow from './track_show_container.js';
-// import TrackCharts from './track/charts_container.js';
-// <Route exact path="/charts" component={TrackCharts}></Route>
+import TrackIndex from './track_index_container.js';
 
 const App = () => (
   <div>
@@ -17,6 +16,7 @@ const App = () => (
       <AuthRoute exact path="/" component={SplashMain}></AuthRoute>
       <Switch>
         <ProtectedRoute exact path="/tracks/new" component={TrackCreateForm}></ProtectedRoute>
+        <Route exact path="/charts" component={TrackIndex}></Route>
         <Route exact path='/tracks/:trackId' component={TrackShow}></Route>
       </Switch>
     </div>
