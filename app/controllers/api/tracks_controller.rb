@@ -1,5 +1,7 @@
 class Api::TracksController < ApplicationController
+
   def index
+    @tracks = Track.includes(:artist).all
   end
 
   def show

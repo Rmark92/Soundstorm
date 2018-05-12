@@ -2,12 +2,21 @@ import * as APIUtil from '../util/track_api_util.js';
 import { addTrackErrors } from './track_error_actions.js';
 
 export const RECEIVE_TRACK = 'RECEIVE_TRACK';
+export const RECEIVE_TRACKS = 'RECEIVE_TRACKS';
 
-export const receiveTrack = (track) => {
+export const receiveTrack = (payload) => {
   return {
     type: RECEIVE_TRACK,
-    track: track.track,
-    user: track.user
+    track: payload.track,
+    user: payload.user
+  };
+};
+
+export const receiveTracks = (payload) => {
+  return {
+    type: RECEIVE_TRACKS,
+    tracks: payload.tracks,
+    users: payload.users
   };
 };
 
@@ -22,9 +31,16 @@ export const createTrack = (trackData) => {
 
 export const fetchTrack = (trackId) => {
   return (dispatch) => {
-    return APIUtil.fetchTrack(trackId).then( track => {
-      dispatch(receiveTrack(track));
-      return track;
+    return APIUtil.fetchTrack(trackId).then( response => {
+      dispatch(receiveTrack(response));
+    });
+  };
+};
+
+export const fetchTracks = (filters) => {
+  return (dispatch) => {
+    return APIUtil.fetchTracks(filters).then( response => {
+      dispatch(receiveTracks(response));
     });
   };
 };

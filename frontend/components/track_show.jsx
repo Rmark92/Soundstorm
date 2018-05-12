@@ -21,9 +21,9 @@ export default class TrackShow extends React.Component {
   }
 
   renderTrackImage() {
-    if (this.props.track.image_url) {
+    if (this.props.track.imageURL) {
       return (
-        <div className="cover-art-large"><img src={this.props.track.image_url}/></div>
+        <div className="cover-art-large"><img src={this.props.track.imageURL}/></div>
       );
     } else {
       const divStyle = {
@@ -36,10 +36,10 @@ export default class TrackShow extends React.Component {
   }
 
   renderArtistImage() {
-    if (this.props.artist.image_url) {
+    if (this.props.artist.imageURL) {
       return (
         <div className="user-avatar-medium">
-          <img src={this.props.artist.image_url}></img>
+          <img src={this.props.artist.imageURL}></img>
         </div>
       );
     } else {
@@ -86,5 +86,3 @@ export default class TrackShow extends React.Component {
     );
   }
 }
-
-// <div className="cover-art-large"><img src={this.props.track.image_url}/></div>

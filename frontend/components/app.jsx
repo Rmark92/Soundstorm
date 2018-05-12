@@ -6,6 +6,8 @@ import Modal from './modal.jsx';
 import SplashMain from './splash_main.jsx';
 import TrackCreateForm from './track_create_form_container.js';
 import TrackShow from './track_show_container.js';
+// import TrackCharts from './track/charts_container.js';
+// <Route exact path="/charts" component={TrackCharts}></Route>
 
 const App = () => (
   <div>
