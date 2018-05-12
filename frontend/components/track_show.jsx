@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PlayButton from './play_button_container';
 import { timeSince } from '../util/format_time.js';
 import generateRandomGradient from '../util/generate_random_gradient';
 
@@ -52,6 +53,12 @@ export default class TrackShow extends React.Component {
     }
   }
 
+  renderPlayButton() {
+    if (this.props.track.audioURL) {
+      return <PlayButton trackId={this.props.track.id} size='large'></PlayButton>;
+    }
+  }
+
   render() {
     const showImgStyle = {
       backgroundImage: generateRandomGradient()
@@ -60,7 +67,7 @@ export default class TrackShow extends React.Component {
       <div id="track-show">
         <div className="show-image" style={showImgStyle}>
           <div className="track-links">
-            <div className="play-btn-large"></div>
+            {this.renderPlayButton()}
             <div id="track-show-title">
               <Link id="track-artist" to={`/users/${this.props.artist.id}`}>
                 {this.props.artist.username}
@@ -86,3 +93,5 @@ export default class TrackShow extends React.Component {
     );
   }
 }
+
+// <div className="play-btn-large"></div>
