@@ -12,15 +12,34 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 100px;
+  position: relative;
+  left: 53px;
 }
 
 .track-index-header {
   color: #6f6868;
+  min-height: 25px;
+  align-items: baseline;
+  border-bottom: 1px solid #c3bbbb;
+  margin-bottom: 17px;
+}
+
+.track-num-header {
+  position: relative;
+  left: 11px;
 }
 
 .track-index-item {
-  margin-bottom: 120px;
+  min-height: 110px;
+  margin-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 3px;
+}
+
+.track-index-item:hover {
+  background-color: #dad3d3;
+  cursor: pointer;
 }
 
 .track-info-cols {
@@ -30,6 +49,8 @@
 
 .track-index-item-rank {
   font-weight: bold;
+  min-width: 20px;
+  text-align: center;
 }
 
 .track-index-item-details {
@@ -91,10 +112,10 @@
   height: 100%;
   width: 100%;
 }
-
-.track-index-item-details, .track-info-cols {
-  margin-left: 53px;
-}
+//
+// .track-index-item-details, .track-info-cols {
+//   margin-left: 53px;
+// }
 
 .track-index-item-data {
   font-size: 14px;
