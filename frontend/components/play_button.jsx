@@ -15,6 +15,7 @@ export default class PlayButton extends React.Component {
   }
 
   handleClick(event) {
+    debugger;
     event.stopPropagation();
     if (this.props.isCurrentTrack) {
       this.props.togglePlayerStatus();
