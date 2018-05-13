@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { togglePlayerStatus, setReactPlayer } from '../actions/player_actions';
+import { togglePlayerStatus, setReactPlayer, toggleLoop } from '../actions/player_actions';
 import Player from './player';
 
 const mapStateToProps = (state, ownProps) => {
@@ -13,7 +13,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     togglePlayerStatus: () => dispatch(togglePlayerStatus()),
-    setReactPlayer: playerRef => dispatch(setReactPlayer(playerRef))
+    setReactPlayer: playerRef => dispatch(setReactPlayer(playerRef)),
+    toggleLoop: () => dispatch(toggleLoop())
   };
 };
 

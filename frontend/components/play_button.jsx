@@ -4,18 +4,17 @@ export default class PlayButton extends React.Component {
 
   constructor(props) {
     super(props);
-    this.className = `${this.props.inputType}-btn-${this.props.size}`;
+    this.className = `${this.props.inputType}-btn-${this.props.styleType}`;
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.inputType !== this.props.inputType) {
-      this.className = `${nextProps.inputType}-btn-${this.props.size}`;
+      this.className = `${nextProps.inputType}-btn-${this.props.styleType}`;
     }
   }
 
   handleClick(event) {
-    debugger;
     event.stopPropagation();
     if (this.props.isCurrentTrack) {
       this.props.togglePlayerStatus();

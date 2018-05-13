@@ -29,3 +29,13 @@ export const timeSince = (prevTime) => {
     return `${numUnits} ${unit}s ago`;
   }
 };
+
+export const formatTime = (seconds) => {
+  if (!(seconds || seconds === 0)) {
+    return '--:--';
+  } else {
+    const numMinutes = Math.floor(seconds / SECONDS_PER_MINUTE);
+    const numSeconds = Math.floor(seconds % SECONDS_PER_MINUTE);
+    return String(numMinutes).padStart(2, '0') + ':' + String(numSeconds).padStart(2, '0');
+  }
+};

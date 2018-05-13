@@ -31,7 +31,7 @@ export default class TrackIndexItem extends React.Component {
 
   renderPlayButton() {
     if (this.state.selected) {
-      return <PlayButton size="medium" trackId={this.props.track.id}></PlayButton>;
+      return <PlayButton styleType="medium" trackId={this.props.track.id}></PlayButton>;
     }
   }
 

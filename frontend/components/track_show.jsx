@@ -55,7 +55,7 @@ export default class TrackShow extends React.Component {
 
   renderPlayButton() {
     if (this.props.track.audioURL) {
-      return <PlayButton trackId={this.props.track.id} size='large'></PlayButton>;
+      return <PlayButton trackId={this.props.track.id} styleType='large'></PlayButton>;
     }
   }
 
