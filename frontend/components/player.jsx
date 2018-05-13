@@ -22,10 +22,11 @@ export default class Player extends React.Component {
     this.setDuration = this.setDuration.bind(this);
     this.setProgressHover = this.setProgressHover.bind(this);
     this.unsetProgressHover = this.unsetProgressHover.bind(this);
+    this.seek = this.seek.bind(this);
   }
 
   ref(player) {
-    this.player = player;
+    this.reactPlayer = player;
     this.props.setReactPlayer(player);
   }
 
@@ -34,9 +35,15 @@ export default class Player extends React.Component {
   }
 
   handleProgress(progress) {
-    const elapsedWidth = Math.floor((this.state.playedSeconds / this.duration) * 400);
+    const elapsedWidth = Math.floor((this.state.playedSeconds / this.duration) * 640);
     this.setState({ playedSeconds: progress.playedSeconds, elapsedWidth: elapsedWidth });
   }
+
+  // handleProgress(progress) {
+  //   this.setState({ playedSeconds: progress.playedSeconds });
+  //   const elapsedWidth = Math.floor((this.state.playedSeconds / this.duration) * 640);
+  //   this.setState({ playedSeconds: progress.playedSeconds, elapsedWidth: elapsedWidth });
+  // }
 
   setProgressHover() {
     this.setState( { progressHover: true });
@@ -48,6 +55,11 @@ export default class Player extends React.Component {
 
   handlePause(event) {
     // debugger
+  }
+
+  percentagePlayed() {
+    // debugger;
+    return this.duration ? (this.state.playedSeconds / this.duration) : 0;
   }
 
 
@@ -68,38 +80,27 @@ export default class Player extends React.Component {
     }
   }
 
-  renderProgressDot() {
+  renderSeekInput() {
     if (this.state.progressHover) {
       return (
-        <div className="progress-dot"></div>
+        <input className="seek-input"
+               type="range"
+               min="0"
+               max={this.duration ? String(Math.round(this.duration)) : "0"}
+               onChange={this.seek}
+               step="any"
+               value={String(this.state.playedSeconds)}></input>
       );
     }
   }
 
-  // renderProgress() {
-  //   const widthStyle = { width: `${this.state.elapsedWidth}px` };
-  //   if (this.state.progressHover) {
-  //     return (
-  //       <div className="progress-bar-elapsed" style={widthStyle}>
-  //         <div className="progress-dot"></div>
-  //       </div>
-  //     );
-  //   } else {
-  //     return (
-  //       <div className="progress-bar-elapsed" style={widthStyle}></div>
-  //     );
-  //   }
-  // }
+  seek(event) {
+    this.reactPlayer.seekTo(event.target.value);
+    // debugger
+    // const newPos = (this.duration * (event.clientX - event.target.offsetLeft) / event.target.offsetLeft);
+    // console.log(newPos);
+    // this.player.seekTo(this.duration * (event.clientX - event.target.offsetLeft) / event.target.offsetLeft);
 
-  setElapsedWidth() {
-    let width;
-    if (this.duration === "undefined") {
-      width = 0;
-      return { width: "0px" };
-    } else {
-      width = Math.floor((this.state.playedSeconds / this.duration) * 640);
-    }
-    return { width: `${width}px`};
   }
 
   render() {
@@ -113,7 +114,7 @@ export default class Player extends React.Component {
                          url={this.props.currentTrack.audioURL}
                          playing={this.props.player.playing}
                          loop={this.props.player.looping}
-                         progressInterval={25}
+                         progressInterval={50}
                          height="0px"
                          width="0px"
                          volume={this.state.volume}
@@ -133,7 +134,7 @@ export default class Player extends React.Component {
              </div>
              <div className="progress-bar">
                <div className="progress-bar-elapsed" style={ {width: `${this.state.elapsedWidth}px`} }>
-                 {this.renderProgressDot()}
+                 {this.renderSeekInput()}
                </div>
              </div>
              <div className="player-bar-duration-time">
@@ -146,8 +147,3 @@ export default class Player extends React.Component {
     }
   }
 }
-
-// <div className="progress-bar-elapsed" style={this.setElapsedWidth()}></div>
-
-
-// config={ { file: { forceAudio: true } }}
