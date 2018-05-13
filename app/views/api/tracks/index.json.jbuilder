@@ -10,7 +10,7 @@ json.set! :tracks do
       json.artistId track.artist_id
       json.createdAt track.created_at
       json.audioURL track.audio.url
-      json.imageURL track.image.url
+      json.imageURL asset_path(track.image.url)
     end
 
     if users_hash[track.artist_id]

@@ -10,6 +10,9 @@ class Api::UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+    @tracks = @user.tracks
+    render 'api/users/show_full'
   end
 
   private
