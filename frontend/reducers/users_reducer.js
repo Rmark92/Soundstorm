@@ -1,14 +1,18 @@
 import { merge } from 'lodash';
 import { RECEIVE_CURRENT_USER } from '../actions/session_actions.js';
 import { RECEIVE_TRACK, RECEIVE_TRACKS } from '../actions/track_actions.js';
+import { RECEIVE_USER } from '../actions/user_actions';
 
 export default (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       return _.merge({}, state, { [action.user.id]: action.user });
+    case RECEIVE_USER:
+      const newUser = action.payload.user;
+      return _.merge({}, state, { [newUser.id]: newUser });
     case RECEIVE_TRACK:
-      action.user.trackIds = [action.track.id]
+      action.user.trackIds = [action.track.id];
       return _.merge({}, state, { [action.user.id]: action.user });
     case RECEIVE_TRACKS:
       return _.merge({}, state, action.users);

@@ -8,6 +8,7 @@ import TrackCreateForm from './track_create_form_container.js';
 import TrackShow from './track_show_container.js';
 import TrackIndex from './track_index_container.js';
 import Player from './player_container';
+import UserShow from './user_container';
 
 const App = () => (
   <div>
@@ -19,6 +20,7 @@ const App = () => (
         <ProtectedRoute exact path="/tracks/new" component={TrackCreateForm}></ProtectedRoute>
         <Route exact path="/charts" component={TrackIndex}></Route>
         <Route exact path='/tracks/:trackId' component={TrackShow}></Route>
+        <Route exact path='/users/:userId' component={UserShow}></Route>
       </Switch>
     </div>
     <Player></Player>

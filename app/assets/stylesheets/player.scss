@@ -4,12 +4,12 @@
   height: 50px;
   width: 100%;
   background-color: #f2f2f2;
+  border-top: 1px solid #cecece;
 }
 
 .player-bar-contents {
   height: 100%;
   width: 1400px;
-  border-top: 1px solid #cecece;
   display: flex;
   align-items: center;
   margin: auto;
@@ -152,12 +152,12 @@
   display: flex;
   align-items: center;
   position: relative;
+  margin-left: 60px;
 }
 
 .player-track-cover-art {
   height: 40px;
   width: 40px;
-  margin-left: 40px;
   margin-right: 10px;
 }
 
@@ -172,7 +172,7 @@
   align-items: flex-start;
   text-decoration: none;
   position: relative;
-  bottom: 5px;
+  bottom: 7px;
 }
 
 .player-track-text-details > a {
