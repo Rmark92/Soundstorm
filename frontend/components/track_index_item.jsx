@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PlayButton from './play_button_container';
 import { timeSince } from '../util/format_time.js';
+import { generateRandomGradient } from '../util/generate_random_gradient';
 
 export default class TrackIndexItem extends React.Component {
   constructor(props) {
@@ -47,6 +48,26 @@ export default class TrackIndexItem extends React.Component {
     event.stopPropagation();
   }
 
+  renderTrackImage() {
+    if (this.props.track.imageURL) {
+      return (
+        <div className="cover-art-small">
+          { this.renderPlayButton() }
+          <img src={this.props.track.imageURL}/>
+        </div>
+      );
+    } else {
+      const divStyle = {
+        backgroundImage: generateRandomGradient()
+      };
+      return (
+        <div className="cover-art-small" style={divStyle}>
+          { this.renderPlayButton() }
+        </div>
+      );
+    }
+  }
+
   render () {
     const style = this.state.selected ? { backgroundColor: '#ece2e2' } : {};
     return (
@@ -72,4 +93,9 @@ export default class TrackIndexItem extends React.Component {
       </div>
     );
   }
-};
+}
+
+// <div className="cover-art-small">
+//   { this.renderPlayButton() }
+//   <img src={this.props.track.imageURL} />
+// </div>

@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
+import { Link } from 'react-router-dom';
 import PlayButton from './play_button_container';
 import { formatTime } from '../util/format_time';
+import { generateRandomGradient } from '../util/generate_random_gradient';
 
 export default class Player extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      volume: 0.9,
+      volume: 1,
       muted: false,
       playedSeconds: 0,
       elapsedWidth: 0,
@@ -113,6 +115,23 @@ export default class Player extends React.Component {
     }
   }
 
+  renderTrackImage() {
+    if (this.props.currentTrack.imageURL) {
+      return (
+        <div className="player-track-cover-art">
+          <img src={this.props.currentTrack.imageURL}/>
+        </div>
+      );
+    } else {
+      const divStyle = {
+        backgroundImage: generateRandomGradient()
+      };
+      return (
+        <div className="player-track-cover-art" style={divStyle}></div>
+      );
+    }
+  }
+
   // renderVolumeInput() {
   //   if (this.state.volumeDisplayed) {
   //     return (
@@ -172,6 +191,17 @@ export default class Player extends React.Component {
              </div>
            </div>
            {this.renderVolumeControl()}
+           <div className="player-track-details">
+             {this.renderTrackImage()}
+             <div className="player-track-text-details">
+               <Link to={`/users/${this.props.artist.id}`} className="player-track-artist-name">
+                 {this.props.artist.username}
+               </Link>
+               <Link to={`/tracks/${this.props.currentTrack.id}`} className="player-track-title">
+                 {this.props.currentTrack.title}
+               </Link>
+             </div>
+           </div>
           </div>
         </div>
       );

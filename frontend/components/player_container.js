@@ -1,12 +1,15 @@
 import { connect } from 'react-redux';
 import { togglePlayerStatus, setReactPlayer, toggleLoop } from '../actions/player_actions';
+import { selectTrackArtist } from '../util/selectors';
 import Player from './player';
 
 const mapStateToProps = (state, ownProps) => {
   const player = state.ui.player;
+  const currentTrack = state.entities.tracks[player.currentTrackId];
   return {
     player,
-    currentTrack: state.entities.tracks[player.currentTrackId]
+    currentTrack,
+    artist: selectTrackArtist(state, currentTrack)
   };
 };
 
