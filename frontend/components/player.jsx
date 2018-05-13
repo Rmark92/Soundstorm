@@ -12,7 +12,8 @@ export default class Player extends React.Component {
       muted: false,
       playedSeconds: 0,
       elapsedWidth: 0,
-      progressHover: false
+      progressHover: false,
+      volumeDisplayed: false
     };
 
     this.ref = this.ref.bind(this);
@@ -23,6 +24,9 @@ export default class Player extends React.Component {
     this.setProgressHover = this.setProgressHover.bind(this);
     this.unsetProgressHover = this.unsetProgressHover.bind(this);
     this.seek = this.seek.bind(this);
+    // this.showVolumeBar = this.showVolumeBar.bind(this);
+    // this.hideVolumeBar = this.hideVolumeBar.bind(this);
+    this.toggleMuted = this.toggleMuted.bind(this);
   }
 
   ref(player) {
@@ -39,12 +43,6 @@ export default class Player extends React.Component {
     this.setState({ playedSeconds: progress.playedSeconds, elapsedWidth: elapsedWidth });
   }
 
-  // handleProgress(progress) {
-  //   this.setState({ playedSeconds: progress.playedSeconds });
-  //   const elapsedWidth = Math.floor((this.state.playedSeconds / this.duration) * 640);
-  //   this.setState({ playedSeconds: progress.playedSeconds, elapsedWidth: elapsedWidth });
-  // }
-
   setProgressHover() {
     this.setState( { progressHover: true });
   }
@@ -57,16 +55,21 @@ export default class Player extends React.Component {
     // debugger
   }
 
-  percentagePlayed() {
-    // debugger;
-    return this.duration ? (this.state.playedSeconds / this.duration) : 0;
-  }
-
-
-
   handleLoop() {
     this.props.toggleLoop();
   }
+
+  // setVolume(event) {
+  //   // debugger;
+  // }
+
+  // showVolumeBar() {
+  //   this.setState({ volumeDisplayed: true });
+  // }
+  //
+  // hideVolumeBar() {
+  //   this.setState({ volumeDisplayed: false });
+  // }
 
   renderLoopButton() {
     if (this.props.player.looping) {
@@ -94,13 +97,40 @@ export default class Player extends React.Component {
     }
   }
 
+  toggleMuted() {
+    this.setState( { muted: !this.state.muted });
+  }
+
+  renderVolumeControl() {
+    if (this.state.muted) {
+      return (
+        <div className="player-volume-muted" onClick={this.toggleMuted}></div>
+      );
+    } else {
+      return (
+        <div className="player-volume-active" onClick={this.toggleMuted}></div>
+      );
+    }
+  }
+
+  // renderVolumeInput() {
+  //   if (this.state.volumeDisplayed) {
+  //     return (
+  //       <div className="volume-control-bar">
+  //         <input className="volume-input"
+  //                type="range"
+  //                step="any"
+  //                min="0"
+  //                max="1"
+  //                onChange={this.setVolume}
+  //                value={this.state.volume}></input>
+  //       </div>
+  //     );
+  //   }
+  // }
+
   seek(event) {
     this.reactPlayer.seekTo(event.target.value);
-    // debugger
-    // const newPos = (this.duration * (event.clientX - event.target.offsetLeft) / event.target.offsetLeft);
-    // console.log(newPos);
-    // this.player.seekTo(this.duration * (event.clientX - event.target.offsetLeft) / event.target.offsetLeft);
-
   }
 
   render() {
@@ -141,9 +171,18 @@ export default class Player extends React.Component {
                {formatTime(this.duration)}
              </div>
            </div>
+           {this.renderVolumeControl()}
           </div>
         </div>
       );
     }
   }
 }
+
+// <div className="player-volume-control" onMouseEnter={this.showVolumeBar} onMouseLeave={this.hideVolumeBar}>
+//   {this.renderVolumeInput()}
+// </div>
+
+// <div className="player-volume-control" onMouseEnter={this.showVolumeBar} onMouseLeave={this.hideVolumeBar}>
+//   {this.renderVolumeInput()}
+// </div>
