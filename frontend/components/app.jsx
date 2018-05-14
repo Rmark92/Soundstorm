@@ -20,11 +20,12 @@ const App = () => (
         <ProtectedRoute exact path="/tracks/new" component={TrackCreateForm}></ProtectedRoute>
         <Route exact path="/charts" component={TrackIndex}></Route>
         <Route exact path='/tracks/:trackId' component={TrackShow}></Route>
-        <Route exact path='/users/:userId' component={UserShow}></Route>
+        <Route path='/users/:userId' component={UserShow}></Route>
       </Switch>
     </div>
     <Player></Player>
   </div>
 );
+
 
 export default App;

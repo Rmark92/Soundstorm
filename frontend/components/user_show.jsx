@@ -1,5 +1,7 @@
 import React from 'react';
+import { NavLink, Route } from 'react-router-dom';
 import generateRandomGradient from '../util/generate_random_gradient';
+import SubTrackIndexContainer from './sub_track_index_container.js';
 
 export default class UserShow extends React.Component {
   constructor(props) {
@@ -7,12 +9,33 @@ export default class UserShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUser(this.props.userId);
+    this.props.fetchUser(this.props.userId, this.props.dataType);
   }
 
   componentWillReceiveProps(newProps) {
     if (this.props.userId !== newProps.userId ) {
       this.props.fetchUser(newProps.userId);
+    }
+  }
+
+  renderSubContents() {
+    if (this.props.user) {
+      return (
+        <div className="user-contents">
+          <div className="user-show-links">
+            <NavLink to={`/users/${this.props.user.id}/tracks`} activeClassName="users-show-selected">
+              Tracks
+            </NavLink>
+            <NavLink to={`/users/${this.props.user.id}/likes`} activeClassName="users-show-selected">
+              Likes
+            </NavLink>
+            <NavLink to={`/users/${this.props.user.id}/listens`} activeClassName="users-show-selected">
+              Listens
+            </NavLink>
+          </div>
+          <SubTrackIndexContainer trackIds={(this.props.user.trackIds) || []}></SubTrackIndexContainer>
+        </div>
+      );
     }
   }
 
@@ -30,6 +53,7 @@ export default class UserShow extends React.Component {
             {this.props.user.username}
           </div>
         </div>
+        {this.renderSubContents()}
       </div>
     );
   }

@@ -4,6 +4,7 @@
   font-family: 'Raleway';
   display: flex;
   align-items: center;
+  background-image: linear-gradient(135deg,#e6846e,#70929c);
   color: white;
   justify-content: flex-start;
 }
@@ -28,4 +29,37 @@
   position: relative;
   bottom: 78px;
   font-size: 27px;
+}
+
+.user-contents {
+  position: relative;
+  left: 74px;
+  top: 25px;
+  width: 94%;
+}
+
+.user-show-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid #bfbaba;
+  height: 28px;
+}
+
+.user-show-links > a {
+  text-decoration: none;
+  margin-right: 43px;
+  color: #333;
+  height: 100%;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.user-show-links > a:hover {
+  font-weight: 800;
+}
+
+.users-show-selected {
+  border-bottom: 2px solid #f50;
+  color: #f50;
 }

@@ -68,12 +68,18 @@ export default class TrackIndexItem extends React.Component {
     }
   }
 
+  renderRank() {
+    if (this.props.type !== 'sub') {
+      return <div className="track-index-item-rank">{this.props.rank}</div>;
+    }
+  }
+
   render () {
     const style = this.state.selected ? { backgroundColor: '#ece2e2' } : {};
     return (
       <div style={style} className="track-index-item" onMouseEnter={this.displayAsSelected} onMouseLeave={this.unselect} onClick={this.handleClick}>
         <div className="track-index-item-details">
-          <div className="track-index-item-rank">{this.props.rank}</div>
+          {this.renderRank()}
           <div className="track-index-item-info">
             <div className="cover-art-small">
               { this.renderPlayButton() }

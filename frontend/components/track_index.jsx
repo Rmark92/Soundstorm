@@ -7,7 +7,15 @@ export default class TrackIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchTracks();
+    if (this.props.type !== 'sub') {
+      this.props.fetchTracks();
+    }
+  }
+
+  renderRankHeader() {
+    if (this.props.type !== 'sub') {
+      return <div className="track-num-header">#</div>;
+    }
   }
 
   render() {
@@ -15,13 +23,18 @@ export default class TrackIndex extends React.Component {
       <div className="track-index-container">
         <div className="track-index-header">
           <div className="track-info-cols">
-            <div className="track-num-header">#</div>
+            {this.renderRankHeader()}
             <div className="track-info-header">Track</div>
           </div>
           <div className="track-data-col">{'Posted Date'}</div>
         </div>
         { this.props.trackList.map( (track, idx) => {
-            return <TrackIndexItem key={track.id} track={track} rank={idx + 1}></TrackIndexItem>;
+            return (
+              <TrackIndexItem key={track.id}
+                              track={track}
+                              rank={idx + 1}
+                              type={this.props.type}></TrackIndexItem>
+            );
           })
         }
       </div>

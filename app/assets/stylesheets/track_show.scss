@@ -11,6 +11,7 @@
   // background-image: linear-gradient(135deg, rgb(215, 204, 193) 0%, rgb(125, 139, 153) 100%);
   // background-image: linear-gradient(135deg,#8e8485,#e6846e);
   // background-image: linear-gradient(135deg, rgb(162, 126, 90) 0%, rgb(113, 99, 91) 100%);
+  background-image: linear-gradient(135deg,#e6846e,#70929c);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -82,7 +83,7 @@
 
 .play-btn-large:hover, .pause-btn-large:hover {
   cursor: pointer;
-  background-color: #FF492E;
+  background-color: #ff0200;
 }
 
 .pause-btn-large, .pause-btn-large {

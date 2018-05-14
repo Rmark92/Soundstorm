@@ -15,3 +15,13 @@ export const selectUserTracks = (state, user) => {
     });
   }
 };
+
+export const selectTracksById = (state, trackIds) => {
+  if (!trackIds) {
+    return [];
+  } else {
+    return trackIds.map( trackId => {
+      return state.entities.tracks[trackId];
+    });
+  }
+};

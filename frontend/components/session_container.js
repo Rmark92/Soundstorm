@@ -29,29 +29,31 @@ class Session extends React.Component {
     return (
       <div id="nav-user-details">
         <Link to="/tracks/new" id="upload-link">Upload</Link>
-        {this.renderProfPic()}
-        <p id="nav-username">{this.props.user.username}</p>
+        <div id="nav-user-profpic">
+          <img src={this.props.user.imageURL} />
+        </div>
+        <Link to={`/users/${this.props.user.id}`} id="nav-username">{this.props.user.username}</Link>
         <button onClick={this.handleLogout} id="signout-link">Sign Out</button>
       </div>
     );
   }
   // <div id="nav-user-profpic"></div>
-
-  renderProfPic() {
-    if (this.props.user.image) {
-      return (
-        <div id="nav-user-profpic">
-          <img src={this.props.user.image} />
-        </div>
-      );
-    } else {
-      return (
-        <div id="nav-user-profpic">
-          <div id="default-nav-prof-pic"></div>
-        </div>
-      );
-    }
-  }
+  // {this.renderProfPic()}
+  // renderProfPic() {
+  //   if (this.props.user.image) {
+  //     return (
+  //       <div id="nav-user-profpic">
+  //         <img src={this.props.user.image} />
+  //       </div>
+  //     );
+  //   } else {
+  //     return (
+  //       <div id="nav-user-profpic">
+  //         <div id="default-nav-prof-pic"></div>
+  //       </div>
+  //     );
+  //   }
+  // }
 
   handleNewRequest(type) {
     return (event) => {

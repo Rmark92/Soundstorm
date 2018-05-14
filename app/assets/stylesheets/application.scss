@@ -212,6 +212,12 @@ img {
   left: 5px;
 }
 
+#nav-user-profpic > img {
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+}
+
 #default-nav-prof-pic {
   background-image: linear-gradient(135deg,#846170,#70929c);
   height: 100%;
@@ -221,8 +227,15 @@ img {
 }
 
 #nav-username {
-  padding-left: 10px;
+  padding-left: 20px;
   color: #ccc6c6;
+  text-decoration: none;
+  color: #ccc6c6;
+  font-size: 14px;
+}
+
+#nav-username:hover {
+  color: white;
 }
 
 #signout-link {
