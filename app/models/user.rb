@@ -11,6 +11,18 @@ class User < ApplicationRecord
     class_name: 'Track',
     primary_key: :id
 
+  has_many :listens
+
+  has_many :listened_tracks,
+    through: :listens,
+    source: :track
+
+  has_many :likes
+
+  has_many :liked_tracks,
+    through: :likes,
+    source: :track
+
   attr_reader :password
 
   after_initialize { ensure_session_token }

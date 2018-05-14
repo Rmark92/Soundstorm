@@ -16,4 +16,15 @@ class Track < ApplicationRecord
     class_name: 'User',
     primary_key: :id
 
+  has_many :listens
+
+  has_many :listeners,
+    through: :listens,
+    source: :user
+
+  has_many :likes
+
+  has_many :fans,
+    through: :likes,
+    source: :user
 end

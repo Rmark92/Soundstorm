@@ -2,6 +2,7 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 import PlayButton from './play_button_container';
+import LikeButton from './like_button_container';
 import { formatTime } from '../util/format_time';
 import { generateRandomGradient } from '../util/generate_random_gradient';
 
@@ -29,6 +30,7 @@ export default class Player extends React.Component {
     // this.showVolumeBar = this.showVolumeBar.bind(this);
     // this.hideVolumeBar = this.hideVolumeBar.bind(this);
     this.toggleMuted = this.toggleMuted.bind(this);
+    this.handleSeeking = this.handleSeeking.bind(this);
   }
 
   ref(player) {
@@ -93,6 +95,7 @@ export default class Player extends React.Component {
                min="0"
                max={this.duration ? String(Math.round(this.duration)) : "0"}
                onChange={this.seek}
+               onInput={this.handleSeeking}
                step="any"
                value={String(this.state.playedSeconds)}></input>
       );
@@ -147,9 +150,19 @@ export default class Player extends React.Component {
   //     );
   //   }
   // }
+  handleSeeking(event) {
+    const newTrackPos = parseFloat(event.target.value);
+    const elapsedWidth = Math.floor((this.state.newTrackPos / this.duration) * 640);
+    this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
+    this.handleProgress( { playedSeconds: newTrackPos });
+  }
 
   seek(event) {
-    this.reactPlayer.seekTo(event.target.value);
+    const newTrackPos = parseFloat(event.target.value);
+    const elapsedWidth = Math.floor((this.state.newTrackPos / this.duration) * 640);
+    this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
+    this.handleProgress( { playedSeconds: newTrackPos });
+    this.reactPlayer.seekTo(newTrackPos);
   }
 
   render() {
@@ -201,6 +214,7 @@ export default class Player extends React.Component {
                  {this.props.currentTrack.title}
                </Link>
              </div>
+             <LikeButton divClass="like-btn-player" trackId={this.props.currentTrack.id}></LikeButton>
            </div>
           </div>
         </div>

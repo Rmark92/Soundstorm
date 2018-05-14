@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     resource :session, only: [:create, :destroy]
     resources :users, only: [:create, :show]
-    resources :tracks, only: [:index, :create, :show, :update, :destroy]
+    resources :tracks, only: [:index, :create, :show, :update, :destroy] do
+      resources :listens, only: [:create]
+      resources :likes, only: [:create, :destroy]
+    end
   end
+  delete "/api/tracks/:track_id/likes", to: 'likes#destroy'
 end

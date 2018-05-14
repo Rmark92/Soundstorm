@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PlayButton from './play_button_container';
+import LikeButton from './like_button_container';
 import { timeSince } from '../util/format_time.js';
 import { generateRandomGradient } from '../util/generate_random_gradient';
 
@@ -33,6 +34,14 @@ export default class TrackIndexItem extends React.Component {
   renderPlayButton() {
     if (this.state.selected) {
       return <PlayButton styleType="medium" trackId={this.props.track.id}></PlayButton>;
+    }
+  }
+
+  renderLikeButton() {
+    if (this.state.selected) {
+      return (
+        <LikeButton divClass="like-btn-medium-index" trackId={this.props.track.id}></LikeButton>
+      );
     }
   }
 
@@ -95,7 +104,10 @@ export default class TrackIndexItem extends React.Component {
             </div>
           </div>
         </div>
-        <div className="track-index-item-data">{timeSince(new Date(this.props.track.createdAt))}</div>
+        <div className="track-index-item-data">
+          {this.renderLikeButton()}
+          {timeSince(new Date(this.props.track.createdAt))}
+        </div>
       </div>
     );
   }
