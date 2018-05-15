@@ -8,7 +8,8 @@ export const receiveTrack = (payload) => {
   return {
     type: RECEIVE_TRACK,
     track: payload.track,
-    user: payload.user
+    user: payload.user,
+    comments: payload.comments
   };
 };
 

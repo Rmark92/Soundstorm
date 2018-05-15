@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PlayButton from './play_button_container';
 import CommentForm from './comment_form_container';
+import CommentIndex from './comment_index_container';
 import { timeSince } from '../util/format_time.js';
 import generateRandomGradient from '../util/generate_random_gradient';
 
@@ -11,9 +12,7 @@ export default class TrackShow extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.track.id) {
-      this.props.fetchTrack(this.props.trackId);
-    }
+    this.props.fetchTrack(this.props.trackId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -93,6 +92,7 @@ export default class TrackShow extends React.Component {
               </div>
               <div className="track-comments">
                 <p className="track-description">{this.props.track.description}</p>
+                <CommentIndex commentIds={this.props.track.commentIds}></CommentIndex>
               </div>
             </div>
           </div>

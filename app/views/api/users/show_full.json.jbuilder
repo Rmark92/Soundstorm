@@ -1,9 +1,21 @@
+comment_ids = []
+
+json.comments do
+  @user.comments.each do |comment|
+    json.set! comment.id do
+      json.extract! comment, :id, :body, :user_id, :track_id, :created_at
+    end
+    comment_ids << comment.id
+  end
+end
+
 json.set! :user do
   json.extract! @user, :username, :id
   json.imageURL asset_path(@user.image.url)
   json.trackIds @user.track_ids
   json.likedIds @user.liked_tracks.pluck(:id)
   json.listenedIds @user.listened_track_ids.uniq
+  json.commentIds comment_ids
 end
 
 json.set! :tracks do

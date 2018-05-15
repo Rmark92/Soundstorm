@@ -25,3 +25,13 @@ export const selectTracksById = (state, trackIds) => {
     });
   }
 };
+
+export const selectCommentsById = (state, commentIds) => {
+  if (!commentIds) {
+    return [];
+  } else {
+    return commentIds.map( commentId => {
+      return state.entities.comments[commentId];
+    });
+  }
+};

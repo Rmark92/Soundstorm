@@ -14,7 +14,8 @@ class Track < ApplicationRecord
   belongs_to :artist,
     foreign_key: :artist_id,
     class_name: 'User',
-    primary_key: :id
+    primary_key: :id,
+    counter_cache: true
 
   has_many :plays
 
@@ -27,6 +28,8 @@ class Track < ApplicationRecord
   has_many :fans,
     through: :likes,
     source: :user
+
+  has_many :comments
 
   def self.retrieve_with_sort(sort_type)
     case sort_type

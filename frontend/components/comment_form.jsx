@@ -11,13 +11,9 @@ export default class CommentForm extends React.Component {
 
   handleSubmit(event) {
     if (event.keyCode === 13) {
-      // this.submitted = true;
       this.props.createComment(this.props.trackId, { body: this.state.body }).then( () => {
         this.setState( {body: ''});
       });
-      // .then( () => {
-      //   this.submitted = true;
-      // });
     }
   }
 

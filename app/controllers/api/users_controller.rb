@@ -13,6 +13,7 @@ class Api::UsersController < ApplicationController
     @user = User.includes(:tracks)
                 .includes(:liked_tracks)
                 .includes(:listened_tracks)
+                .includes(:comments)
                 .find(params[:id])
     # @user = User.find(params[:id])
     # @tracks = @user.tracks

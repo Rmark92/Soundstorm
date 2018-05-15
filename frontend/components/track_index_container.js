@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchTracks } from '../actions/track_actions.js';
 import TrackIndex from './track_index.jsx';
-import { orderByTimestamp } from '../util/sort_tracks.js';
+import { orderByTimestamp } from '../util/sort_util.js';
 
 const mapStateToProps = (state, ownProps) => {
   const tracks = state.entities.tracks || {};
