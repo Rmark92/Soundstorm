@@ -6,14 +6,12 @@ const navBar = () => (
   <header>
     <nav>
       <div id="logo"></div>
-      <Link to="/charts" id="charts-link">Charts</Link>
+      <Link to="/home/stream" id="home-link">Home</Link>
       <h2>soundstorm</h2>
       <Session></Session>
     </nav>
   </header>
 );
-
-// <Link to="/charts"><div id="charts-link">Charts</div></Link>
 
 
 export default(navBar);

@@ -1,0 +1,33 @@
+.home-page-contents {
+  position: relative;
+  top: 50px;
+  width: 94%;
+  margin-left: 60px;
+  margin-bottom: 75px;
+}
+
+.track-sort-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid #bfbaba;
+  height: 40px;
+}
+
+.track-sort-links > a {
+  text-decoration: none;
+  margin-right: 43px;
+  color: #333;
+  height: 100%;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.track-sort-links > a:hover {
+  font-weight: 800;
+}
+
+.track-sort-selected {
+  border-bottom: 2px solid #f50;
+  color: #f50;
+}

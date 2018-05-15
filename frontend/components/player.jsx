@@ -27,10 +27,9 @@ export default class Player extends React.Component {
     this.setProgressHover = this.setProgressHover.bind(this);
     this.unsetProgressHover = this.unsetProgressHover.bind(this);
     this.seek = this.seek.bind(this);
-    // this.showVolumeBar = this.showVolumeBar.bind(this);
-    // this.hideVolumeBar = this.hideVolumeBar.bind(this);
     this.toggleMuted = this.toggleMuted.bind(this);
     this.handleSeeking = this.handleSeeking.bind(this);
+    this.handleTrackStart = this.handleTrackStart.bind(this);
   }
 
   ref(player) {
@@ -40,6 +39,10 @@ export default class Player extends React.Component {
 
   setDuration(duration) {
     this.duration = duration;
+  }
+
+  handleTrackStart() {
+    this.props.createTrackPlay(this.props.currentTrack.id);
   }
 
   handleProgress(progress) {
@@ -62,18 +65,6 @@ export default class Player extends React.Component {
   handleLoop() {
     this.props.toggleLoop();
   }
-
-  // setVolume(event) {
-  //   // debugger;
-  // }
-
-  // showVolumeBar() {
-  //   this.setState({ volumeDisplayed: true });
-  // }
-  //
-  // hideVolumeBar() {
-  //   this.setState({ volumeDisplayed: false });
-  // }
 
   renderLoopButton() {
     if (this.props.player.looping) {
@@ -135,21 +126,6 @@ export default class Player extends React.Component {
     }
   }
 
-  // renderVolumeInput() {
-  //   if (this.state.volumeDisplayed) {
-  //     return (
-  //       <div className="volume-control-bar">
-  //         <input className="volume-input"
-  //                type="range"
-  //                step="any"
-  //                min="0"
-  //                max="1"
-  //                onChange={this.setVolume}
-  //                value={this.state.volume}></input>
-  //       </div>
-  //     );
-  //   }
-  // }
   handleSeeking(event) {
     const newTrackPos = parseFloat(event.target.value);
     const elapsedWidth = Math.floor((this.state.newTrackPos / this.duration) * 640);
@@ -184,6 +160,7 @@ export default class Player extends React.Component {
                          onPause={this.handlePause}
                          onProgress={this.handleProgress}
                          onDuration={this.setDuration}
+                         onStart={this.handleTrackStart}
                          config={ { file: { forceAudio: true } }}
              />
            <div className="player-buttons">
@@ -222,6 +199,34 @@ export default class Player extends React.Component {
     }
   }
 }
+
+  // setVolume(event) {
+  //   // debugger;
+  // }
+
+  // showVolumeBar() {
+  //   this.setState({ volumeDisplayed: true });
+  // }
+  //
+  // hideVolumeBar() {
+  //   this.setState({ volumeDisplayed: false });
+  // }
+
+  // renderVolumeInput() {
+  //   if (this.state.volumeDisplayed) {
+  //     return (
+  //       <div className="volume-control-bar">
+  //         <input className="volume-input"
+  //                type="range"
+  //                step="any"
+  //                min="0"
+  //                max="1"
+  //                onChange={this.setVolume}
+  //                value={this.state.volume}></input>
+  //       </div>
+  //     );
+  //   }
+  // }
 
 // <div className="player-volume-control" onMouseEnter={this.showVolumeBar} onMouseLeave={this.hideVolumeBar}>
 //   {this.renderVolumeInput()}

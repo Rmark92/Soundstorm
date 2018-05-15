@@ -11,10 +11,10 @@ class User < ApplicationRecord
     class_name: 'Track',
     primary_key: :id
 
-  has_many :listens
+  has_many :plays
 
   has_many :listened_tracks,
-    through: :listens,
+    through: :plays,
     source: :track
 
   has_many :likes

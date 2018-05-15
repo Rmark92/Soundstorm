@@ -1,10 +1,11 @@
 .track-index-container {
   width: 900px;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: 100px;
+  // position: relative;
+  // top: 100px;
+  width: 90%;
+
 }
 
 .track-index-container > * {
@@ -12,8 +13,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  left: 53px;
 }
 
 .track-index-header {
@@ -112,11 +111,6 @@
   width: 100%;
 }
 
-.track-index-item-data {
-  font-size: 14px;
-  color: #928787;
-}
-
 .play-btn-medium, .pause-btn-medium {
   height: 50px;
   width: 50px;
@@ -147,12 +141,46 @@
   background-position-x: center;
 }
 
-.like-btn-medium-index {
+.track-index-item-data {
+  font-size: 14px;
+  color: #928787;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+}
+
+.track-index-activity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.track-index-likes {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.track-index-plays {
+  display: flex;
+  align-items: center
+}
+
+.like-icon-medium-index {
   background-image:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+c3RhdHNfbGlrZXNfZ3JleTwvdGl0bGU+PHBhdGggZD0iTTEwLjgwNSAzYy0yLjAyIDAtMi44MDQgMi4zNDUtMi44MDQgMi4zNDVTNy4yMTMgMyA1LjE5NiAzQzMuNDk0IDMgMS43NDggNC4wOTYgMi4wMyA2LjUxNGMuMzQ0IDIuOTUzIDUuNzI1IDYuNDc5IDUuOTYzIDYuNDg3LjIzOC4wMDggNS43MzgtMy43MjIgNS45ODgtNi41QzE0LjE4OCA0LjIwMSAxMi41MDcgMyAxMC44MDUgM3oiIGZpbGw9IiM5OTkiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==);
-  position: absolute;
   height: 20px;
   width: 20px;
-  background-color: gray;
+  background-size: contain;
+}
+
+.play-icon-medium-index {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+c3RhdHNfcGxheSA0PC90aXRsZT48cGF0aCBkPSJNNCAxM1YzbDkgNS05IDV6IiBmaWxsPSIjOTk5IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=);
+  height: 20px;
+  width: 20px;
+  background-size: contain;
 }
 
 // .like-btn-medium-index {

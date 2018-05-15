@@ -14,7 +14,6 @@
  *= require_self
  */
 html {
-  height: 100%;
   margin: 0px;
 }
 
@@ -22,16 +21,13 @@ body {
   margin: 0px;
   font-family: 'Open Sans', sans-serif;
   background-color: #f2f2f2;
-  height: 100%;
 }
 
 #root {
-  height: 100%;
   margin: 0px;
 }
 
 #root > div {
-  height: 100%;
   margin: 0px;
 }
 
@@ -71,7 +67,7 @@ img {
   box-shadow: rgba(0,0,0,.1)0 0 0 1px inset;
 }
 
-#charts-link {
+#home-link {
   width: 100px;
   line-height: 46px;
   text-align: center;
@@ -82,7 +78,7 @@ img {
 
 }
 
-#charts-link:hover {
+#home-link:hover {
   color: white;
 }
 
@@ -260,9 +256,9 @@ img {
   background-color: #ffffff;
   width: 1220px;
   margin: auto;
-  height: 100%;
   text-align: center;
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .footer {

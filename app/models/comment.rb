@@ -1,4 +1,4 @@
-class Listen < ApplicationRecord
+class Comment < ApplicationRecord
   validates :user, :track, presence: true
 
   belongs_to :user

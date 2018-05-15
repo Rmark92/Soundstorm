@@ -16,10 +16,10 @@ class Track < ApplicationRecord
     class_name: 'User',
     primary_key: :id
 
-  has_many :listens
+  has_many :plays
 
   has_many :listeners,
-    through: :listens,
+    through: :plays,
     source: :user
 
   has_many :likes
@@ -27,4 +27,19 @@ class Track < ApplicationRecord
   has_many :fans,
     through: :likes,
     source: :user
+
+  def self.retrieve_with_sort(sort_type)
+    case sort_type
+    when 'top'
+      self.order('plays_count DESC').limit(3)
+    when 'recent'
+      self.order('created_at DESC').limit(3)
+    when 'random'
+      self.order("RANDOM()").limit(3)
+    end
+  end
+
+  def is_liked_by?(user_id)
+    fans.exists?(user_id)
+  end
 end

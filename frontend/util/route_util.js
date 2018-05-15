@@ -8,7 +8,7 @@ const Auth = ({component: Component, path, loggedIn, exact}) => {
       if (!loggedIn) {
         return <Component {...props} />;
       } else {
-        return <Redirect to="/charts" />;
+        return <Redirect to="/home/stream" />;
       }
       }}></Route>
   );
@@ -20,7 +20,7 @@ const Protected = ({component: Component, path, loggedIn, exact}) => {
       if (loggedIn) {
         return <Component {...props} />;
       } else {
-        return <Redirect to="/charts" />;
+        return <Redirect to="/home/stream" />;
       }
       }}></Route>
   );

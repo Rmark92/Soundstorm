@@ -1,7 +1,11 @@
 class Api::TracksController < ApplicationController
 
   def index
-    @tracks = Track.includes(:artist).all
+    if params['trackSort']
+      @tracks = Track.retrieve_with_sort(params['trackSort']).includes(:artist)
+    else
+      @tracks = Track.includes(:artist).all
+    end
   end
 
   def show

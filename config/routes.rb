@@ -6,9 +6,10 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :users, only: [:create, :show]
     resources :tracks, only: [:index, :create, :show, :update, :destroy] do
-      resources :listens, only: [:create]
-      resources :likes, only: [:create, :destroy]
+      resources :likes, only: [:create]
+      resources :plays, only: [:create]
+      delete '/likes', to: 'likes#destroy'
+      resources :comments, only: [:create, :destroy, :index]
     end
   end
-  delete "/api/tracks/:track_id/likes", to: 'likes#destroy'
 end

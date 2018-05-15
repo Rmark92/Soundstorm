@@ -9,6 +9,9 @@ json.set! :tracks do
       json.extract! track, :id, :title, :description
       json.artistId track.artist_id
       json.createdAt track.created_at
+      json.numLikes track.likes_count
+      json.numPlays track.plays_count
+      json.isLiked !!current_user && track.is_liked_by?(current_user.id)
       json.audioURL track.audio.url
       json.imageURL asset_path(track.image.url)
     end
@@ -16,7 +19,8 @@ json.set! :tracks do
     if users_hash[track.artist_id]
       users_hash[track.artist_id][:trackIds] << track.id
     else
-      users_hash[track.artist_id] = { username: track.artist.username, trackIds: [track.id] }
+      artist = track.artist
+      users_hash[track.artist_id] = { username: artist.username, trackIds: [track.id] }
     end
   end
 end
