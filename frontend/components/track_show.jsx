@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PlayButton from './play_button_container';
+import CommentForm from './comment_form_container';
 import { timeSince } from '../util/format_time.js';
 import generateRandomGradient from '../util/generate_random_gradient';
 
@@ -80,6 +81,7 @@ export default class TrackShow extends React.Component {
             {this.renderTrackImage()}
           </div>
         </div>
+        <CommentForm trackId={this.props.track.id}></CommentForm>
         <div className="track-comments-container">
           <div className="track-artist-details">
             {this.renderArtistImage()}
