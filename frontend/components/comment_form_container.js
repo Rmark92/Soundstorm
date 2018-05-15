@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
-import createComment from '../actions/comment_actions.js';
+import { createComment } from '../actions/comment_actions.js';
 import CommentForm from './comment_form';
 
-// const mapStateToProps = (state, ownProps) => {
-//
-// };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentUser: state.entities.users[state.session.id]
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -13,4 +15,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 
-export default connect(null, mapDispatchToProps)(CommentForm);
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);

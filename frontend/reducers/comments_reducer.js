@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import RECEIVE_COMMENT from '../actions/comment_actions';
+import { RECEIVE_COMMENT } from '../actions/comment_actions';
 
 export default (state = {}, action) => {
   switch(action.type) {

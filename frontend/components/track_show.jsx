@@ -81,14 +81,20 @@ export default class TrackShow extends React.Component {
             {this.renderTrackImage()}
           </div>
         </div>
-        <CommentForm trackId={this.props.track.id}></CommentForm>
-        <div className="track-comments-container">
-          <div className="track-artist-details">
-            {this.renderArtistImage()}
-            <p>{this.props.artist.username}</p>
+        <div className="track-show-contents">
+          <div className="track-show-actions">
+            <CommentForm trackId={this.props.track.id}></CommentForm>
           </div>
-          <div className="track-comments">
-            <p className="track-description">{this.props.track.description}</p>
+          <div className="track-show-users-comments">
+            <div className="track-comments-container">
+              <div className="track-artist-details">
+                {this.renderArtistImage()}
+                <p>{this.props.artist.username}</p>
+              </div>
+              <div className="track-comments">
+                <p className="track-description">{this.props.track.description}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
