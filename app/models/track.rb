@@ -31,11 +31,11 @@ class Track < ApplicationRecord
   def self.retrieve_with_sort(sort_type)
     case sort_type
     when 'top'
-      self.order('plays_count DESC').limit(3)
+      self.order('plays_count DESC').limit(10)
     when 'recent'
-      self.order('created_at DESC').limit(3)
+      self.order('created_at DESC').limit(10)
     when 'random'
-      self.order("RANDOM()").limit(3)
+      self.order("RANDOM()").limit(10)
     end
   end
 

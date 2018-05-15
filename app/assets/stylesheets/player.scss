@@ -152,7 +152,6 @@
   display: flex;
   align-items: center;
   position: relative;
-  margin-left: 60px;
 }
 
 .player-track-cover-art {
@@ -194,19 +193,21 @@
 
 .like-btn {
   size: 25px;
-  margin-left: 100px;
 }
 
-.sort-container-header {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  color: #999;
-  font-size: 18px;
+.like-btn:hover {
+  cursor: pointer;
 }
 
-.track-sort-container {
-  text-align: left;
+.player-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 250px;
+  margin-left: 30px;
 }
+
+
 
 // .like-btn-player {
 //   // background-image: image_url('if_favourite_291826.png');

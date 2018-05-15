@@ -5,6 +5,7 @@ import PlayButton from './play_button_container';
 import LikeButton from './like_button_container';
 import { formatTime } from '../util/format_time';
 import { generateRandomGradient } from '../util/generate_random_gradient';
+import { sliceText } from '../util/slice_text';
 
 export default class Player extends React.Component {
   constructor(props) {
@@ -181,15 +182,17 @@ export default class Player extends React.Component {
              </div>
            </div>
            {this.renderVolumeControl()}
-           <div className="player-track-details">
-             {this.renderTrackImage()}
-             <div className="player-track-text-details">
-               <Link to={`/users/${this.props.artist.id}`} className="player-track-artist-name">
-                 {this.props.artist.username}
-               </Link>
-               <Link to={`/tracks/${this.props.currentTrack.id}`} className="player-track-title">
-                 {this.props.currentTrack.title}
-               </Link>
+           <div className="player-right">
+             <div className="player-track-details">
+               {this.renderTrackImage()}
+               <div className="player-track-text-details">
+                 <Link to={`/users/${this.props.artist.id}`} className="player-track-artist-name">
+                   {sliceText(this.props.artist.username, 40)}
+                 </Link>
+                 <Link to={`/tracks/${this.props.currentTrack.id}`} className="player-track-title">
+                   {sliceText(this.props.currentTrack.title, 40)}
+                 </Link>
+               </div>
              </div>
              <LikeButton divClass="like-btn-player" trackId={this.props.currentTrack.id}></LikeButton>
            </div>

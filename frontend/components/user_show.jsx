@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import generateRandomGradient from '../util/generate_random_gradient';
-import SubTrackIndexContainer from './sub_track_index_container.js';
+// import SubTrackIndexContainer from './sub_track_index_container.js';
+import TrackIndexTmp from './track_index_container_tmp';
 
 export default class UserShow extends React.Component {
   constructor(props) {
@@ -33,7 +34,27 @@ export default class UserShow extends React.Component {
               Listens
             </NavLink>
           </div>
-          <SubTrackIndexContainer trackIds={(this.props.user.trackIds) || []}></SubTrackIndexContainer>
+          <div className="user-track-list">
+            <Route exact
+                   path={`/users/${this.props.user.id}/`}
+                   render={ (props) => <TrackIndexTmp trackIds={this.props.user.trackIds}></TrackIndexTmp> }>
+            </Route>
+
+            <Route exact
+                   path={`/users/${this.props.user.id}/tracks`}
+                   render={ (props) => <TrackIndexTmp trackIds={this.props.user.trackIds}></TrackIndexTmp> }>
+            </Route>
+
+            <Route exact
+                   path={`/users/${this.props.user.id}/likes`}
+                   render={ (props) => <TrackIndexTmp trackIds={this.props.user.likedIds}></TrackIndexTmp>}>
+            </Route>
+
+            <Route exact
+                   path={`/users/${this.props.user.id}/listens`}
+                   render={ (props) => <TrackIndexTmp trackIds={this.props.user.listenedIds}></TrackIndexTmp>}>
+            </Route>
+          </div>
         </div>
       );
     }
@@ -59,31 +80,4 @@ export default class UserShow extends React.Component {
   }
 }
 
-// <div id="track-show">
-//   <div className="show-image" style={showImgStyle}>
-//     <div className="track-links">
-//       {this.renderPlayButton()}
-//       <div id="track-show-title">
-//         <Link id="track-artist" to={`/users/${this.props.artist.id}`}>
-//           {this.props.artist.username}
-//         </Link>
-//         <p id="track-name">{this.props.track.title}</p>
-//       </div>
-//     </div>
-//     <div className="cover-art-container-large">
-//       <p className="track-time-elapsed">{timeSince( new Date(this.props.track.createdAt) )}</p>
-//       {this.renderTrackImage()}
-//     </div>
-//   </div>
-//   <div className="track-comments-container">
-//     <div className="track-artist-details">
-//       {this.renderArtistImage()}
-//       <p>{this.props.artist.username}</p>
-//     </div>
-//     <div className="track-comments">
-//       <p className="track-description">{this.props.track.description}</p>
-//     </div>
-//   </div>
-// </div>
-// );
-// }
+// <SubTrackIndexContainer trackIds={(this.props.user.trackIds) || []}></SubTrackIndexContainer>

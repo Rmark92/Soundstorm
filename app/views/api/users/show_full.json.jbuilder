@@ -1,11 +1,13 @@
 json.set! :user do
   json.extract! @user, :username, :id
   json.imageURL asset_path(@user.image.url)
-  json.trackIds @tracks.pluck(:id)
+  json.trackIds @user.track_ids
+  json.likedIds @user.liked_tracks.pluck(:id)
+  json.listenedIds @user.listened_track_ids.uniq
 end
 
 json.set! :tracks do
-  @tracks.each do |track|
+  @user.tracks.each do |track|
     json.set! track.id do
       json.extract! track, :id, :title, :description
       json.artistId track.artist_id
@@ -14,7 +16,35 @@ json.set! :tracks do
       json.numListens track.plays_count
       json.audioURL track.audio.url
       json.imageURL asset_path(track.image.url)
-      json.isLiked !!current_user && track.is_liked_by?(current_user.id)
+      json.isLiked false
+    end
+  end
+
+  @user.listened_tracks.each do |track|
+    json.set! track.id do
+      json.extract! track, :id, :title, :description
+      json.artistId track.artist_id
+      json.createdAt track.created_at
+      json.numLikes track.likes_count
+      json.numListens track.plays_count
+      json.audioURL track.audio.url
+      json.imageURL asset_path(track.image.url)
+      json.isLiked false
+    end
+  end
+
+  @user.liked_tracks.each do |track|
+    json.set! track.id do
+      json.extract! track, :id, :title, :description
+      json.artistId track.artist_id
+      json.createdAt track.created_at
+      json.numLikes track.likes_count
+      json.numListens track.plays_count
+      json.audioURL track.audio.url
+      json.imageURL asset_path(track.image.url)
+      json.isLiked true
     end
   end
 end
+
+# json.isLiked !!current_user && track.is_liked_by?(current_user.id)
