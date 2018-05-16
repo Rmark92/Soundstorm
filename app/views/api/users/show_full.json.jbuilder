@@ -3,7 +3,8 @@ comment_ids = []
 json.comments do
   @user.comments.each do |comment|
     json.set! comment.id do
-      json.extract! comment, :id, :body, :user_id, :track_id, :created_at
+      json.extract! comment, :id, :body, :user_id, :track_id
+      json.createdAt :created_at
     end
     comment_ids << comment.id
   end

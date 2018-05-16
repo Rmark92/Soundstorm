@@ -11,6 +11,7 @@ export default class CommentForm extends React.Component {
 
   handleSubmit(event) {
     if (event.keyCode === 13) {
+      event.preventDefault();
       this.props.createComment(this.props.trackId, { body: this.state.body }).then( () => {
         this.setState( {body: ''});
       });
@@ -18,9 +19,7 @@ export default class CommentForm extends React.Component {
   }
 
   handleInput(event) {
-    // debugger
     if (this.submitted) {
-      // debugger;
       this.setState( {body: '' });
       this.submitted = false;
     } else {

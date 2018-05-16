@@ -11,7 +11,6 @@ const mapStateToProps = (state, ownProps) => {
     const commentsArr = selectCommentsById(state, ownProps.commentIds);
     comments = SortUtil.sortByDate(commentsArr);
   }
-
   return {
     comments
   };

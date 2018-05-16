@@ -23,7 +23,7 @@ export default (state = {}, action) => {
       const comment = action.comment;
       return _.merge({},
                state,
-               { [userId]: { comments: (user.comments || []).concat([comment.id])}});
+               { [userId]: { commentIds: (user.commentIds || []).concat([comment.id])}});
     default:
       return state;
   }

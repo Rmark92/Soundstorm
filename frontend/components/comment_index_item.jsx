@@ -8,6 +8,7 @@ export default class CommentIndexItem extends React.Component {
   }
 
   render() {
+    const dateCreated = new Date(this.props.comment.createdAt);
     return (
       <div className="comment-container">
         <div className="comment-left">
@@ -23,7 +24,7 @@ export default class CommentIndexItem extends React.Component {
         </div>
         <div className="comment-right">
           <p className="comment-timestamp">
-            {timeSince(this.props.comment.createdAt)}
+            {timeSince(dateCreated)}
           </p>
         </div>
       </div>

@@ -27,7 +27,10 @@ export default (state = {}, action) => {
       const comment = action.comment;
       return _.merge({},
                      state,
-                     { [trackId]: { comments: (track.comments || []).concat([comment.id])}});
+                     { [trackId]: { commentIds: [comment.id].concat(track.commentIds || []),
+                                    numComments: (track.numComments || 0) + 1
+                                  }
+                     });
     default:
       return state;
   }
