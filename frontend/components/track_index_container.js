@@ -1,23 +1,12 @@
 import { connect } from 'react-redux';
-import { fetchTracks } from '../actions/track_actions.js';
-import TrackIndex from './track_index.jsx';
-import { orderByTimestamp } from '../util/sort_util.js';
+import { selectTracksById } from '../util/selectors';
+import TrackIndex from './track_index';
 
 const mapStateToProps = (state, ownProps) => {
-  const tracks = state.entities.tracks || {};
-  const trackArr = Object.keys(tracks).map( trackId => {
-    return tracks[trackId];
-  });
-  const trackList = orderByTimestamp(trackArr);
+  const trackIds = ownProps.trackIds;
   return {
-    trackList
+    trackList: selectTracksById(state, trackIds),
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    fetchTracks: () => dispatch(fetchTracks())
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TrackIndex);
+export default connect(mapStateToProps)(TrackIndex);

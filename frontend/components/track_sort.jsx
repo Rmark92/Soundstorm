@@ -1,5 +1,5 @@
 import React from 'react';
-import TrackIndexContainerTmp from './track_index_container_tmp';
+import TrackIndexContainer from './track_index_container';
 
 export default class TrackSort extends React.Component {
   constructor(props) {
@@ -32,8 +32,8 @@ export default class TrackSort extends React.Component {
     return (
       <div className="track-sort-container">
         <div className="sort-container-header">{this.renderHeaderText()}</div>
-        <TrackIndexContainerTmp trackIds={this.props.trackIds} trackSort={this.props.trackSort}>
-        </TrackIndexContainerTmp>
+        <TrackIndexContainer trackIds={this.props.trackIds} trackSort={this.props.trackSort}>
+        </TrackIndexContainer>
       </div>
     );
   }

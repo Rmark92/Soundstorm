@@ -36,14 +36,14 @@ export default class TrackIndexItem extends React.Component {
       return <PlayButton styleType="medium" trackId={this.props.track.id}></PlayButton>;
     }
   }
-
-  renderLikeButton() {
-    if (this.state.selected) {
-      return (
-        <LikeButton divClass="like-btn-medium-index" trackId={this.props.track.id}></LikeButton>
-      );
-    }
-  }
+  //
+  // renderLikeButton() {
+  //   if (this.state.selected) {
+  //     return (
+  //       <LikeButton divClass="like-btn-medium-index" trackId={this.props.track.id}></LikeButton>
+  //     );
+  //   }
+  // }
 
   handleClick() {
     if (this.props.isCurrentTrack) {
@@ -78,8 +78,54 @@ export default class TrackIndexItem extends React.Component {
   }
 
   renderRank() {
-    if (this.props.type !== 'sub') {
-      return <div className="track-index-item-rank">{this.props.rank}</div>;
+    if (this.props.rankVal) {
+      return <div className="track-index-item-rank">{this.props.rankVal}</div>;
+    }
+  }
+
+  renderTrackPostDate() {
+    return (
+      <div className="track-index-date">
+        {timeSince(new Date(this.props.track.createdAt))}
+      </div>
+    );
+  }
+
+  renderTrackActivity() {
+    return (
+      <div className="track-index-activity">
+        <div className="track-index-plays">
+          <div className="play-icon-medium-index"></div>
+          <div className="track-index-plays-num">{this.props.track.numPlays}</div>
+        </div>
+        <div className="track-index-likes">
+          <div className="like-icon-medium-index"></div>
+          <div className="track-index-like-num">{this.props.track.numLikes}</div>
+        </div>
+      </div>
+    );
+  }
+
+  renderTrackData() {
+    if (this.props.dataType === 'date') {
+      return (
+        <div className="track-index-item-data">
+          {this.renderTrackPostDate()}
+        </div>
+      );
+    } else if (this.props.dataType === 'popularity') {
+      return (
+        <div className="track-index-item-data">
+          {this.renderTrackActivity()}
+        </div>
+      );
+    } else if (this.props.dataType === 'all') {
+      return (
+        <div className="track-index-item-data">
+          {this.renderTrackPostDate()}
+          {this.renderTrackActivity()}
+        </div>
+      );
     }
   }
 
@@ -104,16 +150,8 @@ export default class TrackIndexItem extends React.Component {
             </div>
           </div>
         </div>
-        <div className="track-index-item-data">
-          {this.renderLikeButton()}
-          {timeSince(new Date(this.props.track.createdAt))}
-        </div>
+        {this.renderTrackData()}
       </div>
     );
   }
 }
-
-// <div className="cover-art-small">
-//   { this.renderPlayButton() }
-//   <img src={this.props.track.imageURL} />
-// </div>

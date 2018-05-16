@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import generateRandomGradient from '../util/generate_random_gradient';
-// import SubTrackIndexContainer from './sub_track_index_container.js';
-import TrackIndexTmp from './track_index_container_tmp';
+import TrackIndex from './track_index_container';
 
 export default class UserShow extends React.Component {
   constructor(props) {
@@ -37,22 +36,22 @@ export default class UserShow extends React.Component {
           <div className="user-track-list">
             <Route exact
                    path={`/users/${this.props.user.id}/`}
-                   render={ (props) => <TrackIndexTmp trackIds={this.props.user.trackIds}></TrackIndexTmp> }>
+                   render={ (props) => <TrackIndex trackIds={this.props.user.trackIds}></TrackIndex> }>
             </Route>
 
             <Route exact
                    path={`/users/${this.props.user.id}/tracks`}
-                   render={ (props) => <TrackIndexTmp trackIds={this.props.user.trackIds}></TrackIndexTmp> }>
+                   render={ (props) => <TrackIndex trackIds={this.props.user.trackIds}></TrackIndex> }>
             </Route>
 
             <Route exact
                    path={`/users/${this.props.user.id}/likes`}
-                   render={ (props) => <TrackIndexTmp trackIds={this.props.user.likedIds}></TrackIndexTmp>}>
+                   render={ (props) => <TrackIndex trackIds={this.props.user.likedIds}></TrackIndex>}>
             </Route>
 
             <Route exact
                    path={`/users/${this.props.user.id}/listens`}
-                   render={ (props) => <TrackIndexTmp trackIds={this.props.user.listenedIds}></TrackIndexTmp>}>
+                   render={ (props) => <TrackIndex trackIds={this.props.user.listenedIds}></TrackIndex>}>
             </Route>
           </div>
         </div>
@@ -79,5 +78,3 @@ export default class UserShow extends React.Component {
     );
   }
 }
-
-// <SubTrackIndexContainer trackIds={(this.props.user.trackIds) || []}></SubTrackIndexContainer>

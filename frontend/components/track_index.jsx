@@ -4,17 +4,50 @@ import TrackIndexItem from './track_index_item_container.js';
 export default class TrackIndex extends React.Component {
   constructor(props) {
     super(props);
+    this.setDataType(this.props.trackSort);
   }
 
-  componentDidMount() {
-    if (this.props.type !== 'sub') {
-      this.props.fetchTracks();
+  componentWillReceiveProps(newProps) {
+    if (this.props.trackSort !== newProps.trackSort) {
+      this.setDataType(newProps.trackSort);
     }
   }
 
   renderRankHeader() {
-    if (this.props.type !== 'sub') {
+    if (this.props.trackSort === 'top') {
       return <div className="track-num-header">#</div>;
+    }
+  }
+
+  setDataType(trackSort) {
+    switch(trackSort) {
+      case 'top':
+        this.dataCol = 'Activity';
+        this.dataType = 'popularity';
+        break;
+      case 'recent':
+        this.dataCol = 'Posted Date';
+        this.dataType = 'date';
+        break;
+      case 'none':
+      case 'random':
+      default:
+        this.dataCol = '';
+        this.dataType = 'all';
+        break;
+    }
+  }
+
+  renderDataColText() {
+    switch(this.props.trackSort) {
+      case 'random':
+      case 'top':
+        return "Activity";
+      case 'recent':
+        return 'Posted Date';
+      case 'none':
+      default:
+        return '';
     }
   }
 
@@ -26,14 +59,14 @@ export default class TrackIndex extends React.Component {
             {this.renderRankHeader()}
             <div className="track-info-header">Track</div>
           </div>
-          <div className="track-data-col">{'Posted Date'}</div>
+          <div className="track-data-col">{this.dataCol}</div>
         </div>
         { this.props.trackList.map( (track, idx) => {
             return (
               <TrackIndexItem key={track.id}
                               track={track}
-                              rank={idx + 1}
-                              type={this.props.type}></TrackIndexItem>
+                              dataType={this.dataType}
+                              rankVal={this.props.trackSort === 'top' ? idx + 1 : null}></TrackIndexItem>
             );
           })
         }
