@@ -59,6 +59,11 @@ export default class TrackShow extends React.Component {
     }
   }
 
+  renderCommentCount() {
+    const count = this.props.track.numComments;
+    return count === 1 ? `1 comment` : `${count} comments`;
+  }
+
   render() {
     const showImgStyle = {
       backgroundImage: generateRandomGradient()
@@ -92,6 +97,10 @@ export default class TrackShow extends React.Component {
               </div>
               <div className="track-comments">
                 <p className="track-description">{this.props.track.description}</p>
+                <div className="comments-count-header">
+                  <div className="comments-count-icon"></div>
+                    {this.renderCommentCount()}
+                </div>
                 <CommentIndex commentIds={this.props.track.commentIds}></CommentIndex>
               </div>
             </div>

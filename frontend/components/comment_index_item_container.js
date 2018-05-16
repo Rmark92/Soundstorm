@@ -3,7 +3,6 @@ import CommentIndexItem from './comment_index_item';
 
 const mapStateToProps = (state, ownProps) => {
   const comment = ownProps.comment;
-  debugger
   return {
     comment,
     user: state.entities.users[comment.user_id],

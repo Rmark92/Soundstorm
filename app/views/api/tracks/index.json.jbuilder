@@ -11,6 +11,7 @@ json.set! :tracks do
       json.createdAt track.created_at
       json.numLikes track.likes_count
       json.numPlays track.plays_count
+      json.numComments track.comments_count
       json.isLiked !!current_user && track.is_liked_by?(current_user.id)
       json.audioURL track.audio.url
       json.imageURL asset_path(track.image.url)

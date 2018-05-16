@@ -13,6 +13,7 @@ json.set! :user do
   json.extract! @user, :username, :id
   json.imageURL asset_path(@user.image.url)
   json.trackIds @user.track_ids
+  json.numTracks @user.tracks_count
   json.likedIds @user.liked_tracks.pluck(:id)
   json.listenedIds @user.listened_track_ids.uniq
   json.commentIds comment_ids
@@ -26,6 +27,7 @@ json.set! :tracks do
       json.createdAt track.created_at
       json.numLikes track.likes_count
       json.numListens track.plays_count
+      json.numComments track.comments_count
       json.audioURL track.audio.url
       json.imageURL asset_path(track.image.url)
       json.isLiked false

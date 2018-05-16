@@ -8,17 +8,18 @@ export default class CommentIndexItem extends React.Component {
   }
 
   render() {
-    debugger
     return (
       <div className="comment-container">
-        <div className="user-avatar-comment">
-          <img src={this.props.user.imageURL}></img>
-        </div>
-        <div className="comment-text">
-          <Link className="comment-user-name" to={`/users/${this.props.user.username}`}>
-            {this.props.user.username}
-          </Link>
-          <p className="comment-body">{this.props.comment.body}</p>
+        <div className="comment-left">
+          <div className="user-avatar-comment">
+            <img src={this.props.user.imageURL}></img>
+          </div>
+          <div className="comment-text">
+            <Link className="comment-user-name" to={`/users/${this.props.user.username}`}>
+              {this.props.user.username}
+            </Link>
+            <p className="comment-body">{this.props.comment.body}</p>
+          </div>
         </div>
         <div className="comment-right">
           <p className="comment-timestamp">
