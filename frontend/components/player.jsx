@@ -33,6 +33,15 @@ export default class Player extends React.Component {
     this.handleTrackStart = this.handleTrackStart.bind(this);
   }
 
+  calculatePlayedSeconds() {
+    const trackProgress = this.props.player.tracksProgress[this.props.currentTrack.id];
+    if (trackProgress) {
+      return trackProgress * this.duration;
+    } else {
+      return 0;
+    }
+  }
+
   ref(player) {
     this.reactPlayer = player;
     this.props.setReactPlayer(player);
@@ -40,6 +49,10 @@ export default class Player extends React.Component {
 
   setDuration(duration) {
     this.duration = duration;
+    const playedSeconds = this.calculatePlayedSeconds();
+    this.setState( { playedSeconds }, () => {
+      this.reactPlayer.seekTo(playedSeconds);
+    });
   }
 
   handleTrackStart() {
@@ -140,6 +153,15 @@ export default class Player extends React.Component {
     this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
     this.handleProgress( { playedSeconds: newTrackPos });
     this.reactPlayer.seekTo(newTrackPos);
+    this.props.updateProgress(this.props.currentTrack.id, this.determineTrackProgress());
+  }
+
+  determineTrackProgress() {
+    if (this.reactPlayer) {
+      return (this.reactPlayer.getCurrentTime() / this.reactPlayer.getDuration());
+    } else {
+      return null;
+    }
   }
 
   render() {

@@ -6,14 +6,15 @@ const mapStateToProps = (state, ownProps) => {
   const isCurrentTrack = state.ui.player.currentTrackId === ownProps.trackId;
   return {
     isCurrentTrack,
-    inputType: isCurrentTrack && state.ui.player.playing ? 'pause' : 'play'
+    inputType: isCurrentTrack && state.ui.player.playing ? 'pause' : 'play',
+    reactPlayer: state.ui.player.reactPlayer
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    setCurrentTrack: (trackId) => dispatch(setCurrentTrack(trackId)),
-    togglePlayerStatus: () => dispatch(togglePlayerStatus())
+    setCurrentTrack: (trackId, progress) => dispatch(setCurrentTrack(trackId, progress)),
+    togglePlayerStatus: (trackId, progress) => dispatch(togglePlayerStatus(trackId, progress))
   };
 };
 

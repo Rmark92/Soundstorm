@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { togglePlayerStatus, setReactPlayer, toggleLoop } from '../actions/player_actions';
+import { togglePlayerStatus, setReactPlayer, toggleLoop, updateProgress } from '../actions/player_actions';
 import { createTrackPlay } from '../actions/track_play_actions.js';
 import { selectTrackArtist } from '../util/selectors';
 import Player from './player';
@@ -19,7 +19,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     togglePlayerStatus: () => dispatch(togglePlayerStatus()),
     setReactPlayer: playerRef => dispatch(setReactPlayer(playerRef)),
     toggleLoop: () => dispatch(toggleLoop()),
-    createTrackPlay: (trackId) => dispatch(createTrackPlay(trackId))
+    createTrackPlay: (trackId) => dispatch(createTrackPlay(trackId)),
+    updateProgress: (trackId, progress) => dispatch(updateProgress(trackId, progress))
   };
 };
 
