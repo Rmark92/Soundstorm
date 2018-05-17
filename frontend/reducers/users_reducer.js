@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import { merge, uniq } from 'lodash';
 import { RECEIVE_CURRENT_USER } from '../actions/session_actions.js';
 import { RECEIVE_TRACK, RECEIVE_TRACKS } from '../actions/track_actions.js';
 import { RECEIVE_USER } from '../actions/user_actions';
@@ -6,6 +6,8 @@ import { RECEIVE_COMMENT } from '../actions/comment_actions';
 
 export default (state = {}, action) => {
   Object.freeze(state);
+  let actionUser;
+  let stateUser;
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       return _.merge({}, state, { [action.user.id]: action.user });
@@ -13,17 +15,29 @@ export default (state = {}, action) => {
       const newUser = action.payload.user;
       return _.merge({}, state, { [newUser.id]: newUser });
     case RECEIVE_TRACK:
-      action.user.trackIds = [action.track.id];
+      stateUser = state[action.user.id];
+      let newTrackIds = ((stateUser && stateUser.trackIds) || []).slice(0);
+      if (!newTrackIds.includes(action.track.id)) { newTrackIds.push(action.track.id); }
+      action.user.trackIds = newTrackIds;
       return _.merge({}, state, { [action.user.id]: action.user });
     case RECEIVE_TRACKS:
+      Object.keys(action.users).forEach( userId => {
+        stateUser = state[userId];
+        actionUser = action.users[userId];
+        if (stateUser && stateUser.trackIds) {
+          actionUser.trackIds = _.uniq(stateUser.trackIds.concat(actionUser.trackIds));
+        }
+      });
       return _.merge({}, state, action.users);
     case RECEIVE_COMMENT:
       const userId = action.comment.user_id;
       const user = state[userId] || {};
       const comment = action.comment;
+      const commentsArr = user.commentIds || [];
+      const newCommentsArr = commentsArr.includes(comment.id) ? commentsArr : commentsArr.concat([comment.id]);
       return _.merge({},
                state,
-               { [userId]: { commentIds: (user.commentIds || []).concat([comment.id])}});
+               { [userId]: { commentIds: newCommentsArr}});
     default:
       return state;
   }

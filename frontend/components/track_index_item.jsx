@@ -12,8 +12,6 @@ export default class TrackIndexItem extends React.Component {
     this.state = { selected: this.props.isCurrentTrack };
     this.displayAsSelected = this.displayAsSelected.bind(this);
     this.unselect = this.unselect.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.linkClick = this.linkClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,18 +43,18 @@ export default class TrackIndexItem extends React.Component {
   //     );
   //   }
   // }
-
-  handleClick() {
-    if (this.props.isCurrentTrack) {
-      this.props.togglePlayerStatus();
-    } else {
-      this.props.setCurrentTrack(this.props.track.id);
-    }
-  }
-
-  linkClick(event) {
-    event.stopPropagation();
-  }
+  //
+  // handleClick() {
+  //   if (this.props.isCurrentTrack) {
+  //     this.props.togglePlayerStatus();
+  //   } else {
+  //     this.props.setCurrentTrack(this.props.track.id);
+  //   }
+  // }
+  //
+  // linkClick(event) {
+  //   event.stopPropagation();
+  // }
 
   renderTrackImage() {
     if (this.props.track.imageURL) {
@@ -133,20 +131,22 @@ export default class TrackIndexItem extends React.Component {
   render () {
     const style = this.state.selected ? { backgroundColor: '#ece2e2' } : {};
     return (
-      <div style={style} className="track-index-item" onMouseEnter={this.displayAsSelected} onMouseLeave={this.unselect} onClick={this.handleClick}>
+      <div style={style} className="track-index-item">
         <div className="cover-art-medium">
           <img src={this.props.track.imageURL} />
         </div>
         <div className="track-index-item-info">
           <div className="track-index-item-top">
-            <div className="track-index-item-links">
+            <div className="track-index-item-top-left">
               <PlayButton styleType="medium" trackId={this.props.track.id}></PlayButton>
-              <Link to={`/users/${this.props.artist.id}`} className="track-index-item-artist-link">
-                {this.props.artist.username}
-              </Link>
-              <Link to={`/tracks/${this.props.track.id}`} className="track-index-item-track-link">
-                {this.props.track.title}
-              </Link>
+              <div className="track-index-item-links">
+                <Link to={`/users/${this.props.artist.id}`} className="track-index-item-artist-link">
+                  {this.props.artist.username}
+                </Link>
+                <Link to={`/tracks/${this.props.track.id}`} className="track-index-item-track-link">
+                  {this.props.track.title}
+                </Link>
+              </div>
             </div>
             <div className="track-index-item-timestamp">
               {timeSince(new Date(this.props.track.createdAt))}
@@ -157,6 +157,9 @@ export default class TrackIndexItem extends React.Component {
           </div>
           <div className="track-index-item-bottom">
             <div className="track-index-item-buttons">
+              <div className="like-button-index-wrapper">
+                <LikeButton divClass="like-btn-index" trackId={this.props.track.id}></LikeButton>
+              </div>
             </div>
             {this.renderTrackActivity()}
           </div>

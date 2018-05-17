@@ -22,11 +22,24 @@ export default class LikeButton extends React.Component {
     }
   }
 
+  setSize() {
+    switch (this.props.divClass) {
+      case "like-btn-index":
+        return { height: "13px", width: "13px" };
+      case "like-btn-player":
+        return { height: "20px", width: "20px" };
+    }
+  }
+
+  setStyle() {
+    return Object.assign(this.determineColor(this.props.isLiked), this.setSize());
+  }
+
   render() {
     if (this.props.currentUserId) {
       return (
-        <FaHeart className="like-btn"
-                 style={this.determineColor(this.props.isLiked)}
+        <FaHeart className={this.props.divClass}
+                 style={this.setStyle()}
                  onClick={this.handleClick}></FaHeart>
       );
     } else {
