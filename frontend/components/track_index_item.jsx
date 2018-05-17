@@ -4,6 +4,7 @@ import PlayButton from './play_button_container';
 import LikeButton from './like_button_container';
 import { timeSince } from '../util/format_time.js';
 import { generateRandomGradient } from '../util/generate_random_gradient';
+import WaveForm from './wave_form_container.js';
 
 export default class TrackIndexItem extends React.Component {
   constructor(props) {
@@ -31,11 +32,11 @@ export default class TrackIndexItem extends React.Component {
     }
   }
 
-  renderPlayButton() {
-    if (this.state.selected) {
-      return <PlayButton styleType="medium" trackId={this.props.track.id}></PlayButton>;
-    }
-  }
+  // renderPlayButton() {
+  //   if (this.state.selected) {
+  //     return <PlayButton styleType="medium" trackId={this.props.track.id}></PlayButton>;
+  //   }
+  // }
   //
   // renderLikeButton() {
   //   if (this.state.selected) {
@@ -133,14 +134,13 @@ export default class TrackIndexItem extends React.Component {
     const style = this.state.selected ? { backgroundColor: '#ece2e2' } : {};
     return (
       <div style={style} className="track-index-item" onMouseEnter={this.displayAsSelected} onMouseLeave={this.unselect} onClick={this.handleClick}>
-        <div className="track-index-item-details">
-          {this.renderRank()}
-          <div className="track-index-item-info">
-            <div className="cover-art-small">
-              { this.renderPlayButton() }
-              <img src={this.props.track.imageURL} />
-            </div>
-            <div className="track-index-item-text-details" onClick={this.linkClick}>
+        <div className="cover-art-medium">
+          <img src={this.props.track.imageURL} />
+        </div>
+        <div className="track-index-item-info">
+          <div className="track-index-item-top">
+            <div className="track-index-item-links">
+              <PlayButton styleType="medium" trackId={this.props.track.id}></PlayButton>
               <Link to={`/users/${this.props.artist.id}`} className="track-index-item-artist-link">
                 {this.props.artist.username}
               </Link>
@@ -148,9 +148,19 @@ export default class TrackIndexItem extends React.Component {
                 {this.props.track.title}
               </Link>
             </div>
+            <div className="track-index-item-timestamp">
+              {timeSince(new Date(this.props.track.createdAt))}
+            </div>
+          </div>
+          <div className="track-index-item-middle">
+            <WaveForm track={this.props.track}></WaveForm>
+          </div>
+          <div className="track-index-item-bottom">
+            <div className="track-index-item-buttons">
+            </div>
+            {this.renderTrackActivity()}
           </div>
         </div>
-        {this.renderTrackData()}
       </div>
     );
   }

@@ -54,13 +54,6 @@ export default class TrackIndex extends React.Component {
   render() {
     return (
       <div className="track-index-container">
-        <div className="track-index-header">
-          <div className="track-info-cols">
-            {this.renderRankHeader()}
-            <div className="track-info-header">Track</div>
-          </div>
-          <div className="track-data-col">{this.dataCol}</div>
-        </div>
         { this.props.trackList.map( (track, idx) => {
             return (
               <TrackIndexItem key={track.id}
@@ -74,3 +67,10 @@ export default class TrackIndex extends React.Component {
     );
   }
 }
+// <div className="track-index-header">
+
+// <div className="track-info-cols">
+//   {this.renderRankHeader()}
+//   <div className="track-info-header">Track</div>
+// </div>
+// <div className="track-data-col">{this.dataCol}</div>
