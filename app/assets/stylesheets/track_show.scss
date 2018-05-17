@@ -37,8 +37,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  left: 75px;
 }
 
 #track-show-title {
@@ -107,6 +105,30 @@
 .pause-btn-large {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDggMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPlBhdXNlIDI4PC90aXRsZT48cGF0aCBkPSJNNSAwdjEyaDNWMEg1ek0wIDB2MTJoM1YwSDB6IiBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=);
   background-position-x: center;
+}
+
+.waveform-track-show {
+  width: 800px;
+  margin-bottom: 20px;
+}
+
+.show-image-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 320px;
+  margin-left: 30px;
+}
+
+.show-image-top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.waveform-track-show > * > * {
+  border-right: none !important;
 }
 
 .cover-art-container-large {

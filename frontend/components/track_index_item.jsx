@@ -153,7 +153,7 @@ export default class TrackIndexItem extends React.Component {
             </div>
           </div>
           <div className="track-index-item-middle">
-            <WaveForm track={this.props.track}></WaveForm>
+            <WaveForm track={this.props.track} divClass="waveform-index"></WaveForm>
           </div>
           <div className="track-index-item-bottom">
             <div className="track-index-item-buttons">

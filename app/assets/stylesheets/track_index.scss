@@ -36,13 +36,13 @@
   align-items: flex-start;
 }
 
-.waveform {
+.waveform-index {
   width: 600px;
   opacity: 0.75;
   margin-bottom: 5px;
 }
 
-.waveform > * > * {
+.waveform-index > * > * {
   border-right: none !important;
 }
 .cover-art-medium {

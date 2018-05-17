@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PlayButton from './play_button_container';
+import WaveForm from './wave_form_container';
 import CommentForm from './comment_form_container';
 import CommentIndex from './comment_index_container';
 import { timeSince } from '../util/format_time.js';
@@ -63,6 +64,14 @@ export default class TrackShow extends React.Component {
     return count === 1 ? `1 comment` : `${count} comments`;
   }
 
+  renderWaveForm() {
+    if (this.props.track.audioURL) {
+      return (
+        <WaveForm track={this.props.track} divClass="waveform-track-show"></WaveForm>
+      );
+    }
+  }
+
   render() {
     const showImgStyle = {
       backgroundImage: generateRandomGradient()
@@ -70,17 +79,22 @@ export default class TrackShow extends React.Component {
     return (
       <div id="track-show">
         <div className="show-image" style={showImgStyle}>
-          <div className="track-links">
-            {this.renderPlayButton()}
-            <div id="track-show-title">
-              <Link id="track-artist" to={`/users/${this.props.artist.id}`}>
-                {this.props.artist.username}
-              </Link>
-              <p id="track-name">{this.props.track.title}</p>
+          <div className="show-image-left">
+            <div className="show-image-top">
+              <div className="track-links">
+                {this.renderPlayButton()}
+                <div id="track-show-title">
+                  <Link id="track-artist" to={`/users/${this.props.artist.id}`}>
+                    {this.props.artist.username}
+                  </Link>
+                  <p id="track-name">{this.props.track.title}</p>
+                </div>
+              </div>
+              <div className="track-time-elapsed">{timeSince( new Date(this.props.track.createdAt) )}</div>
             </div>
+            {this.renderWaveForm()}
           </div>
           <div className="cover-art-container-large">
-            <p className="track-time-elapsed">{timeSince( new Date(this.props.track.createdAt) )}</p>
             {this.renderTrackImage()}
           </div>
         </div>
