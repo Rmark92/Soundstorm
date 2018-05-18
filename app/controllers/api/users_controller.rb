@@ -9,6 +9,16 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update(update_params)
+      render :update
+    else
+      render json: @user.errors.full_messages, status: 422
+    end
+  end
+
   def show
     @user = User.includes(:tracks)
                 .includes(:liked_tracks)
@@ -24,5 +34,9 @@ class Api::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :password)
+  end
+
+  def update_params
+    params.require(:user).permit(:image)
   end
 end

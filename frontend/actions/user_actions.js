@@ -13,3 +13,9 @@ export const fetchUser = (userId) => {
     return APIUtil.fetchUser(userId).then( (response) => dispatch(receiveUser(response)));
   };
 };
+
+export const updateUser = (userId, userData) => {
+  return (dispatch) => {
+    return APIUtil.updateUser(userId, userData).then( (response) => dispatch(receiveUser(response)));
+  };
+};

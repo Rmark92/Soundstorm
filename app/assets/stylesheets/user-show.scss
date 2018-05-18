@@ -16,6 +16,7 @@
   height: 190px;
   width: 190px;
   margin-left: 66px;
+  position: relative;
 }
 
 .user-avatar-large > img {
@@ -23,6 +24,21 @@
   width: 100%;
   border-radius: 50%;
   box-shadow: rgba(0,0,0,.1)0 0 0 1px inset;
+}
+
+.user-image-file-input-label {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: 30px;
+}
+
+.user-image-file-input-label:hover {
+  cursor: pointer;
+}
+
+.user-camera-icon {
+  margin-right: 5px;
 }
 
 .user-name-large {
