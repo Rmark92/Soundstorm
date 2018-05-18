@@ -190,6 +190,17 @@
   margin-right: 2px;
 }
 
+.queue-action-index-button {
+    font-size: 12px;
+    margin-left: 10px;
+    padding: 3px 4px 3px 4px;
+    border: 1px solid #333;
+    border-radius: 4px;
+}
+
+.queue-action-index-button:hover {
+  cursor: pointer;
+}
 
 //
 // .track-num-header {

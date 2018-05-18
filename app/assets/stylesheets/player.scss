@@ -19,7 +19,21 @@
 .player-buttons {
   display: flex;
   align-items: center;
-  margin-left: 95px;
+  margin-left: 81px;
+}
+
+.prev-track-btn {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZmlsbD0iIzMzMyIgZD0iTTcgNmgydjEySDdWNnptMiA2bDggNlY2bC04IDZ6Ii8+PC9zdmc+Cg==);
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+}
+
+.next-track-btn {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZmlsbD0iIzMzMyIgZD0iTTcgMThsOC02LTgtNnYxMnptOC0xMnYxMmgyVjZoLTJ6Ii8+PC9zdmc+Cg==);
+  background-size: contain;
+  height: 30px;
+  width: 30px;
 }
 
 .play-btn-simple {
@@ -204,7 +218,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 250px;
+  width: 200px;
   margin-left: 30px;
 }
 

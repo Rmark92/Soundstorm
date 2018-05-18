@@ -30,7 +30,10 @@ export default class Player extends React.Component {
     this.seek = this.seek.bind(this);
     this.toggleMuted = this.toggleMuted.bind(this);
     this.handleSeeking = this.handleSeeking.bind(this);
+    this.handleTrackEnded = this.handleTrackEnded.bind(this);
     this.handleTrackStart = this.handleTrackStart.bind(this);
+    this.handleNextTrackClick = this.handleNextTrackClick.bind(this);
+    this.handlePrevTrackClick = this.handlePrevTrackClick.bind(this);
   }
 
   calculatePlayedSeconds() {
@@ -185,6 +188,18 @@ export default class Player extends React.Component {
     }
   }
 
+  handleTrackEnded() {
+    this.props.continueThroughQueue();
+  }
+
+  handleNextTrackClick() {
+    this.props.moveToNextTrack();
+  }
+
+  handlePrevTrackClick() {
+    this.props.moveToPrevTrack();
+  }
+
   render() {
     if (!this.props.currentTrack) {
       return <div></div>;
@@ -205,10 +220,13 @@ export default class Player extends React.Component {
                          onProgress={this.handleProgress}
                          onDuration={this.setDuration}
                          onStart={this.handleTrackStart}
+                         onEnded={this.handleTrackEnded}
                          config={ { file: { forceAudio: true } }}
              />
            <div className="player-buttons">
+             <div className="prev-track-btn" onClick={this.handlePrevTrackClick}></div>
              <PlayButton styleType="simple" trackId={this.props.currentTrack.id}></PlayButton>
+             <div className="next-track-btn" onClick={this.handleNextTrackClick}></div>
              {this.renderLoopButton()}
            </div>
            <div className="progress-bar-container" onMouseEnter={this.setProgressHover} onMouseLeave={this.unsetProgressHover}>

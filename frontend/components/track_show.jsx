@@ -79,7 +79,38 @@ class TrackShow extends React.Component {
     this.props.deleteTrack(this.props.track.id).then(() => this.props.history.push('/') );
   }
 
-  renderTrackButtons() {
+  handleQueueAction(type) {
+    return () => {
+      switch (type) {
+        case 'add':
+          this.props.addToQueue(this.props.track.id);
+          break;
+        case 'remove':
+          this.props.removeFromQueue(this.props.track.id);
+          break;
+      }
+    };
+  }
+
+  renderQueueButton() {
+    if (this.props.isCurrentTrack) {
+      return;
+    } else if (!this.props.inQueue) {
+      return (
+        <div className="queue-action-show-button" onClick={this.handleQueueAction('add')}>
+          Add to Queue
+        </div>
+      );
+    } else {
+      return (
+        <div className="queue-action-show-button" onClick={this.handleQueueAction('remove')}>
+          {'Remove from Queue'}
+        </div>
+      );
+    }
+  }
+
+  renderRightButtons() {
     if (this.props.track.id && this.props.currentUserId === this.props.artist.id) {
       return (
         <div className="track-show-buttons">
@@ -89,6 +120,15 @@ class TrackShow extends React.Component {
         </div>
       );
     }
+  }
+
+  renderLeftButtons() {
+    return (
+      <div className="track-show-left-buttons">
+        {this.renderPlayButton()}
+        {this.renderQueueButton()}
+      </div>
+    );
   }
 
   render() {
@@ -101,7 +141,7 @@ class TrackShow extends React.Component {
           <div className="show-image-left">
             <div className="show-image-top">
               <div className="track-links">
-                {this.renderPlayButton()}
+                {this.renderLeftButtons()}
                 <div id="track-show-title">
                   <Link id="track-artist" to={`/users/${this.props.artist.id}`}>
                     {this.props.artist.username}
@@ -111,7 +151,7 @@ class TrackShow extends React.Component {
               </div>
               <div className="show-image-top-right">
                 <div className="track-time-elapsed">{timeSince( new Date(this.props.track.createdAt) )}</div>
-                {this.renderTrackButtons()}
+                {this.renderRightButtons()}
               </div>
             </div>
             {this.renderWaveForm()}

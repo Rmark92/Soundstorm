@@ -9,14 +9,17 @@ import WaveForm from './wave_form_container.js';
 export default class TrackIndexItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selected: this.props.isCurrentTrack };
+    this.state = { selected: this.props.isCurrentTrack,
+                   queueActionDisplay: !this.props.isCurrentTrack };
     this.displayAsSelected = this.displayAsSelected.bind(this);
     this.unselect = this.unselect.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isCurrentTrack) {
-      this.setState({ selected: false});
+      this.setState({ selected: false });
+    } else {
+      this.setState({ selected: true });
     }
   }
 
@@ -128,6 +131,37 @@ export default class TrackIndexItem extends React.Component {
     }
   }
 
+  handleQueueAction(type) {
+    return () => {
+      switch (type) {
+        case 'add':
+          this.props.addToQueue(this.props.track.id);
+          break;
+        case 'remove':
+          this.props.removeFromQueue(this.props.track.id);
+          break;
+      }
+    };
+  }
+
+  renderQueueButton() {
+    if (this.props.isCurrentTrack) {
+      return;
+    } else if (!this.props.inQueue) {
+      return (
+        <div className="queue-action-index-button" onClick={this.handleQueueAction('add')}>
+          Add to Queue
+        </div>
+      );
+    } else {
+      return (
+        <div className="queue-action-index-button" onClick={this.handleQueueAction('remove')}>
+          {'Remove from Queue'}
+        </div>
+      );
+    }
+  }
+
   render () {
     const style = this.state.selected ? { backgroundColor: '#ece2e2' } : {};
     return (
@@ -160,6 +194,7 @@ export default class TrackIndexItem extends React.Component {
               <div className="like-button-index-wrapper">
                 <LikeButton divClass="like-btn-index" trackId={this.props.track.id}></LikeButton>
               </div>
+              {this.renderQueueButton()}
             </div>
             {this.renderTrackActivity()}
           </div>
