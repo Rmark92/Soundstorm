@@ -82,6 +82,34 @@
   color: #999;
 }
 
-.comment-timestamp {
+.like-button-index-wrapper {
+  border: 1px solid black;
+  padding-left: 7px;
+  border-radius: 4px;
+  padding-right: 7px;
+}
 
+.comment-delete-button {
+  width: 10px;
+  height: 10px;
+}
+
+.comment-delete-button-wrapper {
+  border: 1px solid black;
+  padding-left: 7px;
+  border-radius: 4px;
+  padding-right: 7px;
+}
+
+.comment-delete-button-wrapper:hover {
+  cursor: pointer;
+}
+
+.comment-right {
+  display: flex;
+  align-items: center;
+}
+
+.comment-timestamp {
+  margin-left: 10px;
 }

@@ -3,6 +3,7 @@ import { addTrackErrors } from './track_error_actions.js';
 
 export const RECEIVE_TRACK = 'RECEIVE_TRACK';
 export const RECEIVE_TRACKS = 'RECEIVE_TRACKS';
+export const REMOVE_TRACK = 'REMOVE_TRACK';
 
 export const receiveTrack = (payload) => {
   return {
@@ -18,6 +19,14 @@ export const receiveTracks = (payload) => {
     type: RECEIVE_TRACKS,
     tracks: payload.tracks,
     users: payload.users
+  };
+};
+
+export const removeTrack = (payload) => {
+  return {
+    type: REMOVE_TRACK,
+    trackId: payload.trackId,
+    userId: payload.userId
   };
 };
 
@@ -43,5 +52,11 @@ export const fetchTracks = (filters) => {
     return APIUtil.fetchTracks(filters).then( response => {
       dispatch(receiveTracks(response));
     });
+  };
+};
+
+export const deleteTrack = (trackId) => {
+  return (dispatch) => {
+    return APIUtil.deleteTrack(trackId).then( response => dispatch(deleteTrack(response)));
   };
 };

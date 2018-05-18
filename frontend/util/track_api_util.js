@@ -13,3 +13,7 @@ export const fetchTrack = (trackId) => {
 export const fetchTracks = (filters = {}) => {
   return $.ajax({method: 'GET', url: `/api/tracks`, data: filters});
 };
+
+export const deleteTrack = (trackId) => {
+  return $.ajax({method: 'DELETE', url: `/api/tracks/${trackId}`});
+};
