@@ -5,7 +5,6 @@ export default class WaveForm extends React.Component {
   constructor(props) {
     super(props);
     this.waveFormid = `waveform${this.props.track.id}`;
-    // debugger
   }
 
   createWaveForm() {
@@ -16,6 +15,7 @@ export default class WaveForm extends React.Component {
                                               height: 70,
                                               waveColor: '#666',
                                               barWidth: 2,
+                                              interact: false
                                           });
         break;
       case "waveform-track-show":
@@ -24,23 +24,11 @@ export default class WaveForm extends React.Component {
                                               height: 100,
                                               waveColor: 'white',
                                               barWidth: 2,
+                                              interact: false
                                           });
         break;
     }
   }
-
-  // setClassOptions() {
-  //   switch(this.props.divClass) {
-  //     case "waveform-index":
-  //       this.wavesurfer.height = 70;
-  //       this.wavesurfer.waveColor = '#666';
-  //       break;
-  //     case "waveform-track-show":
-  //       this.wavesurfer.height = 100;
-  //       this.wavesurfer.waveColor = 'white';
-  //       break;
-  //   }
-  // }
 
   componentDidMount() {
     this.createWaveForm();
@@ -68,11 +56,11 @@ export default class WaveForm extends React.Component {
 
 
     });
+    //
+    // this.wavesurfer.on('seek', (pos) => {
+    //   this.props.updateProgress(this.props.track.id, pos);
+    // });
   }
-
-  // setInitSeek() {
-  //
-  // }
 
   // setInitTime(relProps) {
   //   if (relProps.player.playing && relProps.player)
@@ -86,12 +74,14 @@ export default class WaveForm extends React.Component {
   // }
 
   componentWillReceiveProps(nextProps) {
+    const trackProgress = nextProps.player.tracksProgress[this.props.track.id] || 0;
+    this.wavesurfer.seekTo(trackProgress);
     if (nextProps.player.playing &&
         nextProps.player.currentTrackId === this.props.track.id &&
         nextProps.player.reactPlayer) {
       // debugger;
-      const trackProgress = nextProps.player.tracksProgress[this.props.track.id] || 0;
-      this.wavesurfer.seekTo(trackProgress);
+      // const trackProgress = nextProps.player.tracksProgress[this.props.track.id] || 0;
+      // this.wavesurfer.seekTo(trackProgress);
       // const player = nextProps.player.reactPlayer;
       // debugger;
       // this.wavesurfer.seekTo((player.getCurrentTime() / player.getDuration()) || 0);
@@ -100,13 +90,6 @@ export default class WaveForm extends React.Component {
       this.wavesurfer.pause();
     }
   }
-
-  // setClass() {
-  //   switch(this.props.size) {
-  //     case "waveform-index":
-  //       return { width: }
-  //   }
-  // }
 
   render() {
     return (

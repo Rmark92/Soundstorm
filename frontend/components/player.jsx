@@ -38,6 +38,7 @@ export default class Player extends React.Component {
     if (trackProgress) {
       return trackProgress * this.duration;
     } else {
+      this.props.updateProgress(this.props.currentTrack.id, 0);
       return 0;
     }
   }
@@ -155,6 +156,26 @@ export default class Player extends React.Component {
     this.reactPlayer.seekTo(newTrackPos);
     this.props.updateProgress(this.props.currentTrack.id, this.determineTrackProgress());
   }
+
+  // setNewTrackPos(newTrackPos) {
+  //   const elapsedWidth = Math.floor((this.state.newTrackPos / this.duration) * 640);
+  //   this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
+  //   this.handleProgress( { playedSeconds: newTrackPos });
+  //   this.reactPlayer.seekTo(newTrackPos);
+  // }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.currentTrack &&
+  //       nextProps.currentTrack &&
+  //       nextProps.currentTrack === this.props.currentTrack) {
+  //     const currentProgress = (this.reactPlayer.getCurrentTime() / this.duration) || 0;
+  //     const newProgress = nextProps.player.tracksProgress[this.props.currentTrack.id];
+  //     debugger;
+  //     if (currentProgress !== newProgress) {
+  //       this.setNewTrackPos(newProgress * this.duration);
+  //     }
+  //   }
+  // }
 
   determineTrackProgress() {
     if (this.reactPlayer) {
