@@ -6,6 +6,7 @@ import CommentForm from './comment_form_container';
 import CommentIndex from './comment_index_container';
 import LikeButton from './like_button_container';
 import IoIosTrash from 'react-icons/lib/io/ios-trash';
+import TrackQueue from './track_queue_container';
 import { timeSince } from '../util/format_time.js';
 import generateRandomGradient from '../util/generate_random_gradient';
 
@@ -160,26 +161,29 @@ class TrackShow extends React.Component {
             {this.renderTrackImage()}
           </div>
         </div>
-        <div className="track-show-contents">
-          <div className="track-show-actions">
-            <CommentForm trackId={this.props.track.id}></CommentForm>
-          </div>
-          <div className="track-show-users-comments">
-            <div className="track-comments-container">
-              <div className="track-artist-details">
-                {this.renderArtistImage()}
-                <p>{this.props.artist.username}</p>
-              </div>
-              <div className="track-comments">
-                <p className="track-description">{this.props.track.description}</p>
-                <div className="comments-count-header">
-                  <div className="comments-count-icon"></div>
-                    {this.renderCommentCount()}
+        <div className="track-show-main">
+          <div className="track-show-contents">
+            <div className="track-show-actions">
+              <CommentForm trackId={this.props.track.id}></CommentForm>
+            </div>
+            <div className="track-show-users-comments">
+              <div className="track-comments-container">
+                <div className="track-artist-details">
+                  {this.renderArtistImage()}
+                  <p>{this.props.artist.username}</p>
                 </div>
-                <CommentIndex commentIds={this.props.track.commentIds}></CommentIndex>
+                <div className="track-comments">
+                  <p className="track-description">{this.props.track.description}</p>
+                  <div className="comments-count-header">
+                    <div className="comments-count-icon"></div>
+                      {this.renderCommentCount()}
+                  </div>
+                  <CommentIndex commentIds={this.props.track.commentIds}></CommentIndex>
+                </div>
               </div>
             </div>
           </div>
+          <TrackQueue></TrackQueue>
         </div>
       </div>
     );

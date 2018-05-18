@@ -1,5 +1,6 @@
 import React from 'react';
 import TrackIndexContainer from './track_index_container';
+import TrackQueue from './track_queue_container';
 
 export default class TrackSort extends React.Component {
   constructor(props) {
@@ -31,9 +32,12 @@ export default class TrackSort extends React.Component {
   render() {
     return (
       <div className="track-sort-container">
-        <div className="sort-container-header">{this.renderHeaderText()}</div>
-        <TrackIndexContainer trackIds={this.props.trackIds} trackSort={this.props.trackSort}>
-        </TrackIndexContainer>
+        <div className="track-sort-container-left">
+          <div className="sort-container-header">{this.renderHeaderText()}</div>
+          <TrackIndexContainer trackIds={this.props.trackIds} trackSort={this.props.trackSort}>
+          </TrackIndexContainer>
+        </div>
+        <TrackQueue></TrackQueue>
       </div>
     );
   }

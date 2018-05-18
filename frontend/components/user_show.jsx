@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import FaCamera from 'react-icons/lib/fa/camera';
 import generateRandomGradient from '../util/generate_random_gradient';
+import TrackQueue from './track_queue_container';
 import TrackIndex from './track_index_container';
 
 export default class UserShow extends React.Component {
@@ -24,38 +25,41 @@ export default class UserShow extends React.Component {
     if (this.props.user) {
       return (
         <div className="user-contents">
-          <div className="user-show-links">
-            <NavLink to={`/users/${this.props.user.id}/tracks`} activeClassName="users-show-selected">
-              Tracks
-            </NavLink>
-            <NavLink to={`/users/${this.props.user.id}/likes`} activeClassName="users-show-selected">
-              Likes
-            </NavLink>
-            <NavLink to={`/users/${this.props.user.id}/listens`} activeClassName="users-show-selected">
-              Listens
-            </NavLink>
+          <div className="main-user-contents">
+            <div className="user-show-links">
+              <NavLink to={`/users/${this.props.user.id}/tracks`} activeClassName="users-show-selected">
+                Tracks
+              </NavLink>
+              <NavLink to={`/users/${this.props.user.id}/likes`} activeClassName="users-show-selected">
+                Likes
+              </NavLink>
+              <NavLink to={`/users/${this.props.user.id}/listens`} activeClassName="users-show-selected">
+                Listens
+              </NavLink>
+            </div>
+            <div className="user-track-list">
+              <Route exact
+                     path={`/users/${this.props.user.id}/`}
+                     render={ (props) => <TrackIndex trackIds={this.props.user.trackIds}></TrackIndex> }>
+              </Route>
+
+              <Route exact
+                     path={`/users/${this.props.user.id}/tracks`}
+                     render={ (props) => <TrackIndex trackIds={this.props.user.trackIds}></TrackIndex> }>
+              </Route>
+
+              <Route exact
+                     path={`/users/${this.props.user.id}/likes`}
+                     render={ (props) => <TrackIndex trackIds={this.props.user.likedIds}></TrackIndex>}>
+              </Route>
+
+              <Route exact
+                     path={`/users/${this.props.user.id}/listens`}
+                     render={ (props) => <TrackIndex trackIds={this.props.user.listenedIds}></TrackIndex>}>
+              </Route>
+            </div>
           </div>
-          <div className="user-track-list">
-            <Route exact
-                   path={`/users/${this.props.user.id}/`}
-                   render={ (props) => <TrackIndex trackIds={this.props.user.trackIds}></TrackIndex> }>
-            </Route>
-
-            <Route exact
-                   path={`/users/${this.props.user.id}/tracks`}
-                   render={ (props) => <TrackIndex trackIds={this.props.user.trackIds}></TrackIndex> }>
-            </Route>
-
-            <Route exact
-                   path={`/users/${this.props.user.id}/likes`}
-                   render={ (props) => <TrackIndex trackIds={this.props.user.likedIds}></TrackIndex>}>
-            </Route>
-
-            <Route exact
-                   path={`/users/${this.props.user.id}/listens`}
-                   render={ (props) => <TrackIndex trackIds={this.props.user.listenedIds}></TrackIndex>}>
-            </Route>
-          </div>
+          <TrackQueue style={ { border: "none" }}></TrackQueue>
         </div>
       );
     }

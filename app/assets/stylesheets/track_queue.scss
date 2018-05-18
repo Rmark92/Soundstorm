@@ -1,0 +1,77 @@
+.track-queue-container {
+  width: 25%;
+  position: relative;
+  top: 30px;
+  padding-left: 5px;
+  // border-left: 1px solid #999;
+}
+
+.track-queue-header {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #999;
+}
+
+.track-queue-item {
+  display: flex;
+}
+
+.track-queue-item {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%
+}
+
+.track-queue-left {
+  display: flex;
+  flex-direction: row;
+}
+
+.track-queue-album-art {
+  height: 40px;
+  width: 40px;
+}
+
+.track-queue-album-art > img {
+  height: 100%;
+  width: 100%;
+}
+
+.track-queue-links {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+}
+
+.track-queue-links > a:hover {
+  color: #f50;
+}
+
+.track-queue-item:hover {
+  background-color: #ece2e2;
+  cursor: pointer;
+}
+
+.track-queue-artist-link {
+  text-decoration: none;
+  font-size: 13px;
+  color: #999;
+}
+
+.track-queue-track-link {
+  text-decoration: none;
+  font-size: 13px;
+  color: black;
+}
+
+.track-queue-remove-btn {
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.track-queue-remove-btn:hover {
+  border: 1px solid black;
+}

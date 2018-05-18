@@ -183,7 +183,10 @@
 .track-time-elapsed {
   text-align: right;
 }
-
+.track-show-main {
+  display: flex;
+  flex-direction: row;
+}
 .track-comments-container {
   display: flex;
   margin-top: 20px;

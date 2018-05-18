@@ -16,7 +16,6 @@ class HomePage extends React.Component {
           <NavLink to="/home/discover"activeClassName="track-sort-selected">Discover</NavLink>
         </div>
         <TrackSortContainer></TrackSortContainer>
-
       </div>
     );
   }
