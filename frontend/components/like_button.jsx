@@ -11,7 +11,14 @@ export default class LikeButton extends React.Component {
   }
 
   determineColor(isLiked) {
-    return isLiked ? { fill: "f50" } : { fill: "#333" };
+    if (isLiked) {
+      return { fill: "f50" };
+    } else if (this.props.divClass === "like-btn-track-show") {
+      return { fill: "white" };
+    } else {
+      return { fill: "#333"};
+    }
+    // return isLiked ? { fill: "f50" } : { fill: "#333" };
   }
 
   handleClick(event) {
@@ -26,6 +33,7 @@ export default class LikeButton extends React.Component {
     switch (this.props.divClass) {
       case "like-btn-index":
         return { height: "13px", width: "13px" };
+      case "like-btn-track-show":
       case "like-btn-player":
         return { height: "20px", width: "20px" };
     }

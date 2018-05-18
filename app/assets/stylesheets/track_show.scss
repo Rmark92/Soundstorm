@@ -24,6 +24,22 @@
   margin-bottom: 20px;
 }
 
+.show-image-top-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.track-show-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.track-show-buttons > *:hover {
+  cursor: pointer;
+}
+
 .cover-art-large {
   width: 330px;
   height: 330px;

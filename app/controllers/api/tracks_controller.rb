@@ -32,7 +32,7 @@ class Api::TracksController < ApplicationController
   def destroy
     @track = Track.find(params[:id])
     if @track.destroy
-      render json: { trackId: @track.id, userId: @user.id }
+      render json: { trackId: @track.id, userId: @track.artist_id }
     else
       render json: @track.errors.full_messages, status: 422
     end

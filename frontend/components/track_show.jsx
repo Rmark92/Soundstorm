@@ -1,15 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PlayButton from './play_button_container';
 import WaveForm from './wave_form_container';
 import CommentForm from './comment_form_container';
 import CommentIndex from './comment_index_container';
+import LikeButton from './like_button_container';
+import IoIosTrash from 'react-icons/lib/io/ios-trash';
 import { timeSince } from '../util/format_time.js';
 import generateRandomGradient from '../util/generate_random_gradient';
 
-export default class TrackShow extends React.Component {
+class TrackShow extends React.Component {
   constructor(props) {
     super(props);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +75,22 @@ export default class TrackShow extends React.Component {
     }
   }
 
+  handleDeleteClick() {
+    this.props.deleteTrack(this.props.track.id).then(() => this.props.history.push('/') );
+  }
+
+  renderTrackButtons() {
+    if (this.props.track.id && this.props.currentUserId === this.props.artist.id) {
+      return (
+        <div className="track-show-buttons">
+          <IoIosTrash style={{ fill: "white", height: "20px", width: "20px" }}
+                      onClick={this.handleDeleteClick}></IoIosTrash>
+          <LikeButton divClass="like-btn-track-show" trackId={this.props.track.id}></LikeButton>
+        </div>
+      );
+    }
+  }
+
   render() {
     const showImgStyle = {
       backgroundImage: generateRandomGradient()
@@ -90,7 +109,10 @@ export default class TrackShow extends React.Component {
                   <p id="track-name">{this.props.track.title}</p>
                 </div>
               </div>
-              <div className="track-time-elapsed">{timeSince( new Date(this.props.track.createdAt) )}</div>
+              <div className="show-image-top-right">
+                <div className="track-time-elapsed">{timeSince( new Date(this.props.track.createdAt) )}</div>
+                {this.renderTrackButtons()}
+              </div>
             </div>
             {this.renderWaveForm()}
           </div>
@@ -123,5 +145,7 @@ export default class TrackShow extends React.Component {
     );
   }
 }
+
+export default withRouter(TrackShow);
 
 // <div className="play-btn-large"></div>

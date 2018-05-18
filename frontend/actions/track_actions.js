@@ -57,6 +57,6 @@ export const fetchTracks = (filters) => {
 
 export const deleteTrack = (trackId) => {
   return (dispatch) => {
-    return APIUtil.deleteTrack(trackId).then( response => dispatch(deleteTrack(response)));
+    return APIUtil.deleteTrack(trackId).then( response => dispatch(removeTrack(response)));
   };
 };
