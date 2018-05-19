@@ -1,4 +1,5 @@
 export const selectTrackArtist = (state, track) => {
+  debugger
   if (!(track && track.artistId)) {
     return {};
   } else {

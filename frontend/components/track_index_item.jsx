@@ -163,6 +163,7 @@ export default class TrackIndexItem extends React.Component {
   }
 
   render () {
+    debugger;
     const style = this.state.selected ? { backgroundColor: '#ece2e2' } : {};
     return (
       <div style={style} className="track-index-item">

@@ -21,7 +21,10 @@ json.set! :tracks do
       users_hash[track.artist_id][:trackIds] << track.id
     else
       artist = track.artist
-      users_hash[track.artist_id] = { username: artist.username, trackIds: [track.id] }
+      users_hash[track.artist_id] = { username: artist.username,
+                                      trackIds: [track.id],
+                                      id: artist.id,
+                                      imageURL: asset_path(artist.image.url) }
     end
   end
 end
