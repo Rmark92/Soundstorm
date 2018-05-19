@@ -44,6 +44,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 5px;
+  align-items: flex-start;
 }
 
 .track-queue-links > a:hover {

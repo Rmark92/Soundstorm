@@ -100,7 +100,6 @@ export default class UserShow extends React.Component {
       return (
         <div className="user-avatar-large">
           <img src={this.props.user.imageURL}></img>
-          {this.renderUserImageEdit()}
         </div>
       );
     }
