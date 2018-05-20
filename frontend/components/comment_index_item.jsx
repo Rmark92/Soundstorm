@@ -34,7 +34,7 @@ export default class CommentIndexItem extends React.Component {
             <img src={this.props.user.imageURL}></img>
           </div>
           <div className="comment-text">
-            <Link className="comment-user-name" to={`/users/${this.props.user.username}`}>
+            <Link className="comment-user-name" to={`/users/${this.props.user.id}`}>
               {this.props.user.username}
             </Link>
             <p className="comment-body">{this.props.comment.body}</p>

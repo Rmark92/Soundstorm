@@ -17,7 +17,6 @@ export default (state = {}, action) => {
       return _.merge({}, state, { [action.user.id]: action.user });
     case RECEIVE_USER:
       const newUser = action.payload.user;
-      debugger;
       return _.merge({}, state, { [newUser.id]: newUser });
     case RECEIVE_TRACK:
       stateUser = state[action.user.id];
@@ -40,7 +39,6 @@ export default (state = {}, action) => {
           actionUser.trackIds = _.uniq(stateUser.trackIds.concat(actionUser.trackIds));
         }
       });
-      debugger;
       return _.merge({}, state, action.users);
     case RECEIVE_COMMENT:
       const userId = action.comment.user_id;
