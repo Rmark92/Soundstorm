@@ -15,7 +15,7 @@ export default class WaveForm extends React.Component {
                                               height: 70,
                                               waveColor: '#666',
                                               barWidth: 2,
-                                              interact: false
+                                              interact: true
                                           });
         break;
       case "waveform-track-show":
@@ -24,7 +24,7 @@ export default class WaveForm extends React.Component {
                                               height: 100,
                                               waveColor: 'white',
                                               barWidth: 2,
-                                              interact: false
+                                              interact: true
                                           });
         break;
     }
@@ -32,63 +32,99 @@ export default class WaveForm extends React.Component {
 
   componentDidMount() {
     this.createWaveForm();
-    // this.wavesurfer = WaveSurfer.create({ container: `#${this.waveFormid}`,
-    //                                       progressColor: '#f50',
-    //                                       barWidth: 2,
-    //                                   });
-    // this.setClassOptions();
-    // console.log(this.props.track.audioURL);
     this.wavesurfer.load(this.props.track.audioURL);
     this.wavesurfer.on('ready', () => {
       this.wavesurfer.setMute();
       const currentTrackProgress = this.props.player.tracksProgress[this.props.track.id];
-      if (currentTrackProgress) {
+      if (currentTrackProgress ==='playing' &&
+          this.props.track.id === this.props.player.currentTrackId) {
+        this.wavesurfer.seekTo(this.currentPlayerTime());
+      } else if (currentTrackProgress){
         this.wavesurfer.seekTo(currentTrackProgress);
       }
+      // else {
+      //   this.wavesurfer.seekTo(0);
+      // }
 
-      if (this.props.player.playing && this.props.track.id === this.props.player.currentTrackId) {
-        const player = this.props.player.reactPlayer;
-        this.wavesurfer.seekTo(player.getCurrentTime() / player.getDuration());
-        this.wavesurfer.play();
-      } else {
-        this.wavesurfer.pause();
-      }
+      // if (this.props.player.playing &&
+      //     this.props.track.id === this.props.player.currentTrackId &&
+      //     Math.round(this.currentPlayerTime() * 100) !== Math.round(currentPos * 100) )) {
+      //
+      //   currentTrackProgress = this.currentPlayerTime();
+      //   console.log(currentTrackProgress);
+      //   this.wavesurfer.seekTo(currentTrackProgress);
+      //   this.mountSeek = true;
+      //   this.wavesurfer.play();
+      // } else {
+      //   currentTrackProgress = this.props.player.tracksProgress[this.props.track.id];
+      //   if (currentTrackProgress) {
+      //     this.wavesurfer.seekTo(currentTrackProgress);
+      //   } else {
+      //     this.wavesurfer.seekTo(0);
+      //   }
+      //   this.wavesurfer.pause();
+      // }
 
 
     });
     //
-    // this.wavesurfer.on('seek', (pos) => {
-    //   this.props.updateProgress(this.props.track.id, pos);
-    // });
+    this.wavesurfer.on('seek', (pos) => {
+      const trackProgress = this.props.player.tracksProgress[this.props.track.id];
+      // if (this.props.player.playing &&
+      //     this.props.track.id === this.props.player.currentTrackId &&
+      //     Math.round(this.currentPlayerTime() * 100) !== Math.round(pos * 100) ) {
+      //       // debugger;
+      //       // console.log(Math.round(this.currentPlayerTime() * 100));
+      //       // console.log(Math.round(pos * 100));
+      //       // debugger
+      //       this.props.updateProgress(this.props.track.id, pos);
+      // } else
+      if (!trackProgress ||
+          (trackProgress &&
+           Math.round(pos * 100) !== Math.round(trackProgress * 100)
+          )) {
+        this.props.updateProgress(this.props.track.id, pos);
+      }
+    });
   }
 
-  // setInitTime(relProps) {
-  //   if (relProps.player.playing && relProps.player)
-  //   if (relProps.player.playing && relProps.player.currentTrackId === this.props.track.id) {
-  //     const player = nextProps.player.reactPlayer;
-  //     this.wavesurfer.seekTo(player.getCurrentTime() / player.getDuration());
-  //     this.wavesurfer.play();
-  //   } else {
-  //     this.wavesurfer.pause();
-  //   }
-  // }
+  componentWillUnmount() {
+
+    if (this.props.player.playing &&
+        this.props.track.id === this.props.player.currentTrackId) {
+      this.props.updateProgress(this.props.track.id, 'playing');
+    } else {
+      const currentPos = this.wavesurfer.getCurrentTime() / this.wavesurfer.getDuration();
+      this.props.updateProgress(this.props.track.id, currentPos)
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
-    const trackProgress = nextProps.player.tracksProgress[this.props.track.id] || 0;
-    this.wavesurfer.seekTo(trackProgress);
-    if (nextProps.player.playing &&
-        nextProps.player.currentTrackId === this.props.track.id &&
-        nextProps.player.reactPlayer) {
-      // debugger;
-      // const trackProgress = nextProps.player.tracksProgress[this.props.track.id] || 0;
-      // this.wavesurfer.seekTo(trackProgress);
-      // const player = nextProps.player.reactPlayer;
-      // debugger;
-      // this.wavesurfer.seekTo((player.getCurrentTime() / player.getDuration()) || 0);
+    if (nextProps.player.playing && nextProps.player.currentTrackId === this.props.track.id) {
       this.wavesurfer.play();
     } else {
       this.wavesurfer.pause();
     }
+
+    const trackProgress = nextProps.player.tracksProgress[this.props.track.id];
+    const currentPos = this.wavesurfer.getCurrentTime() / this.wavesurfer.getDuration();
+    // if (this.props.player.playing &&
+    //     this.props.track.id === this.props.player.currentTrackId &&
+    //     this.props.player.reactPlayer &&
+    //     Math.round(this.currentPlayerTime() * 100) !== Math.round(currentPos * 100) ) {
+    //       console.log(currentPos);
+    //       console.log(this.currentPlayerTime());
+    //       this.wavesurfer.seekTo(this.currentPlayerTime());
+    // } else
+    if (trackProgress &&
+        trackProgress !== 'playing' &&
+        (Math.round(currentPos * 100) !== Math.round(trackProgress * 100))) {
+      this.wavesurfer.seekTo(trackProgress);
+    }
+  }
+
+  currentPlayerTime() {
+    return (this.props.player.reactPlayer.getCurrentTime()) / (this.props.player.reactPlayer.getDuration());
   }
 
   render() {

@@ -28,12 +28,13 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
         newState.trackQueue.unshift(action.trackId);
       }
       newState.currentTrackId = action.trackId;
+      newState.tracksProgress[state.currentTrackId] = newState.tracksProgress[state.currentTrackId] || 0;
       newState.playing = true;
       return newState;
     case TOGGLE_PLAYER_STATUS:
       if (state.playing) {
         return _.merge({}, state, { playing: false,
-                                    tracksProgress: { [action.trackId]: action.progress}});
+                                    tracksProgress: { [action.trackId]: action.progress }});
       } else {
         return _.merge({}, state, { playing: true });
       }
@@ -53,12 +54,14 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
       return newState;
     case MOVE_TO_NEXT_TRACK:
       newState = _.merge({}, state);
+      newState.tracksProgress[newState.currentTrackId] = getCurrentProgress(newState.reactPlayer);
       currentTrackQueueIdx = state.trackQueue.indexOf(state.currentTrackId);
       newState.currentTrackId = state.trackQueue[currentTrackQueueIdx + 1] || state.trackQueue[0];
       newState.playing = true;
       return newState;
     case MOVE_TO_PREV_TRACK:
       newState = _.merge({}, state);
+      newState.tracksProgress[newState.currentTrackId] = getCurrentProgress(newState.reactPlayer);
       currentTrackQueueIdx = state.trackQueue.indexOf(state.currentTrackId);
       newState.currentTrackId = state.trackQueue[currentTrackQueueIdx - 1] ||
                                 state.trackQueue[state.trackQueue.length - 1];
@@ -66,7 +69,6 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
     case CONTINUE_QUEUE:
       newState = _.merge({}, state);
       if (!state.looping) {
-        newState.tracksProgress[state.currentTrackId] = 0;
         currentTrackQueueIdx = state.trackQueue.indexOf(state.currentTrackId);
         newState.currentTrackId = state.trackQueue[currentTrackQueueIdx + 1] || state.trackQueue[0];
         newState.playing = true;
@@ -75,8 +77,12 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
       newState.playing = true;
       return newState;
     case UPDATE_PROGRESS:
-      return _.merge({}, state, { tracksProgress: { [action.trackId]: action.progress}})
+      return _.merge({}, state, { tracksProgress: { [action.trackId]: action.progress}});
     default:
       return state;
   }
+};
+
+const getCurrentProgress = (player) => {
+  return player.getCurrentTime() / player.getDuration();
 };

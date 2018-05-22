@@ -54,6 +54,7 @@ export default class Player extends React.Component {
   setDuration(duration) {
     this.duration = duration;
     const playedSeconds = this.calculatePlayedSeconds();
+    // debugger;
     this.setState( { playedSeconds }, () => {
       this.reactPlayer.seekTo(playedSeconds);
     });
@@ -160,25 +161,25 @@ export default class Player extends React.Component {
     this.props.updateProgress(this.props.currentTrack.id, this.determineTrackProgress());
   }
 
-  // setNewTrackPos(newTrackPos) {
-  //   const elapsedWidth = Math.floor((this.state.newTrackPos / this.duration) * 640);
-  //   this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
-  //   this.handleProgress( { playedSeconds: newTrackPos });
-  //   this.reactPlayer.seekTo(newTrackPos);
-  // }
+  setNewTrackPos(newTrackPos) {
+    const elapsedWidth = Math.floor((this.state.newTrackPos / this.duration) * 640);
+    this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
+    this.handleProgress( { playedSeconds: newTrackPos });
+    this.reactPlayer.seekTo(newTrackPos);
+  }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.currentTrack &&
-  //       nextProps.currentTrack &&
-  //       nextProps.currentTrack === this.props.currentTrack) {
-  //     const currentProgress = (this.reactPlayer.getCurrentTime() / this.duration) || 0;
-  //     const newProgress = nextProps.player.tracksProgress[this.props.currentTrack.id];
-  //     debugger;
-  //     if (currentProgress !== newProgress) {
-  //       this.setNewTrackPos(newProgress * this.duration);
-  //     }
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentTrack &&
+        nextProps.currentTrack &&
+        nextProps.currentTrack === this.props.currentTrack) {
+      const currentProgress = (this.reactPlayer.getCurrentTime() / this.duration) || 0;
+      const newProgress = nextProps.player.tracksProgress[this.props.currentTrack.id] || 0;
+      if ( newProgress === 'playing' ) { return; }
+      if (Math.round(currentProgress * 100) !== Math.round(newProgress * 100)) {
+        this.setNewTrackPos(newProgress * this.duration);
+      }
+    }
+  }
 
   determineTrackProgress() {
     if (this.reactPlayer) {

@@ -111,12 +111,20 @@ class TrackShow extends React.Component {
     }
   }
 
-  renderRightButtons() {
+  renderDeleteButton() {
     if (this.props.track.id && this.props.currentUserId === this.props.artist.id) {
       return (
+        <IoIosTrash style={{ fill: "white", height: "20px", width: "20px" }}
+                  onClick={this.handleDeleteClick}></IoIosTrash>
+              );
+    }
+  }
+
+  renderRightButtons() {
+    if (this.props.track.id) {
+      return (
         <div className="track-show-buttons">
-          <IoIosTrash style={{ fill: "white", height: "20px", width: "20px" }}
-                      onClick={this.handleDeleteClick}></IoIosTrash>
+          {this.renderDeleteButton()}
           <LikeButton divClass="like-btn-track-show" trackId={this.props.track.id}></LikeButton>
         </div>
       );

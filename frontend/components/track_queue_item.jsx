@@ -13,10 +13,6 @@ export default class TrackQueueItem extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  // componentDidMount() {
-  //
-  // }
-
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isCurrentTrack) {
       this.setState({ selected: false });
