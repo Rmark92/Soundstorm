@@ -61,7 +61,9 @@ export default class Player extends React.Component {
   }
 
   handleTrackStart() {
-    this.props.createTrackPlay(this.props.currentTrack.id);
+    if (this.props.loggedIn) {
+      this.props.createTrackPlay(this.props.currentTrack.id);
+    }
   }
 
   handleProgress(progress) {
