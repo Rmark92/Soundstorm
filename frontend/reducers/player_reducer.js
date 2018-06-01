@@ -40,13 +40,16 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
         return _.merge({}, state, { playing: true });
       }
     case TOGGLE_PLAYER_LOOP:
-      return _.merge({}, state, { looping: !state.looping });
+      newState = _.merge({}, state);
+      if (state.playing) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer); }
+      newState.looping = !state.looping;
+      return newState;
     case SET_REACT_PLAYER:
       return _.merge({}, state, { reactPlayer: action.reactPlayer });
     case ADD_TO_QUEUE:
       newState = _.merge({}, state);
       newState.trackQueue.push(action.trackId);
-      if (state.playing) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer) };
+      if (state.playing) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer); }
       return newState;
     case REMOVE_FROM_QUEUE:
       newState = _.merge({}, state);

@@ -50,6 +50,11 @@
   background-size: contain;
 }
 
+.play-btn-simple:hover, .pause-btn-simple:hover,
+.next-track-btn:hover, .prev-track-btn:hover, .loop-btn:hover {
+  cursor: pointer;
+}
+
 .loop-btn {
   height: 30px;
   width: 30px;

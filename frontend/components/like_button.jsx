@@ -22,6 +22,7 @@ export default class LikeButton extends React.Component {
   }
 
   handleClick(event) {
+    event.stopPropagation();
     if (this.props.isLiked) {
       this.props.destroyLike(this.props.trackId);
     } else {
@@ -43,13 +44,25 @@ export default class LikeButton extends React.Component {
     return Object.assign(this.determineColor(this.props.isLiked), this.setSize());
   }
 
+  renderIcon() {
+    return (
+      <FaHeart className={this.props.divClass}
+             style={this.setStyle()}
+             onClick={this.handleClick}></FaHeart>
+    );
+  }
+
   render() {
     if (this.props.currentUserId) {
-      return (
-        <FaHeart className={this.props.divClass}
-                 style={this.setStyle()}
-                 onClick={this.handleClick}></FaHeart>
-      );
+      if (this.props.divClass === "like-btn-index") {
+        return (
+          <div className="like-button-index-wrapper" onClick={this.handleClick}>
+            {this.renderIcon()}
+          </div>
+        );
+      } else {
+        return this.renderIcon();
+      }
     } else {
       return <div></div>;
     }

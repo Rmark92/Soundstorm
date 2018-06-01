@@ -191,9 +191,7 @@ export default class TrackIndexItem extends React.Component {
           </div>
           <div className="track-index-item-bottom">
             <div className="track-index-item-buttons">
-              <div className="like-button-index-wrapper">
-                <LikeButton divClass="like-btn-index" trackId={this.props.track.id}></LikeButton>
-              </div>
+              <LikeButton divClass="like-btn-index" trackId={this.props.track.id}></LikeButton>
               {this.renderQueueButton()}
             </div>
             {this.renderTrackActivity()}
