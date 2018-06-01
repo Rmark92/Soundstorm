@@ -79,8 +79,10 @@ export default class Player extends React.Component {
     this.setState( { progressHover: false });
   }
 
-  handlePause(event) {
+  handlePause() {
+    // const currentTime = this.reactPlayer.getCurrentTime() / this.duration;
     // debugger
+    // this.props.updateProgress(this.props.currentTrack.id, currentTime);
   }
 
   handleLoop() {

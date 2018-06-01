@@ -9,19 +9,17 @@ export const CONTINUE_QUEUE = 'CONTINUE_QUEUE';
 export const MOVE_TO_NEXT_TRACK = 'MOVE_TO_NEXT_TRACK';
 export const MOVE_TO_PREV_TRACK = 'MOVE_TO_PREV_TRACK';
 
-export const setCurrentTrack = (trackId, progress) => {
+export const setCurrentTrack = (trackId) => {
   return {
     type: SET_CURRENT_TRACK,
-    trackId,
-    progress
+    trackId
   };
 };
 
-export const togglePlayerStatus = (trackId, progress) => {
+export const togglePlayerStatus = (trackId) => {
   return {
     type: TOGGLE_PLAYER_STATUS,
-    trackId,
-    progress
+    trackId
   };
 };
 

@@ -13,8 +13,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    setCurrentTrack: (trackId, progress) => dispatch(setCurrentTrack(trackId, progress)),
-    togglePlayerStatus: (trackId, progress) => dispatch(togglePlayerStatus(trackId, progress))
+    setCurrentTrack: (trackId) => dispatch(setCurrentTrack(trackId)),
+    togglePlayerStatus: (trackId) => dispatch(togglePlayerStatus(trackId))
   };
 };
 

@@ -34,7 +34,8 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
     case TOGGLE_PLAYER_STATUS:
       if (state.playing) {
         return _.merge({}, state, { playing: false,
-                                    tracksProgress: { [action.trackId]: action.progress }});
+                                    tracksProgress: { [state.currentTrackId]: getCurrentProgress(state.reactPlayer) } });
+                                    // tracksProgress: { [action.trackId]: action.progress }});
       } else {
         return _.merge({}, state, { playing: true });
       }
@@ -45,11 +46,13 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
     case ADD_TO_QUEUE:
       newState = _.merge({}, state);
       newState.trackQueue.push(action.trackId);
+      if (state.playing) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer) };
       return newState;
     case REMOVE_FROM_QUEUE:
       newState = _.merge({}, state);
       const toRemoveIdx = newState.trackQueue.indexOf(action.trackId);
       const newTrackQueue = newState.trackQueue.slice(0, toRemoveIdx).concat(newState.trackQueue.slice(toRemoveIdx + 1));
+      if (state.playing) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer) };
       newState.trackQueue = newTrackQueue;
       return newState;
     case MOVE_TO_NEXT_TRACK:

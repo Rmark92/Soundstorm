@@ -4,7 +4,11 @@ import WaveForm from './wave_form';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    player: state.ui.player
+    lastProgressStamp: state.ui.player.tracksProgress[ownProps.track.id],
+    reactPlayer: state.ui.player.reactPlayer,
+    isCurrentTrack: state.ui.player.currentTrackId === ownProps.track.id,
+    playing: state.ui.player.playing
+    // player: state.ui.player
   };
 };
 
