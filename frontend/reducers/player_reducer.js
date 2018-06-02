@@ -66,6 +66,7 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
       newState.tracksProgress[newState.currentTrackId] = getCurrentProgress(newState.reactPlayer);
       currentTrackQueueIdx = state.trackQueue.indexOf(state.currentTrackId);
       newState.currentTrackId = state.trackQueue[currentTrackQueueIdx + 1] || state.trackQueue[0];
+      // newState.tracksProgress[newState.currentTrackId] = 0;
       newState.playing = true;
       return newState;
     case MOVE_TO_PREV_TRACK:
@@ -74,6 +75,8 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
       currentTrackQueueIdx = state.trackQueue.indexOf(state.currentTrackId);
       newState.currentTrackId = state.trackQueue[currentTrackQueueIdx - 1] ||
                                 state.trackQueue[state.trackQueue.length - 1];
+      // newState.tracksProgress[newState.currentTrackId] = 0;
+      newState.playing = true;
       return newState;
     case CONTINUE_QUEUE:
       newState = _.merge({}, state);
@@ -83,7 +86,6 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
         newState.playing = true;
       }
       newState.tracksProgress[state.currentTrackId] = 0;
-      newState.tracksProgress[state.]
       newState.playing = true;
       return newState;
     case PLAYER_SEEK:
