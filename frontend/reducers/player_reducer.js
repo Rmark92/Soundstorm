@@ -3,7 +3,9 @@ import { SET_CURRENT_TRACK,
          TOGGLE_PLAYER_STATUS,
          SET_REACT_PLAYER,
          TOGGLE_PLAYER_LOOP,
-         UPDATE_PROGRESS,
+         PLAYER_SEEK,
+         WAVE_FORM_SEEK,
+         // UPDATE_PROGRESS,
          ADD_TO_QUEUE,
          REMOVE_FROM_QUEUE,
          CONTINUE_QUEUE,
@@ -23,25 +25,26 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
         newState.trackQueue = newState.trackQueue.slice(0, currentTrackQueueIdx + 1)
                                                  .concat([action.trackId])
                                                  .concat(newState.trackQueue.slice(currentTrackQueueIdx + 1));
-        newState.tracksProgress[state.currentTrackId] = action.progress;
       } else if (!includedInTrackQueue) {
         newState.trackQueue.unshift(action.trackId);
       }
+      if (state.currentTrackId) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer); }
       newState.currentTrackId = action.trackId;
-      newState.tracksProgress[state.currentTrackId] = newState.tracksProgress[state.currentTrackId] || 0;
+      newState.tracksProgress[newState.currentTrackId] = action.progress ||
+                                                         newState.tracksProgress[newState.currentTrackId] ||
+                                                         0;
       newState.playing = true;
       return newState;
     case TOGGLE_PLAYER_STATUS:
       if (state.playing) {
         return _.merge({}, state, { playing: false,
                                     tracksProgress: { [state.currentTrackId]: getCurrentProgress(state.reactPlayer) } });
-                                    // tracksProgress: { [action.trackId]: action.progress }});
       } else {
         return _.merge({}, state, { playing: true });
       }
     case TOGGLE_PLAYER_LOOP:
       newState = _.merge({}, state);
-      if (state.playing) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer); }
+      // if (state.playing) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer); }
       newState.looping = !state.looping;
       return newState;
     case SET_REACT_PLAYER:
@@ -49,13 +52,13 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
     case ADD_TO_QUEUE:
       newState = _.merge({}, state);
       newState.trackQueue.push(action.trackId);
-      if (state.playing) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer); }
+      // if (state.playing) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer); }
       return newState;
     case REMOVE_FROM_QUEUE:
       newState = _.merge({}, state);
       const toRemoveIdx = newState.trackQueue.indexOf(action.trackId);
       const newTrackQueue = newState.trackQueue.slice(0, toRemoveIdx).concat(newState.trackQueue.slice(toRemoveIdx + 1));
-      if (state.playing) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer) };
+      // if (state.playing) { newState.tracksProgress[state.currentTrackId] = getCurrentProgress(state.reactPlayer) };
       newState.trackQueue = newTrackQueue;
       return newState;
     case MOVE_TO_NEXT_TRACK:
@@ -80,10 +83,15 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
         newState.playing = true;
       }
       newState.tracksProgress[state.currentTrackId] = 0;
+      newState.tracksProgress[state.]
       newState.playing = true;
       return newState;
-    case UPDATE_PROGRESS:
-      return _.merge({}, state, { tracksProgress: { [action.trackId]: action.progress}});
+    case PLAYER_SEEK:
+      return _.merge({}, state, { lastPlayerSeek: getCurrentProgress(state.reactPlayer) });
+    case WAVE_FORM_SEEK:
+      return _.merge({}, state, { lastWaveFormSeek: action.progress, playing: true });
+    // case UPDATE_PROGRESS:
+    //   return _.merge({}, state, { tracksProgress: { [action.trackId]: action.progress}});
     default:
       return state;
   }

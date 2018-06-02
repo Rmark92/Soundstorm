@@ -38,10 +38,11 @@ export default class Player extends React.Component {
 
   calculatePlayedSeconds() {
     const trackProgress = this.props.player.tracksProgress[this.props.currentTrack.id];
+    // debugger
     if (trackProgress) {
       return trackProgress * this.duration;
     } else {
-      this.props.updateProgress(this.props.currentTrack.id, 0);
+      // this.props.updateProgress(this.props.currentTrack.id, 0);
       return 0;
     }
   }
@@ -66,10 +67,6 @@ export default class Player extends React.Component {
     }
   }
 
-  handleProgress(progress) {
-    const elapsedWidth = Math.floor((this.state.playedSeconds / this.duration) * 640);
-    this.setState({ playedSeconds: progress.playedSeconds, elapsedWidth: elapsedWidth });
-  }
 
   setProgressHover() {
     this.setState( { progressHover: true });
@@ -149,6 +146,11 @@ export default class Player extends React.Component {
     }
   }
 
+  handleProgress(progress) {
+    const elapsedWidth = Math.floor((this.state.playedSeconds / this.duration) * 640);
+    this.setState({ playedSeconds: progress.playedSeconds, elapsedWidth: elapsedWidth });
+  }
+
   handleSeeking(event) {
     const newTrackPos = parseFloat(event.target.value);
     const elapsedWidth = Math.floor((this.state.newTrackPos / this.duration) * 640);
@@ -162,7 +164,9 @@ export default class Player extends React.Component {
     this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
     this.handleProgress( { playedSeconds: newTrackPos });
     this.reactPlayer.seekTo(newTrackPos);
-    this.props.updateProgress(this.props.currentTrack.id, this.determineTrackProgress());
+
+    this.props.playerSeek();
+    // this.props.updateProgress(this.props.currentTrack.id, this.determineTrackProgress());
   }
 
   setNewTrackPos(newTrackPos) {
@@ -173,16 +177,19 @@ export default class Player extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.currentTrack &&
-        nextProps.currentTrack &&
-        nextProps.currentTrack === this.props.currentTrack) {
-      const currentProgress = (this.reactPlayer.getCurrentTime() / this.duration) || 0;
-      const newProgress = nextProps.player.tracksProgress[this.props.currentTrack.id] || 0;
-      if ( newProgress === 'playing' ) { return; }
-      if (Math.round(currentProgress * 100) !== Math.round(newProgress * 100)) {
-        this.setNewTrackPos(newProgress * this.duration);
-      }
+    if (nextProps.player.lastWaveFormSeek !== this.props.player.lastWaveFormSeek) {
+      this.setNewTrackPos(nextProps.player.lastWaveFormSeek * this.duration);
     }
+    // if (this.props.currentTrack &&
+    //     nextProps.currentTrack &&
+    //     nextProps.currentTrack === this.props.currentTrack) {
+    //   const currentProgress = (this.reactPlayer.getCurrentTime() / this.duration) || 0;
+    //   const newProgress = nextProps.player.tracksProgress[this.props.currentTrack.id] || 0;
+    //   if ( newProgress === 'playing' ) { return; }
+    //   if (Math.round(currentProgress * 100) !== Math.round(newProgress * 100)) {
+    //     this.setNewTrackPos(newProgress * this.duration);
+    //   }
+    // }
   }
 
   determineTrackProgress() {
