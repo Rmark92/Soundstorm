@@ -2,10 +2,10 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 import PlayButton from './play_button_container';
-import LikeButton from './like_button_container';
-import { formatTime } from '../util/format_time';
-import { generateRandomGradient } from '../util/generate_random_gradient';
-import { sliceText } from '../util/slice_text';
+import LikeButton from '../tracks/like_button_container';
+import { formatTime } from '../../util/format_time';
+import { generateRandomGradient } from '../../util/generate_random_gradient';
+import { sliceText } from '../../util/slice_text';
 
 export default class Player extends React.Component {
   constructor(props) {

@@ -83,7 +83,6 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
         newState.playing = true;
       }
       newState.tracksProgress[state.currentTrackId] = 0;
-      newState.tracksProgress[state.]
       newState.playing = true;
       return newState;
     case PLAYER_SEEK:

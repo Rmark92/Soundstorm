@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 // import { updateProgress } from '../actions/player_actions';
-import { waveFormSeek, setCurrentTrack } from '../actions/player_actions';
+import { waveFormSeek, setCurrentTrack } from '../../actions/player_actions';
 import WaveForm from './wave_form';
 
 const mapStateToProps = (state, ownProps) => {

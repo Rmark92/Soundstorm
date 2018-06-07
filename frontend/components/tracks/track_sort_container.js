@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { fetchTracks } from '../actions/track_actions';
-import * as SortUtil from '../util/sort_util.js';
+import { fetchTracks } from '../../actions/track_actions';
+import * as SortUtil from '../../util/sort_util.js';
 import TrackSort from './track_sort';
 
 const determineSortFunc = (trackSort) => {

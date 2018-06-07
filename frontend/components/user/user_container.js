@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { selectUserTracks } from '../util/selectors';
-import { fetchUser, updateUser } from '../actions/user_actions';
+import { selectUserTracks } from '../../util/selectors';
+import { fetchUser, updateUser } from '../../actions/user_actions';
 import UserShow from './user_show';
 
 const mapStateToProps = (state, ownProps) => {

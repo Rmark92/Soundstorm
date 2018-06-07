@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { logout } from '../actions/session_actions.js';
-import { openModal } from '../actions/modal_actions.js';
+import { logout } from '../../actions/session_actions.js';
+import { openModal } from '../../actions/modal_actions.js';
 
 class Session extends React.Component {
   constructor(props) {

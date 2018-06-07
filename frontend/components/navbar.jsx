@@ -1,5 +1,5 @@
 import React from 'react';
-import Session from './session_container.js';
+import Session from './user/session_container.js';
 import { Link } from 'react-router-dom';
 
 const navBar = () => (

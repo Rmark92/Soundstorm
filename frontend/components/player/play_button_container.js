@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setCurrentTrack, togglePlayerStatus } from '../actions/player_actions';
+import { setCurrentTrack, togglePlayerStatus } from '../../actions/player_actions';
 import PlayButton from './play_button';
 
 const mapStateToProps = (state, ownProps) => {

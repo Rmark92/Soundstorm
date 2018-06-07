@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { selectTracksById } from '../util/selectors';
+import { selectTracksById } from '../../util/selectors';
 import TrackIndex from './track_index';
 
 const mapStateToProps = (state, ownProps) => {

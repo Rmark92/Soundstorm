@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-import TrackSortContainer from './track_sort_container.js';
+import TrackSortContainer from './tracks/track_sort_container.js';
 
 class HomePage extends React.Component {
   constructor(props) {

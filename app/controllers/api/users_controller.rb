@@ -20,10 +20,9 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:tracks)
-                .includes(:liked_tracks)
-                .includes(:listened_tracks)
-                .includes(:comments)
+    @user = User.includes(:tracks, :liked_tracks,
+                          :listened_tracks, :comments,
+                          playlists: [:tracks, :user])
                 .find(params[:id])
     # @user = User.find(params[:id])
     # @tracks = @user.tracks

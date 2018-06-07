@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import FaCamera from 'react-icons/lib/fa/camera';
-import generateRandomGradient from '../util/generate_random_gradient';
-import TrackQueue from './track_queue_container';
-import TrackIndex from './track_index_container';
+import generateRandomGradient from '../../util/generate_random_gradient';
+import TrackQueue from '../tracks/track_queue_container';
+import TrackIndex from '../tracks/track_index_container';
 
 export default class UserShow extends React.Component {
   constructor(props) {
