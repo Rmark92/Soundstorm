@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { createLike, destroyLike } from '../actions/like_actions';
+import { createLike, destroyLike } from '../../actions/like_actions';
 import LikeButton from './like_button';
 
 const mapStateToProps = (state, ownProps) => {

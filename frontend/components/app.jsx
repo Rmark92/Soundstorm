@@ -4,11 +4,11 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util.js';
 import NavBar from './navbar.jsx';
 import Modal from './modal.jsx';
 import SplashMain from './splash_main.jsx';
-import TrackCreateForm from './track_create_form_container.js';
-import TrackShow from './track_show_container.js';
-import TrackIndex from './track_index_container.js';
-import Player from './player_container';
-import UserShow from './user_container';
+import TrackCreateForm from './tracks/track_create_form_container.js';
+import TrackShow from './tracks/track_show_container.js';
+import TrackIndex from './tracks/track_index_container.js';
+import Player from './player/player_container';
+import UserShow from './user/user_container';
 import Home from './home_page.jsx';
 
 const App = () => (

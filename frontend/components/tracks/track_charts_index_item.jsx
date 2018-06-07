@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PlayButton from './play_button_container';
+import PlayButton from '../player/play_button_container';
 import LikeButton from './like_button_container';
-import { timeSince } from '../util/format_time.js';
-import { generateRandomGradient } from '../util/generate_random_gradient';
+import { timeSince } from '../../util/format_time.js';
+import { generateRandomGradient } from '../../util/generate_random_gradient';
 
 export default class TrackIndexItem extends React.Component {
   constructor(props) {

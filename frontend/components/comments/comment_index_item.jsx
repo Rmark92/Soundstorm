@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { timeSince } from '../util/format_time';
+import { timeSince } from '../../util/format_time';
 import IoIosTrash from 'react-icons/lib/io/ios-trash';
 
 export default class CommentIndexItem extends React.Component {

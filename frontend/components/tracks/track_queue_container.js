@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { removeFromQueue } from '../actions/player_actions';
-import { selectTracksById } from '../util/selectors';
+import { removeFromQueue } from '../../actions/player_actions';
+import { selectTracksById } from '../../util/selectors';
 import TrackQueue from './track_queue';
 
 const mapStateToProps = (state, ownProps) => {

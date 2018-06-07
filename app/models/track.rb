@@ -31,6 +31,11 @@ class Track < ApplicationRecord
 
   has_many :comments
 
+  has_many :playlist_tracks
+  has_many :playlists,
+    through: :playlist_tracks,
+    source: :playlist
+
   def self.retrieve_with_sort(sort_type)
     case sort_type
     when 'top'

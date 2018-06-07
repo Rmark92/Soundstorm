@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import PlayButton from './play_button_container';
-import WaveForm from './wave_form_container';
-import CommentForm from './comment_form_container';
-import CommentIndex from './comment_index_container';
+import PlayButton from '../player/play_button_container';
+import WaveForm from '../player/wave_form_container';
+import CommentForm from '../comments/comment_form_container';
+import CommentIndex from '../comments/comment_index_container';
 import LikeButton from './like_button_container';
 import IoIosTrash from 'react-icons/lib/io/ios-trash';
 import TrackQueue from './track_queue_container';
-import { timeSince } from '../util/format_time.js';
-import generateRandomGradient from '../util/generate_random_gradient';
+import { timeSince } from '../../util/format_time.js';
+import generateRandomGradient from '../../util/generate_random_gradient';
 
 class TrackShow extends React.Component {
   constructor(props) {

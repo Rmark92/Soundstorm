@@ -6,9 +6,9 @@ import { togglePlayerStatus,
          // updateProgress,
          continueThroughQueue,
          moveToNextTrack,
-         moveToPrevTrack } from '../actions/player_actions';
-import { createTrackPlay } from '../actions/track_play_actions.js';
-import { selectTrackArtist } from '../util/selectors';
+         moveToPrevTrack } from '../../actions/player_actions';
+import { createTrackPlay } from '../../actions/track_play_actions.js';
+import { selectTrackArtist } from '../../util/selectors';
 import Player from './player';
 
 const mapStateToProps = (state, ownProps) => {
