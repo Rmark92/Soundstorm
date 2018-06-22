@@ -4,7 +4,7 @@ class Api::LikesController < ApplicationController
     @like.user_id = current_user.id
 
     if @like.save
-      render json: {}, status: 200
+      head :no_content
     else
       render json: @like.errors.full_messages, status: 422
     end
@@ -15,7 +15,7 @@ class Api::LikesController < ApplicationController
 
     if @like
       @like.destroy
-      render json: {}, status: 200
+      head :no_content
     else
       render json: ['Like not found'], status: 404
     end

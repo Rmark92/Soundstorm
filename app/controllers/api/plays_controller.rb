@@ -4,7 +4,7 @@ class Api::PlaysController < ApplicationController
     @play.user_id = current_user.id
 
     if @play.save
-      render json: {}, status: 200
+      head :no_content
     else
       render json: @play.errors.full_messages, status: 422
     end

@@ -16,7 +16,6 @@ json.set! :user do
   json.trackIds @user.track_ids
   json.numTracks @user.tracks_count
   json.likedIds @user.liked_tracks.pluck(:id)
-  json.playlistIds @user.playlists.pluck(:id)
   json.listenedIds @user.listened_track_ids.uniq
   json.commentIds comment_ids
 end
@@ -24,68 +23,20 @@ end
 json.set! :tracks do
   @user.tracks.each do |track|
     json.set! track.id do
-      json.extract! track, :id, :title, :description
-      json.artistId track.artist_id
-      json.createdAt track.created_at
-      json.numLikes track.likes_count
-      json.numPlays track.plays_count
-      json.numComments track.comments_count
-      json.audioURL track.audio.url
-      json.imageURL asset_path(track.image.url)
-      json.isLiked false
+      json.partial! 'api/tracks/track', track: track
     end
   end
 
   @user.listened_tracks.each do |track|
     json.set! track.id do
-      json.extract! track, :id, :title, :description
-      json.artistId track.artist_id
-      json.createdAt track.created_at
-      json.numLikes track.likes_count
-      json.numListens track.plays_count
-      json.audioURL track.audio.url
-      json.imageURL asset_path(track.image.url)
-      json.isLiked false
+      json.partial! 'api/tracks/track', track: track
     end
   end
 
   @user.liked_tracks.each do |track|
     json.set! track.id do
-      json.extract! track, :id, :title, :description
-      json.artistId track.artist_id
-      json.createdAt track.created_at
-      json.numLikes track.likes_count
-      json.numListens track.plays_count
-      json.audioURL track.audio.url
-      json.imageURL asset_path(track.image.url)
+      json.partial! 'api/tracks/track', track: track
       json.isLiked true
     end
   end
-
-  @user.playlists.each do |playlist|
-    playlist.tracks.each do |track|
-      json.set! track.id do
-        json.extract! track, :id, :title, :description
-        json.artistId track.artist_id
-        json.createdAt track.created_at
-        json.numLikes track.likes_count
-        json.numListens track.plays_count
-        json.audioURL track.audio.url
-        json.imageURL asset_path(track.image.url)
-        json.isLiked true
-      end
-    end
-  end
 end
-
-json.set! :playlists do
-  @user.playlists.each do |playlist|
-    json.set! playlist.id do
-      json.trackIds playlist.tracks.pluck(:id)
-      json.id playlist.id
-      json.title playlist.title
-      json.userId playlist.user_id
-    end
-  end
-end
-# json.isLiked !!current_user && track.is_liked_by?(current_user.id)

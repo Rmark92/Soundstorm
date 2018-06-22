@@ -21,11 +21,8 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.includes(:tracks, :liked_tracks,
-                          :listened_tracks, :comments,
-                          playlists: [:tracks, :user])
+                          :listened_tracks, :comments)
                 .find(params[:id])
-    # @user = User.find(params[:id])
-    # @tracks = @user.tracks
     render 'api/users/show_full'
   end
 

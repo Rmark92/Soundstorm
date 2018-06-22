@@ -4,13 +4,15 @@ class Api::TracksController < ApplicationController
     if params['trackSort']
       @tracks = Track.retrieve_with_sort(params['trackSort']).includes(:artist)
     else
-      @tracks = Track.includes(:artist).all
+      @tracks = Track.includes(:artist, :likes).all
     end
+    @liked_tracks = current_user ? current_user.liked_tracks.pluck(:id) : []
   end
 
   def show
     @track = Track.includes(:comments).find(params[:id])
     @user = @track.artist
+    @is_liked = current_user && current_user.liked_tracks.exists?(@track.id)
   end
 
   def create
@@ -24,9 +26,6 @@ class Api::TracksController < ApplicationController
     else
       render json: @track.errors.full_messages, status: 422
     end
-  end
-
-  def update
   end
 
   def destroy

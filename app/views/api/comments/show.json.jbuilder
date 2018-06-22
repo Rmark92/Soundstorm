@@ -1,2 +1,1 @@
-json.extract! @comment, :id, :body, :user_id, :track_id
-json.createdAt @comment.created_at
+json.partial! 'api/comments/comment', comment: @comment
