@@ -10,7 +10,6 @@ export default class CommentIndexItem extends React.Component {
   }
 
   handleDeleteClick() {
-    // debugger
     this.props.deleteComment(this.props.track.id, this.props.comment.id);
   }
 

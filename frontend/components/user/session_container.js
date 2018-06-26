@@ -37,23 +37,6 @@ class Session extends React.Component {
       </div>
     );
   }
-  // <div id="nav-user-profpic"></div>
-  // {this.renderProfPic()}
-  // renderProfPic() {
-  //   if (this.props.user.image) {
-  //     return (
-  //       <div id="nav-user-profpic">
-  //         <img src={this.props.user.image} />
-  //       </div>
-  //     );
-  //   } else {
-  //     return (
-  //       <div id="nav-user-profpic">
-  //         <div id="default-nav-prof-pic"></div>
-  //       </div>
-  //     );
-  //   }
-  // }
 
   handleNewRequest(type) {
     return (event) => {

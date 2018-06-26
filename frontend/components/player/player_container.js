@@ -3,7 +3,6 @@ import { togglePlayerStatus,
          setReactPlayer,
          toggleLoop,
          playerSeek,
-         // updateProgress,
          continueThroughQueue,
          moveToNextTrack,
          moveToPrevTrack } from '../../actions/player_actions';
@@ -29,7 +28,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     toggleLoop: () => dispatch(toggleLoop()),
     createTrackPlay: (trackId) => dispatch(createTrackPlay(trackId)),
     playerSeek: () => dispatch(playerSeek()),
-    // updateProgress: (trackId, progress) => dispatch(updateProgress(trackId, progress)),
     continueThroughQueue: () => dispatch(continueThroughQueue()),
     moveToNextTrack: () => dispatch(moveToNextTrack()),
     moveToPrevTrack: () => dispatch(moveToPrevTrack())

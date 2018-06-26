@@ -13,24 +13,13 @@ export default class PlayButton extends React.Component {
       this.className = `${nextProps.inputType}-btn-${this.props.styleType}`;
     }
   }
-  //
-  // determineTrackProgress() {
-  //   if (this.props.reactPlayer) {
-  //     return (this.props.reactPlayer.getCurrentTime() / this.props.reactPlayer.getDuration());
-  //   } else {
-  //     return null;
-  //   }
-  // }
 
   handleClick(event) {
     event.stopPropagation();
-    // debugger
     if (this.props.isCurrentTrack) {
       this.props.togglePlayerStatus(this.props.trackId);
-      // this.props.togglePlayerStatus(this.props.trackId, this.determineTrackProgress());
     } else {
       this.props.setCurrentTrack(this.props.trackId);
-      // this.props.setCurrentTrack(this.props.trackId, this.determineTrackProgress());
     }
   }
 

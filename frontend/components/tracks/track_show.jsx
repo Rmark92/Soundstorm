@@ -199,5 +199,3 @@ class TrackShow extends React.Component {
 }
 
 export default withRouter(TrackShow);
-
-// <div className="play-btn-large"></div>

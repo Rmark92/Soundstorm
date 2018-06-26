@@ -84,7 +84,6 @@ class TrackForm extends React.Component {
   handleCancel(event) {
     event.preventDefault();
     this.props.clearTrackErrors();
-    // debugger;
     this.props.history.goBack();
   }
 

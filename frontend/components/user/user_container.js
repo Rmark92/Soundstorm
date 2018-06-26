@@ -7,7 +7,6 @@ import UserShow from './user_show';
 const mapStateToProps = (state, ownProps) => {
   const userId = ownProps.match.params.userId;
   const user = state.entities.users[userId] || {};
-  // debugger
   return {
     currentUserId: state.session.id,
     userId,

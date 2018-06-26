@@ -73,18 +73,6 @@ export default class UserShow extends React.Component {
       formData.append("user[image]", file);
       this.props.updateUser(this.props.userId, formData);
     }
-    // const formData = new FormData();
-    // formData.append("user[image]", file);
-    //
-    // const fileReader = new FileReader();
-    // fileReader.onloadend = function () {
-    //   this.
-    //   this.setState({ [type + 'File']: file, [type + 'URL']: fileReader.result });
-    // }.bind(this);
-    //
-    // if (file) {
-    //   fileReader.readAsDataURL(file);
-    // }
   }
 
   renderUserImageEdit() {

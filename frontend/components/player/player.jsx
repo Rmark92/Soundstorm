@@ -21,7 +21,6 @@ export default class Player extends React.Component {
     };
 
     this.ref = this.ref.bind(this);
-    this.handlePause = this.handlePause.bind(this);
     this.handleLoop = this.handleLoop.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
     this.setDuration = this.setDuration.bind(this);
@@ -38,11 +37,9 @@ export default class Player extends React.Component {
 
   calculatePlayedSeconds() {
     const trackProgress = this.props.player.tracksProgress[this.props.currentTrack.id];
-    // debugger
     if (trackProgress) {
       return trackProgress * this.duration;
     } else {
-      // this.props.updateProgress(this.props.currentTrack.id, 0);
       return 0;
     }
   }
@@ -55,7 +52,6 @@ export default class Player extends React.Component {
   setDuration(duration) {
     this.duration = duration;
     const playedSeconds = this.calculatePlayedSeconds();
-    // debugger;
     this.setState( { playedSeconds }, () => {
       this.reactPlayer.seekTo(playedSeconds);
     });
@@ -67,19 +63,12 @@ export default class Player extends React.Component {
     }
   }
 
-
   setProgressHover() {
     this.setState( { progressHover: true });
   }
 
   unsetProgressHover() {
     this.setState( { progressHover: false });
-  }
-
-  handlePause() {
-    // const currentTime = this.reactPlayer.getCurrentTime() / this.duration;
-    // debugger
-    // this.props.updateProgress(this.props.currentTrack.id, currentTime);
   }
 
   handleLoop() {
@@ -166,7 +155,6 @@ export default class Player extends React.Component {
     this.reactPlayer.seekTo(newTrackPos);
 
     this.props.playerSeek();
-    // this.props.updateProgress(this.props.currentTrack.id, this.determineTrackProgress());
   }
 
   setNewTrackPos(newTrackPos) {
@@ -180,16 +168,6 @@ export default class Player extends React.Component {
     if (nextProps.player.lastWaveFormSeek !== this.props.player.lastWaveFormSeek) {
       this.setNewTrackPos(nextProps.player.lastWaveFormSeek * this.duration);
     }
-    // if (this.props.currentTrack &&
-    //     nextProps.currentTrack &&
-    //     nextProps.currentTrack === this.props.currentTrack) {
-    //   const currentProgress = (this.reactPlayer.getCurrentTime() / this.duration) || 0;
-    //   const newProgress = nextProps.player.tracksProgress[this.props.currentTrack.id] || 0;
-    //   if ( newProgress === 'playing' ) { return; }
-    //   if (Math.round(currentProgress * 100) !== Math.round(newProgress * 100)) {
-    //     this.setNewTrackPos(newProgress * this.duration);
-    //   }
-    // }
   }
 
   determineTrackProgress() {
@@ -228,7 +206,6 @@ export default class Player extends React.Component {
                          width="0px"
                          volume={this.state.volume}
                          muted={this.state.muted}
-                         onPause={this.handlePause}
                          onProgress={this.handleProgress}
                          onDuration={this.setDuration}
                          onStart={this.handleTrackStart}
@@ -275,39 +252,3 @@ export default class Player extends React.Component {
     }
   }
 }
-
-  // setVolume(event) {
-  //   // debugger;
-  // }
-
-  // showVolumeBar() {
-  //   this.setState({ volumeDisplayed: true });
-  // }
-  //
-  // hideVolumeBar() {
-  //   this.setState({ volumeDisplayed: false });
-  // }
-
-  // renderVolumeInput() {
-  //   if (this.state.volumeDisplayed) {
-  //     return (
-  //       <div className="volume-control-bar">
-  //         <input className="volume-input"
-  //                type="range"
-  //                step="any"
-  //                min="0"
-  //                max="1"
-  //                onChange={this.setVolume}
-  //                value={this.state.volume}></input>
-  //       </div>
-  //     );
-  //   }
-  // }
-
-// <div className="player-volume-control" onMouseEnter={this.showVolumeBar} onMouseLeave={this.hideVolumeBar}>
-//   {this.renderVolumeInput()}
-// </div>
-
-// <div className="player-volume-control" onMouseEnter={this.showVolumeBar} onMouseLeave={this.hideVolumeBar}>
-//   {this.renderVolumeInput()}
-// </div>

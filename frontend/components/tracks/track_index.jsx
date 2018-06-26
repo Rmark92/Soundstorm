@@ -67,10 +67,3 @@ export default class TrackIndex extends React.Component {
     );
   }
 }
-// <div className="track-index-header">
-
-// <div className="track-info-cols">
-//   {this.renderRankHeader()}
-//   <div className="track-info-header">Track</div>
-// </div>
-// <div className="track-data-col">{this.dataCol}</div>

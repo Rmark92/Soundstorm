@@ -1,9 +1,6 @@
 import React from 'react';
 import FaHeart from 'react-icons/lib/fa/heart';
 
-// Is it a bad idea to change state first so we dont have to wait
-// for props to change via server response?
-
 export default class LikeButton extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +15,6 @@ export default class LikeButton extends React.Component {
     } else {
       return { fill: "#333"};
     }
-    // return isLiked ? { fill: "f50" } : { fill: "#333" };
   }
 
   handleClick(event) {
@@ -68,5 +64,3 @@ export default class LikeButton extends React.Component {
     }
   }
 }
-
-// <div className={this.props.divClass} style={this.setDivStyle()} onClick={this.handleClick}></div>

@@ -36,14 +36,6 @@ export default class TrackIndexItem extends React.Component {
       return <PlayButton styleType="medium" trackId={this.props.track.id}></PlayButton>;
     }
   }
-  //
-  // renderLikeButton() {
-  //   if (this.state.selected) {
-  //     return (
-  //       <LikeButton divClass="like-btn-medium-index" trackId={this.props.track.id}></LikeButton>
-  //     );
-  //   }
-  // }
 
   handleClick() {
     if (this.props.isCurrentTrack) {

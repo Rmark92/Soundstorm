@@ -28,12 +28,6 @@ export default class SessionForm extends React.Component {
     });
   }
 
-  // renderErrors() {
-  //   return this.props.errors.map( (error, idx) => {
-  //     return <p class="error-message">*{error}</p>;
-  //   })}
-  // }
-
   render() {
     return (
       <div>
@@ -55,9 +49,3 @@ export default class SessionForm extends React.Component {
     );
   }
 }
-
-// {this.props.otherForm}
-// <div id="demo-login-option">
-//   <p>{" - or - "}</p>
-//   <p{"Sign in as demo user"}
-// </div>

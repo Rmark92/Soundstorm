@@ -21,7 +21,4 @@ class HomePage extends React.Component {
   }
 }
 
-// <TrackSortContainer></TrackSortContainer>
-
-
 export default HomePage;

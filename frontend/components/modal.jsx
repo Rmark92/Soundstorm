@@ -5,8 +5,6 @@ import LogInForm from './user/login_form_container.js';
 import SignUpForm from './user/signup_form_container.js';
 
 const Modal = (props) => {
-  // if (!modal) { return null; }
-
   let component;
   switch(props.modal) {
     case 'login':

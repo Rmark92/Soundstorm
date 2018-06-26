@@ -7,7 +7,6 @@ const mapStateToProps = (state, ownProps) => {
   const track = ownProps.track;
   const isCurrentTrack = state.ui.player.currentTrackId === track.id;
   const inQueue = state.ui.player.trackQueue.includes(track.id);
-  // debugger;
   return {
     track,
     artist: selectTrackArtist(state, track),
