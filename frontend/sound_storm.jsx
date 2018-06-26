@@ -22,9 +22,5 @@ document.addEventListener("DOMContentLoaded", () => {
     preloadedState = {};
   }
   const store = configureStore(preloadedState);
-  window.store = store;
-  window.dispatch = store.dispatch;
-  window.getState = store.getState;
-  window.fetchTracks = fetchTracks;
   ReactDOM.render(<Root store={store}></Root>, root);
 });
