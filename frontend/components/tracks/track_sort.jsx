@@ -23,7 +23,7 @@ export default class TrackSort extends React.Component {
       case "recent":
         return "Hear the latest tracks posted to soundstorm";
       case "top":
-        return "The most played tracks on soundstorm";
+        return "The most popular tracks on soundstorm";
       case "random":
         return "Check out these randomly selected songs";
     }
