@@ -60,6 +60,8 @@ export default class WaveForm extends React.Component {
     this.wavesurfer.on('seek', (pos) => {
       if (this.props.isCurrentTrack &&
           Math.round(pos * 100) !== Math.round(this.currentPlayerTime() * 100)) {
+            console.log(this.currentPlayerTime() * 100);
+            console.log(pos * 100);
         this.props.waveFormSeek(pos);
       } else if (this.props.lastProgressStamp !== pos) {
         this.props.setCurrentTrack(this.props.track.id, pos);
