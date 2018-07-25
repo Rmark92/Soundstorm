@@ -35,37 +35,14 @@ export default class Player extends React.Component {
     this.handlePrevTrackClick = this.handlePrevTrackClick.bind(this);
   }
 
-  // calculatePlayedSeconds() {
-  //   const trackProgress = this.props.player.tracksProgress[this.props.currentTrack.id];
-  //   if (trackProgress) {
-  //     return trackProgress * this.duration;
-  //   } else {
-  //     return 0;
-  //   }
-  // }
-
   calculatePlayedSeconds() {
     return this.props.player.tracksProgress[this.props.currentTrack.id] || 0;
-    // const trackProgress = this.props.player.tracksProgress[this.props.currentTrack.id];
-    // if (trackProgress) {
-    //   return trackProgress * this.duration;
-    // } else {
-    //   return 0;
-    // }
   }
 
   ref(player) {
     this.reactPlayer = player;
     this.props.setReactPlayer(player);
   }
-
-  // setDuration(duration) {
-  //   this.duration = duration;
-  //   const playedSeconds = this.calculatePlayedSeconds();
-  //   this.setState( { playedSeconds }, () => {
-  //     this.reactPlayer.seekTo(playedSeconds);
-  //   });
-  // }
 
   setDuration(duration) {
     this.duration = duration;
@@ -104,21 +81,6 @@ export default class Player extends React.Component {
       return <div className="loop-btn" onClick={this.handleLoop}></div>;
     }
   }
-
-  // renderSeekInput() {
-  //   if (this.state.progressHover) {
-  //     return (
-  //       <input className="seek-input"
-  //              type="range"
-  //              min="0"
-  //              max={this.duration ? String(Math.round(this.duration)) : "0"}
-  //              onChange={this.seek}
-  //              onInput={this.handleSeeking}
-  //              step="any"
-  //              value={String(this.state.playedSeconds)}></input>
-  //     );
-  //   }
-  // }
 
   renderSeekInput() {
     const duration = this.duration || 0;
@@ -169,22 +131,10 @@ export default class Player extends React.Component {
     }
   }
 
-  // handleProgress(progress) {
-  //   const elapsedWidth = Math.floor((this.state.playedSeconds / this.duration) * 640);
-  //   this.setState({ playedSeconds: progress.playedSeconds, elapsedWidth: elapsedWidth });
-  // }
-
   handleProgress(progress) {
     const elapsedWidth = Math.floor(this.state.playedSeconds * 640);
     this.setState({ playedSeconds: progress.played, elapsedWidth: elapsedWidth });
   }
-
-  // handleSeeking(event) {
-  //   const newTrackPos = parseFloat(event.target.value);
-  //   const elapsedWidth = Math.floor((this.state.newTrackPos / this.duration) * 640);
-  //   this.setState({ playedSeconds: newTrackPos / this.duration, elapsedWidth: elapsedWidth });
-  //   this.handleProgress( { playedSeconds: newTrackPos });
-  // }
 
   handleSeeking(event) {
     const newTrackPos = parseFloat(event.target.value);
@@ -192,16 +142,6 @@ export default class Player extends React.Component {
     this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
     this.handleProgress( { playedSeconds: newTrackPos });
   }
-
-  // seek(event) {
-  //   const newTrackPos = parseFloat(event.target.value);
-  //   const elapsedWidth = Math.floor((this.state.newTrackPos / this.duration) * 640);
-  //   this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
-  //   this.handleProgress( { playedSeconds: newTrackPos });
-  //   this.reactPlayer.seekTo(newTrackPos);
-  //
-  //   this.props.playerSeek();
-  // }
 
   seek(event) {
     const newTrackPos = parseFloat(event.target.value);
@@ -213,13 +153,6 @@ export default class Player extends React.Component {
     this.props.playerSeek();
   }
 
-  // setNewTrackPos(newTrackPos) {
-  //   const elapsedWidth = Math.floor((this.state.newTrackPos / this.duration) * 640);
-  //   this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
-  //   this.handleProgress( { playedSeconds: newTrackPos });
-  //   this.reactPlayer.seekTo(newTrackPos);
-  // }
-
   setNewTrackPos(newTrackPos) {
     const elapsedWidth = Math.floor(this.state.newTrackPos * 640);
     this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
@@ -227,18 +160,8 @@ export default class Player extends React.Component {
     this.reactPlayer.seekTo(newTrackPos);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.player.lastWaveFormSeek !== this.props.player.lastWaveFormSeek) {
-  //     console.log(nextProps.player.lastWaveFormSeek);
-  //     console.log(this.duration);
-  //     this.setNewTrackPos(nextProps.player.lastWaveFormSeek * this.duration);
-  //   }
-  // }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.player.lastWaveFormSeek !== this.props.player.lastWaveFormSeek) {
-      // console.log(nextProps.player.lastWaveFormSeek);
-      // console.log(this.duration);
       this.setNewTrackPos(nextProps.player.lastWaveFormSeek);
     }
   }
