@@ -33,32 +33,6 @@ export default class TrackIndexItem extends React.Component {
     }
   }
 
-  // renderPlayButton() {
-  //   if (this.state.selected) {
-  //     return <PlayButton styleType="medium" trackId={this.props.track.id}></PlayButton>;
-  //   }
-  // }
-  //
-  // renderLikeButton() {
-  //   if (this.state.selected) {
-  //     return (
-  //       <LikeButton divClass="like-btn-medium-index" trackId={this.props.track.id}></LikeButton>
-  //     );
-  //   }
-  // }
-  //
-  // handleClick() {
-  //   if (this.props.isCurrentTrack) {
-  //     this.props.togglePlayerStatus();
-  //   } else {
-  //     this.props.setCurrentTrack(this.props.track.id);
-  //   }
-  // }
-  //
-  // linkClick(event) {
-  //   event.stopPropagation();
-  // }
-
   renderTrackImage() {
     if (this.props.track.imageURL) {
       return (

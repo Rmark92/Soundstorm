@@ -64,6 +64,9 @@ export default class WaveForm extends React.Component {
             console.log(pos * 100);
         this.props.waveFormSeek(pos);
       } else if (this.props.lastProgressStamp !== pos) {
+        if (!this.props.lastProgressStamp && this.props.loggedIn) {
+          this.props.createTrackPlay(this.props.track.id);
+        }
         this.props.setCurrentTrack(this.props.track.id, pos);
       }
     });

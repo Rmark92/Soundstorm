@@ -24,8 +24,8 @@ export default (state = {}, action) => {
     case REMOVE_LIKE:
       return _.merge({}, state, { [action.trackId]: { isLiked: false } });
     case RECEIVE_TRACK_PLAY:
-      const newPlayCount = (state[action.trackId].plays || 0 ) + 1;
-      return _.merge({}, state, { [action.trackId]: { plays: newPlayCount }});
+      const newPlayCount = (state[action.trackId].numPlays || 0 ) + 1;
+      return _.merge({}, state, { [action.trackId]: { numPlays: newPlayCount }});
     case RECEIVE_COMMENT:
       trackId = action.comment.track_id;
       const track = state[trackId];

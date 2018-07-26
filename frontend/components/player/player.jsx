@@ -15,8 +15,7 @@ export default class Player extends React.Component {
       volume: 1,
       muted: false,
       elapsed: 0,
-      progressHover: false,
-      volumeDisplayed: false
+      progressHover: false
     };
 
     this.ref = this.ref.bind(this);
@@ -45,15 +44,18 @@ export default class Player extends React.Component {
   setDuration(duration) {
     this.duration = duration;
     const elapsed = this.calculateElapsed();
+    if (!elapsed && this.props.loggedIn) {
+      this.props.createTrackPlay(this.props.currentTrack.id);
+    }
     this.setState( { elapsed }, () => {
       this.reactPlayer.seekTo(elapsed);
     });
   }
 
   handleTrackStart() {
-    if (this.props.loggedIn) {
-      this.props.createTrackPlay(this.props.currentTrack.id);
-    }
+    // if (this.props.loggedIn) {
+    //   this.props.createTrackPlay(this.props.currentTrack.id);
+    // }
   }
 
   setProgressHover() {
