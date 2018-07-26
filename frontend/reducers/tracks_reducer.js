@@ -7,6 +7,7 @@ import { RECEIVE_COMMENT, REMOVE_COMMENT } from '../actions/comment_actions';
 
 export default (state = {}, action) => {
   Object.freeze(state);
+  let newLikeCount;
   let trackId;
   switch (action.type) {
     case RECEIVE_TRACK:
@@ -20,9 +21,13 @@ export default (state = {}, action) => {
     case RECEIVE_USER:
       return _.merge({}, state, action.payload.tracks);
     case RECEIVE_LIKE:
-      return _.merge({}, state, { [action.trackId]: { isLiked: true } });
+      newLikeCount = (state[action.trackId].numLikes || 0 ) + 1;
+      return _.merge({}, state, { [action.trackId]: { isLiked: true,
+                                                      numLikes: newLikeCount } });
     case REMOVE_LIKE:
-      return _.merge({}, state, { [action.trackId]: { isLiked: false } });
+      newLikeCount = (state[action.trackId].numLikes || 1 ) - 1;
+      return _.merge({}, state, { [action.trackId]: { isLiked: false,
+                                                      numLikes: newLikeCount } });
     case RECEIVE_TRACK_PLAY:
       const newPlayCount = (state[action.trackId].numPlays || 0 ) + 1;
       return _.merge({}, state, { [action.trackId]: { numPlays: newPlayCount }});
