@@ -14,8 +14,7 @@ export default class Player extends React.Component {
     this.state = {
       volume: 1,
       muted: false,
-      playedSeconds: 0,
-      elapsedWidth: 0,
+      elapsed: 0,
       progressHover: false,
       volumeDisplayed: false
     };
@@ -28,14 +27,13 @@ export default class Player extends React.Component {
     this.unsetProgressHover = this.unsetProgressHover.bind(this);
     this.seek = this.seek.bind(this);
     this.toggleMuted = this.toggleMuted.bind(this);
-    this.handleSeeking = this.handleSeeking.bind(this);
     this.handleTrackEnded = this.handleTrackEnded.bind(this);
     this.handleTrackStart = this.handleTrackStart.bind(this);
     this.handleNextTrackClick = this.handleNextTrackClick.bind(this);
     this.handlePrevTrackClick = this.handlePrevTrackClick.bind(this);
   }
 
-  calculatePlayedSeconds() {
+  calculateElapsed() {
     return this.props.player.tracksProgress[this.props.currentTrack.id] || 0;
   }
 
@@ -46,9 +44,9 @@ export default class Player extends React.Component {
 
   setDuration(duration) {
     this.duration = duration;
-    const playedSeconds = this.calculatePlayedSeconds();
-    this.setState( { playedSeconds }, () => {
-      this.reactPlayer.seekTo(playedSeconds);
+    const elapsed = this.calculateElapsed();
+    this.setState( { elapsed }, () => {
+      this.reactPlayer.seekTo(elapsed);
     });
   }
 
@@ -91,9 +89,8 @@ export default class Player extends React.Component {
                min="0"
                max="1"
                onChange={this.seek}
-               onInput={this.handleSeeking}
                step="any"
-               value={String(this.state.playedSeconds)}></input>
+               value={String(this.state.elapsed)}></input>
       );
     }
   }
@@ -132,30 +129,16 @@ export default class Player extends React.Component {
   }
 
   handleProgress(progress) {
-    const elapsedWidth = Math.floor(this.state.playedSeconds * 640);
-    this.setState({ playedSeconds: progress.played, elapsedWidth: elapsedWidth });
-  }
-
-  handleSeeking(event) {
-    const newTrackPos = parseFloat(event.target.value);
-    const elapsedWidth = Math.floor(this.state.newTrackPos * 640);
-    this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
-    this.handleProgress( { playedSeconds: newTrackPos });
+    this.setState({ elapsed: progress.played });
   }
 
   seek(event) {
     const newTrackPos = parseFloat(event.target.value);
-    const elapsedWidth = Math.floor(this.state.newTrackPos * 640);
-    this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
-    this.handleProgress( { played: newTrackPos });
-    this.reactPlayer.seekTo(newTrackPos);
-
+    this.setNewTrackPos(newTrackPos);
     this.props.playerSeek();
   }
 
   setNewTrackPos(newTrackPos) {
-    const elapsedWidth = Math.floor(this.state.newTrackPos * 640);
-    this.setState({ playedSeconds: newTrackPos, elapsedWidth: elapsedWidth });
     this.handleProgress( { played: newTrackPos });
     this.reactPlayer.seekTo(newTrackPos);
   }
@@ -163,14 +146,6 @@ export default class Player extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.player.lastWaveFormSeek !== this.props.player.lastWaveFormSeek) {
       this.setNewTrackPos(nextProps.player.lastWaveFormSeek);
-    }
-  }
-
-  determineTrackProgress() {
-    if (this.reactPlayer) {
-      return (this.reactPlayer.getCurrentTime() / this.reactPlayer.getDuration());
-    } else {
-      return null;
     }
   }
 
@@ -216,12 +191,12 @@ export default class Player extends React.Component {
            </div>
            <div className="progress-bar-container" onMouseEnter={this.setProgressHover} onMouseLeave={this.unsetProgressHover}>
              <div className="player-bar-progress-time">
-               {formatTime(this.state.playedSeconds * this.duration)}
+               {formatTime(this.state.elapsed * this.duration)}
              </div>
              <div className="progress-bar">
-               <div className="progress-bar-elapsed" style={ {width: `${this.state.elapsedWidth}px`} }>
-                 {this.renderSeekInput()}
+               <div className="progress-bar-elapsed" style={ {width: `${Math.floor(this.state.elapsed * 640)}px`} }>
                </div>
+               {this.renderSeekInput()}
              </div>
              <div className="player-bar-duration-time">
                {formatTime(this.duration)}
