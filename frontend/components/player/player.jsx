@@ -25,7 +25,6 @@ export default class Player extends React.Component {
     this.setProgressHover = this.setProgressHover.bind(this);
     this.unsetProgressHover = this.unsetProgressHover.bind(this);
     this.handleSeek = this.handleSeek.bind(this);
-    this.handleSeeking = this.handleSeeking.bind(this);
     this.toggleMuted = this.toggleMuted.bind(this);
     this.handleTrackEnded = this.handleTrackEnded.bind(this);
     this.handleTrackStart = this.handleTrackStart.bind(this);
@@ -33,7 +32,7 @@ export default class Player extends React.Component {
     this.handlePrevTrackClick = this.handlePrevTrackClick.bind(this);
   }
 
-  calculateElapsed() {
+  calculateInitElapsed() {
     return this.props.player.tracksProgress[this.props.currentTrack.id] || 0;
   }
 
@@ -44,14 +43,14 @@ export default class Player extends React.Component {
 
   setDuration(duration) {
     this.duration = duration;
-    const elapsed = this.calculateElapsed();
+    const elapsed = this.calculateInitElapsed();
     this.setState( { elapsed }, () => {
       this.reactPlayer.seekTo(elapsed);
     });
   }
 
   handleTrackStart() {
-    if (this.props.loggedIn && !this.calculateElapsed()) {
+    if (this.props.loggedIn && !this.calculateInitElapsed()) {
       this.props.createTrackPlay(this.props.currentTrack.id);
     }
   }
@@ -95,6 +94,14 @@ export default class Player extends React.Component {
     }
   }
 
+  handleSeek(event) {
+    const newTrackPos = parseFloat(event.target.value);
+    console.log(newTrackPos);
+    this.reactPlayer.seekTo(newTrackPos);
+    this.props.playerSeek();
+    console.log('here');
+  }
+
   toggleMuted() {
     this.setState( { muted: !this.state.muted });
   }
@@ -132,29 +139,6 @@ export default class Player extends React.Component {
     this.setState({ elapsed: progress.played });
   }
 
-  handleSeeking(event) {
-    event.stopPropagation();
-    this.setState({ elapsed: parseFloat(event.target.value) });
-  }
-
-  handleSeek(event) {
-    const newTrackPos = parseFloat(event.target.value);
-    console.log(newTrackPos);
-    this.reactPlayer.seekTo(newTrackPos);
-    // this.setNewTrackPos(newTrackPos);
-    this.props.playerSeek();
-    console.log('here');
-  }
-
-  handleSeek(seconds) {
-    // this.handleProgress( { played: seconds / this.duration });
-  }
-
-  setNewTrackPos(newTrackPos) {
-    this.handleProgress( { played: newTrackPos });
-    // this.reactPlayer.seekTo(newTrackPos);
-  }
-
   handleTrackEnded() {
     this.props.continueThroughQueue();
   }
@@ -169,8 +153,6 @@ export default class Player extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.player.lastWaveFormSeek !== this.props.player.lastWaveFormSeek) {
-      console.log('should not log');
-      // this.setNewTrackPos(nextProps.player.lastWaveFormSeek);
       this.reactPlayer.seekTo(nextProps.player.lastWaveFormSeek);
     }
   }

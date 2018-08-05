@@ -111,5 +111,5 @@ const getCurrentProgress = (player) => {
 
 const selectRandomTrackId = (tracks) => {
   const trackIds = Object.keys(tracks);
-  return trackIds[Math.round(Math.random() * trackIds.length)];
+  return trackIds[Math.floor(Math.random() * trackIds.length)];
 };
