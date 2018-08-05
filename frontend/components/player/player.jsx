@@ -96,10 +96,8 @@ export default class Player extends React.Component {
 
   handleSeek(event) {
     const newTrackPos = parseFloat(event.target.value);
-    console.log(newTrackPos);
     this.reactPlayer.seekTo(newTrackPos);
     this.props.playerSeek();
-    console.log('here');
   }
 
   toggleMuted() {
