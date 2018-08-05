@@ -5,7 +5,8 @@ import { togglePlayerStatus,
          playerSeek,
          continueThroughQueue,
          moveToNextTrack,
-         moveToPrevTrack } from '../../actions/player_actions';
+         moveToPrevTrack,
+         setCurrentTrack } from '../../actions/player_actions';
 import { createTrackPlay } from '../../actions/track_play_actions.js';
 import { selectTrackArtist } from '../../util/selectors';
 import Player from './player';
@@ -17,7 +18,7 @@ const mapStateToProps = (state, ownProps) => {
     player,
     currentTrack,
     artist: selectTrackArtist(state, currentTrack),
-    loggedIn: !!state.session.id,
+    loggedIn: !!state.session.id
   };
 };
 

@@ -10,6 +10,7 @@ import { SET_CURRENT_TRACK,
          CONTINUE_QUEUE,
          MOVE_TO_NEXT_TRACK,
          MOVE_TO_PREV_TRACK} from '../actions/player_actions.js';
+import { RECEIVE_TRACK, RECEIVE_TRACKS } from '../actions/track_actions.js';
 
 export default (state = { playing: false, looping: false, tracksProgress: {}, trackQueue: [] }, action) => {
   let newState;
@@ -34,6 +35,18 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
                                                          0;
       newState.playing = true;
       return newState;
+    case RECEIVE_TRACK:
+      if (!state.currentTrackId) {
+        return _.merge({}, state, { currentTrackId: action.track.id});
+      } else {
+        return state;
+      }
+    case RECEIVE_TRACKS:
+      if (!state.currentTrackId) {
+        return _.merge({}, state, { currentTrackId: selectRandomTrackId(action.tracks) });
+      } else {
+        return state;
+      }
     case TOGGLE_PLAYER_STATUS:
       if (state.playing) {
         return _.merge({}, state, { playing: false,
@@ -93,4 +106,10 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
 
 const getCurrentProgress = (player) => {
   return player.getCurrentTime() / player.getDuration();
+};
+
+
+const selectRandomTrackId = (tracks) => {
+  const trackIds = Object.keys(tracks);
+  return trackIds[Math.round(Math.random() * trackIds.length)];
 };
