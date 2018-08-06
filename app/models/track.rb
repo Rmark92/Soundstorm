@@ -1,4 +1,6 @@
 class Track < ApplicationRecord
+  include PgSearch
+  multisearchable :against => :title
   validates :title, :artist_id, :audio, presence: true
   validates :title, length: { maximum: 50 }
   validates :description, length: { maximum: 255, allow_nil: true }
