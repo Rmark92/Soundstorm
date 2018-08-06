@@ -30,6 +30,8 @@ export default class Player extends React.Component {
     this.handleTrackStart = this.handleTrackStart.bind(this);
     this.handleNextTrackClick = this.handleNextTrackClick.bind(this);
     this.handlePrevTrackClick = this.handlePrevTrackClick.bind(this);
+    this.handleBuffering = this.handleBuffering.bind(this);
+    this.handlePlaying = this.handlePlaying.bind(this);
   }
 
   calculateInitElapsed() {
@@ -149,6 +151,14 @@ export default class Player extends React.Component {
     this.props.moveToPrevTrack();
   }
 
+  handleBuffering() {
+    this.props.updateBufferStatus(true);
+  }
+
+  handlePlaying() {
+    this.props.updateBufferStatus(false);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.player.lastWaveFormSeek !== this.props.player.lastWaveFormSeek) {
       this.reactPlayer.seekTo(nextProps.player.lastWaveFormSeek);
@@ -175,6 +185,8 @@ export default class Player extends React.Component {
                          onDuration={this.setDuration}
                          onStart={this.handleTrackStart}
                          onEnded={this.handleTrackEnded}
+                         onBuffer={this.handleBuffering}
+                         onPlay={this.handlePlaying}
                          config={ { file: { forceAudio: true } }}
              />
            <div className="player-buttons">

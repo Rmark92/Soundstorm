@@ -62,7 +62,7 @@ export default class WaveForm extends React.Component {
           Math.round(pos * 100) !== Math.round(this.currentPlayerTime() * 100)) {
         this.props.waveFormSeek(pos);
       } else if (this.props.lastProgressStamp !== pos) {
-        if (!this.props.lastProgressStamp && this.props.loggedIn && !this.props.playing) {
+        if (!this.props.lastProgressStamp && this.props.loggedIn) {
           this.props.createTrackPlay(this.props.track.id);
         }
         this.props.setCurrentTrack(this.props.track.id, pos);
@@ -78,7 +78,7 @@ export default class WaveForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.playing && nextProps.isCurrentTrack) {
+    if (nextProps.playing && !nextProps.buffering && nextProps.isCurrentTrack) {
       this.wavesurfer.play();
     } else {
       this.wavesurfer.pause();

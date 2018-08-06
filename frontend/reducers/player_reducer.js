@@ -9,7 +9,8 @@ import { SET_CURRENT_TRACK,
          REMOVE_FROM_QUEUE,
          CONTINUE_QUEUE,
          MOVE_TO_NEXT_TRACK,
-         MOVE_TO_PREV_TRACK} from '../actions/player_actions.js';
+         MOVE_TO_PREV_TRACK,
+         UPDATE_BUFFER_STATUS } from '../actions/player_actions.js';
 import { RECEIVE_TRACK, RECEIVE_TRACKS } from '../actions/track_actions.js';
 
 export default (state = { playing: false, looping: false, tracksProgress: {}, trackQueue: [] }, action) => {
@@ -99,6 +100,8 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
       return _.merge({}, state, { lastPlayerSeek: getCurrentProgress(state.reactPlayer) });
     case WAVE_FORM_SEEK:
       return _.merge({}, state, { lastWaveFormSeek: action.progress, playing: true });
+    case UPDATE_BUFFER_STATUS:
+      return _.merge({}, state, { buffering: action.isBuffering })
     default:
       return state;
   }

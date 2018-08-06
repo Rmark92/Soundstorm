@@ -6,7 +6,7 @@ import { togglePlayerStatus,
          continueThroughQueue,
          moveToNextTrack,
          moveToPrevTrack,
-         setCurrentTrack } from '../../actions/player_actions';
+         updateBufferStatus } from '../../actions/player_actions';
 import { createTrackPlay } from '../../actions/track_play_actions.js';
 import { selectTrackArtist } from '../../util/selectors';
 import Player from './player';
@@ -31,7 +31,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     playerSeek: () => dispatch(playerSeek()),
     continueThroughQueue: () => dispatch(continueThroughQueue()),
     moveToNextTrack: () => dispatch(moveToNextTrack()),
-    moveToPrevTrack: () => dispatch(moveToPrevTrack())
+    moveToPrevTrack: () => dispatch(moveToPrevTrack()),
+    updateBufferStatus: (isBuffering) => dispatch(updateBufferStatus(isBuffering))
   };
 };
 
