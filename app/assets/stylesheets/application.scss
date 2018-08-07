@@ -58,6 +58,11 @@ img {
   width: 75px;
 }
 
+.navbar-left {
+  display: flex;
+  height: 100%;
+}
+
 #logo {
   background-image: image_url('logo.png');
   background-size: contain;
@@ -80,6 +85,66 @@ img {
 
 #home-link:hover {
   color: white;
+}
+
+.search {
+  margin: auto;
+  position: relative;
+}
+
+.search-bar > input {
+  width: 500px;
+  height: 24px;
+  color: #666;
+  font-size: 14px;
+  padding-left: 7px;
+  padding-right: 5px;
+  border-radius: 4px;
+  outline: 0px;
+  border: 0px;
+}
+
+.search-results {
+  position: absolute;
+  background-color: #313131;
+  z-index: 1;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 514px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.search-result {
+  display: flex;
+  height: 35px;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: #ccc6c6;
+  font-size: 13px;
+}
+
+.search-result:hover {
+  color: white;
+}
+
+.search-result-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  left: 10px;
+}
+
+.search-result-left > img {
+  height: 25px;
+  width: 25px;
+  margin-right: 10px;
 }
 
 .session-links {

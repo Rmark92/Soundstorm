@@ -7,8 +7,10 @@ import Search from './search/search_container.js';
 const navBar = () => (
   <header>
     <nav>
-      <div id="logo"></div>
-      <Link to="/home/stream" id="home-link">Home</Link>
+      <div className="navbar-left">        
+        <div id="logo"></div>
+        <Link to="/home/stream" id="home-link">Home</Link>
+      </div>
       <Switch>
         <Route exact path="/" component={() => <h2>soundstorm</h2>}></Route>
         <Route component={Search}></Route>

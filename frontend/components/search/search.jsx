@@ -6,11 +6,14 @@ export default class Search extends React.Component {
     super(props);
     this.state = {
       query: '',
-      showResults: false
+      showResults: false,
+      inputBackground: '#e5e5e5'
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.setInputRef = this.setInputRef.bind(this);
+    this.setFocus = this.setFocus.bind(this);
+    this.unsetFocus = this.unsetFocus.bind(this);
   }
 
   setInputRef(node) {
@@ -26,9 +29,19 @@ export default class Search extends React.Component {
   }
 
   handleClick(event) {
-    this.setState({
-      showResults: this.inputRef.contains(event.target)
-    });
+    if (this.inputRef.contains(event.target)) {
+      this.setFocus();
+    } else {
+      this.unsetFocus();
+    }
+  }
+
+  setFocus() {
+    this.setState( { showResults: true, inputBackground: '#fff' } );
+  }
+
+  unsetFocus() {
+    this.setState( { showResults: false, inputBackground: '#e5e5e5' } );
   }
 
   handleInputChange(event) {
@@ -38,9 +51,16 @@ export default class Search extends React.Component {
 
   renderResults() {
     if (this.state.showResults) {
-      return this.props.results.map( result => (
-        <SearchResult key={`${result.type}-${result.id}`} result={result}></SearchResult>
+      const results = this.props.results.map( result => (
+        <SearchResult key={`${result.type}-${result.id}`}
+                      result={result}
+                      unsetFocus={this.unsetFocus}></SearchResult>
       ));
+      return (
+        <div className="search-results">
+          {results}
+        </div>
+      );
     } else {
       return <div></div>;
     }
@@ -48,15 +68,16 @@ export default class Search extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="search" ref={this.setInputRef}>
         <div className="search-bar">
-          <textarea ref={this.setInputRef}
-                    value={this.state.query}
-                    onChange={this.handleInputChange}></textarea>
+          <input
+                 type="text"
+                 style={ { backgroundColor: this.state.inputBackground}}
+                 placeholder="Search"
+                 value={this.state.query}
+                 onChange={this.handleInputChange}></input>
         </div>
-        <div className="search-results">
-          {this.renderResults()}
-        </div>
+        {this.renderResults()}
       </div>
     );
   }
