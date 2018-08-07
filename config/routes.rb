@@ -11,5 +11,6 @@ Rails.application.routes.draw do
       delete '/likes', to: 'likes#destroy'
       resources :comments, only: [:create, :destroy]
     end
+    resources :search, only: [:index]
   end
 end
