@@ -9,7 +9,7 @@ export const receiveTrack = (payload) => {
   return {
     type: RECEIVE_TRACK,
     track: payload.track,
-    user: payload.user,
+    users: payload.users,
     comments: payload.comments
   };
 };

@@ -10,8 +10,8 @@ class Api::TracksController < ApplicationController
   end
 
   def show
-    @track = Track.includes(:comments).find(params[:id])
-    @user = @track.artist
+    @track = Track.includes(:artist, comments: [:user])
+                  .find(params[:id])
     @is_liked = current_user && current_user.liked_tracks.exists?(@track.id)
   end
 

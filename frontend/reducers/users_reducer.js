@@ -6,8 +6,8 @@ import { RECEIVE_COMMENT } from '../actions/comment_actions';
 
 export default (state = {}, action) => {
   Object.freeze(state);
-  let actionUser;
-  let stateUser;
+  let actionArtist;
+  let stateArtist;
   let user;
   let duppedState;
   let currentTrackIds;
@@ -19,24 +19,25 @@ export default (state = {}, action) => {
       const newUser = action.payload.user;
       return _.merge({}, state, { [newUser.id]: newUser });
     case RECEIVE_TRACK:
-      stateUser = state[action.user.id];
-      let newTrackIds = ((stateUser && stateUser.trackIds) || []).slice(0);
+      stateArtist = state[action.track.artistId];
+      actionArtist = action.users[action.track.artistId];
+      let newTrackIds = ((stateArtist && stateArtist.trackIds) || []).slice(0);
       if (!newTrackIds.includes(action.track.id)) { newTrackIds.push(action.track.id); }
-      action.user.trackIds = newTrackIds;
-      return _.merge({}, state, { [action.user.id]: action.user });
+      actionArtist.trackIds = newTrackIds;
+      return _.merge({}, state, action.users, { [actionArtist.id]: actionArtist });
     case REMOVE_TRACK:
       duppedState = _.merge({}, state);
-      actionUser = duppedState[action.userId];
-      currentTrackIds = actionUser.trackIds;
+      actionArtist = duppedState[action.userId];
+      currentTrackIds = actionArtist.trackIds;
       let deleteIdx = currentTrackIds.indexOf(action.trackId);
-      actionUser.trackIds = currentTrackIds.slice(0, deleteIdx).concat(currentTrackIds.slice(deleteIdx + 1));
+      actionArtist.trackIds = currentTrackIds.slice(0, deleteIdx).concat(currentTrackIds.slice(deleteIdx + 1));
       return duppedState;
     case RECEIVE_TRACKS:
       Object.keys(action.users).forEach( userId => {
-        stateUser = state[userId];
-        actionUser = action.users[userId];
-        if (stateUser && stateUser.trackIds) {
-          actionUser.trackIds = _.uniq(stateUser.trackIds.concat(actionUser.trackIds));
+        stateArtist = state[userId];
+        actionArtist = action.users[userId];
+        if (stateArtist && stateArtist.trackIds) {
+          actionArtist.trackIds = _.uniq(stateArtist.trackIds.concat(actionArtist.trackIds));
         }
       });
       return _.merge({}, state, action.users);
