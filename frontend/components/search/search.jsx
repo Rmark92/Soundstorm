@@ -14,6 +14,7 @@ export default class Search extends React.Component {
     this.setInputRef = this.setInputRef.bind(this);
     this.setFocus = this.setFocus.bind(this);
     this.unsetFocus = this.unsetFocus.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   setInputRef(node) {
@@ -44,6 +45,11 @@ export default class Search extends React.Component {
     this.setState( { showResults: false, inputBackground: '#e5e5e5' } );
   }
 
+  reset() {
+    this.setState( { showResults: false, inputBackground: '#e5e5e5', query: '' } );
+    this.props.clearSearchResults();
+  }
+
   handleInputChange(event) {
     this.setState({ query: event.currentTarget.value });
     this.props.getSearchResults(event.currentTarget.value);
@@ -54,7 +60,7 @@ export default class Search extends React.Component {
       const results = this.props.results.map( result => (
         <SearchResult key={`${result.type}-${result.id}`}
                       result={result}
-                      unsetFocus={this.unsetFocus}></SearchResult>
+                      resetSearch={this.reset}></SearchResult>
       ));
       return (
         <div className="search-results">
