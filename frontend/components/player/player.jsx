@@ -31,7 +31,7 @@ export default class Player extends React.Component {
     this.handleNextTrackClick = this.handleNextTrackClick.bind(this);
     this.handlePrevTrackClick = this.handlePrevTrackClick.bind(this);
     this.handleBuffering = this.handleBuffering.bind(this);
-    this.handlePlaying = this.handlePlaying.bind(this);
+    this.handleReady = this.handleReady.bind(this);
   }
 
   calculateInitElapsed() {
@@ -136,7 +136,13 @@ export default class Player extends React.Component {
   }
 
   handleProgress(progress) {
-    this.setState({ elapsed: progress.played });
+    this.setState({ elapsed: progress.played }, () => {
+      if (Math.round(progress.playedSeconds) >= Math.round(progress.loadedSeconds)) {
+        this.props.updateBufferStatus(true);
+      } else if (this.props.player.buffering) {
+        this.props.updateBufferStatus(false);
+      }
+    });
   }
 
   handleTrackEnded() {
@@ -155,14 +161,23 @@ export default class Player extends React.Component {
     this.props.updateBufferStatus(true);
   }
 
-  handlePlaying() {
-    this.props.updateBufferStatus(false);
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.player.lastWaveFormSeek !== this.props.player.lastWaveFormSeek) {
       this.reactPlayer.seekTo(nextProps.player.lastWaveFormSeek);
     }
+  }
+
+  calculateElapsed() {
+    if (this.reactPlayer) {
+      const elapsed = this.reactPlayer.getCurrentTime() / this.duration;
+      return elapsed || 0;
+    } else {
+      return this.state.elapsed;
+    }
+  }
+
+  handleReady() {
+    this.props.updateBufferStatus(false);
   }
 
   render() {
@@ -185,8 +200,8 @@ export default class Player extends React.Component {
                          onDuration={this.setDuration}
                          onStart={this.handleTrackStart}
                          onEnded={this.handleTrackEnded}
+                         onReady={this.handleReady}
                          onBuffer={this.handleBuffering}
-                         onPlay={this.handlePlaying}
                          config={ { file: { forceAudio: true } }}
              />
            <div className="player-buttons">

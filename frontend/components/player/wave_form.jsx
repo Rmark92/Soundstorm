@@ -50,31 +50,23 @@ export default class WaveForm extends React.Component {
     this.wavesurfer.on('ready', () => {
       this.setState( {loaded: true });
       this.wavesurfer.setMute();
-      if (this.props.isCurrentTrack && this.props.playing) {
+      if (this.props.isCurrentTrack && this.currentPlayerTime()) {
         this.wavesurfer.seekTo(this.currentPlayerTime());
+        if (this.props.playing && !this.props.buffering) { this.wavesurfer.play(); }
       } else if (this.props.lastProgressStamp){
         this.wavesurfer.seekTo(this.props.lastProgressStamp);
       }
     });
-
+    
     this.wavesurfer.on('seek', (pos) => {
-      if (this.props.isCurrentTrack &&
-          Math.round(pos * 100) !== Math.round(this.currentPlayerTime() * 100)) {
-        this.props.waveFormSeek(pos);
-      } else if (this.props.lastProgressStamp !== pos) {
-        if (!this.props.lastProgressStamp && this.props.loggedIn) {
-          this.props.createTrackPlay(this.props.track.id);
-        }
+      if (!this.props.isCurrentTrack && this.props.lastProgressStamp !== pos) {
         this.props.setCurrentTrack(this.props.track.id, pos);
+        if (!this.props.lastProgressStamp) { this.props.createTrackPlay(); }
+      } else if (this.props.isCurrentTrack &&
+                 Math.round(pos * 100) !== Math.round(this.currentPlayerTime() * 100)) {
+        this.props.waveFormSeek(pos);
       }
     });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (!this.props.isCurrentTrack &&
-        this.props.lastProgressStamp !== prevProps.lastProgressStamp) {
-      this.wavesurfer.seekTo(this.props.lastProgressStamp);
-    }
   }
 
   componentWillReceiveProps(nextProps) {

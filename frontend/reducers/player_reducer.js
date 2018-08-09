@@ -34,17 +34,19 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
       newState.tracksProgress[newState.currentTrackId] = action.progress ||
                                                          newState.tracksProgress[newState.currentTrackId] ||
                                                          0;
+      newState.buffering = true;
       newState.playing = true;
       return newState;
     case RECEIVE_TRACK:
       if (!state.currentTrackId) {
-        return _.merge({}, state, { currentTrackId: action.track.id});
+        return _.merge({}, state, { currentTrackId: action.track.id, buffering: true});
       } else {
         return state;
       }
     case RECEIVE_TRACKS:
       if (!state.currentTrackId) {
-        return _.merge({}, state, { currentTrackId: selectRandomTrackId(action.tracks) });
+        return _.merge({}, state, { currentTrackId: selectRandomTrackId(action.tracks),
+                                    buffering: true });
       } else {
         return state;
       }
@@ -114,5 +116,5 @@ const getCurrentProgress = (player) => {
 
 const selectRandomTrackId = (tracks) => {
   const trackIds = Object.keys(tracks);
-  return trackIds[Math.floor(Math.random() * trackIds.length)];
+  return parseInt(trackIds[Math.floor(Math.random() * trackIds.length)]);
 };
