@@ -57,7 +57,7 @@ export default class WaveForm extends React.Component {
         this.wavesurfer.seekTo(this.props.lastProgressStamp);
       }
     });
-    
+
     this.wavesurfer.on('seek', (pos) => {
       if (!this.props.isCurrentTrack && this.props.lastProgressStamp !== pos) {
         this.props.setCurrentTrack(this.props.track.id, pos);
@@ -83,7 +83,7 @@ export default class WaveForm extends React.Component {
   }
 
   currentPlayerTime() {
-    return (this.props.reactPlayer.getCurrentTime()) / (this.props.reactPlayer.getDuration());
+    return (this.props.reactPlayer.currentTime / this.props.reactPlayer.duration);
   }
 
   renderLoader() {

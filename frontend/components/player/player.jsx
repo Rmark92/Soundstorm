@@ -30,8 +30,13 @@ export default class Player extends React.Component {
     this.handleTrackStart = this.handleTrackStart.bind(this);
     this.handleNextTrackClick = this.handleNextTrackClick.bind(this);
     this.handlePrevTrackClick = this.handlePrevTrackClick.bind(this);
-    this.handleBuffering = this.handleBuffering.bind(this);
+
     this.handleReady = this.handleReady.bind(this);
+    this.handlePlaying = this.handlePlaying.bind(this);
+    this.handlePlayProgress = this.handlePlayProgress.bind(this);
+    this.handlePause = this.handlePause.bind(this);
+    this.handleBuffer = this.handleBuffer.bind(this);
+    this.handleResume = this.handleResume.bind(this);
   }
 
   calculateInitElapsed() {
@@ -40,16 +45,75 @@ export default class Player extends React.Component {
 
   ref(player) {
     this.reactPlayer = player;
+    this.reactPlayer.addEventListener('loadstart', this.handleBuffer);
+    this.reactPlayer.addEventListener('durationchange', this.setDuration);
+    this.reactPlayer.addEventListener('canplay', this.handleReady);
+    this.reactPlayer.addEventListener('play', this.handlePlaying);
+    this.reactPlayer.addEventListener('pause', this.handlePause);
+    this.reactPlayer.addEventListener('stalled', this.handleBuffer);
+    this.reactPlayer.addEventListener('playing', this.handleResume);
     this.props.setReactPlayer(player);
   }
 
+  handleReady() {
+    if (this.props.player.playing) {
+      this.reactPlayer.play();
+    }
+  }
+
+  handlePlaying() {
+    console.log('playing');
+    if (!this.playProgressInterval) {
+      this.playProgressInterval = setInterval( this.handlePlayProgress, 20);
+    }
+  }
+
+  handlePlayProgress() {
+    if (this.reactPlayer.readyState <= 2 && !this.props.player.buffering) {
+      console.log('update from progress tracking');
+      this.props.updateBufferStatus(true);
+    } else if (this.reactPlayer.readyState > 2 ){
+      const currentElapsed = this.reactPlayer.currentTime / this.reactPlayer.duration;
+      this.setState( { elapsed: currentElapsed }, () => {
+        if (this.props.player.buffering) { this.props.updateBufferStatus(false); }
+      } );
+    }
+  }
+
+  handlePause() {
+    clearInterval(this.playProgressInterval);
+    this.playProgressInterval = null;
+  }
+
+  handleBuffer() {
+    console.log('stalled');
+    if (!this.props.player.buffering) {
+      this.props.updateBufferStatus(true);
+    }
+  }
+
+  handleResume() {
+    // console.log('resuming');
+    // if (this.props.player.buffering) {
+    //   this.props.updateBufferStatus(false);
+    // }
+  }
+
   setDuration(duration) {
-    this.duration = duration;
+    this.duration = this.reactPlayer.duration;
     const elapsed = this.calculateInitElapsed();
     this.setState( { elapsed }, () => {
-      this.reactPlayer.seekTo(elapsed);
+      this.reactPlayer.currentTime = (elapsed * this.reactPlayer.duration);
     });
   }
+
+  // setDuration(duration) {
+  //   this.duration = duration;
+  //   const elapsed = this.calculateInitElapsed();
+  //   this.setState( { elapsed }, () => {
+  //     this.reactPlayer.seekTo(elapsed);
+  //   });
+  // }
 
   handleTrackStart() {
     if (this.props.loggedIn && !this.calculateInitElapsed()) {
@@ -98,7 +162,8 @@ export default class Player extends React.Component {
 
   handleSeek(event) {
     const newTrackPos = parseFloat(event.target.value);
-    this.reactPlayer.seekTo(newTrackPos);
+    this.reactPlayer.currentTime = newTrackPos * this.duration;
+    this.setState( { elapsed: newTrackPos });
     this.props.playerSeek();
   }
 
@@ -157,28 +222,35 @@ export default class Player extends React.Component {
     this.props.moveToPrevTrack();
   }
 
-  handleBuffering() {
-    this.props.updateBufferStatus(true);
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.player.lastWaveFormSeek !== this.props.player.lastWaveFormSeek) {
-      this.reactPlayer.seekTo(nextProps.player.lastWaveFormSeek);
+      this.reactPlayer.currentTime = (nextProps.player.lastWaveFormSeek * this.reactPlayer.duration);
+    }
+
+    if (nextProps.player.playing && this.reactPlayer && this.reactPlayer.paused) {
+      this.reactPlayer.play();
+    } else if (!nextProps.player.playing && this.reactPlayer && !this.reactPlayer.paused) {
+      this.reactPlayer.pause();
     }
   }
 
-  calculateElapsed() {
-    if (this.reactPlayer) {
-      const elapsed = this.reactPlayer.getCurrentTime() / this.duration;
-      return elapsed || 0;
-    } else {
-      return this.state.elapsed;
-    }
-  }
-
-  handleReady() {
-    this.props.updateBufferStatus(false);
-  }
+  //
+  // <ReactPlayer ref={this.ref}
+  //              url={this.props.currentTrack.audioURL}
+  //              playing={this.props.player.playing}
+  //              loop={this.props.player.looping}
+  //              progressInterval={50}
+  //              height="0px"
+  //              width="0px"
+  //              volume={this.state.volume}
+  //              muted={this.state.muted}
+  //              onProgress={this.handleProgress}
+  //              onDuration={this.setDuration}
+  //              onStart={this.handleTrackStart}
+  //              onEnded={this.handleTrackEnded}
+  //              onReady={this.handleReady}
+  //              onBuffer={this.handleBuffering}
+  //              config={ { file: { forceAudio: true } }}
 
   render() {
     if (!this.props.currentTrack) {
@@ -187,23 +259,14 @@ export default class Player extends React.Component {
       return (
         <div className="player-bar">
           <div className="player-bar-contents">
-            <ReactPlayer ref={this.ref}
-                         url={this.props.currentTrack.audioURL}
-                         playing={this.props.player.playing}
-                         loop={this.props.player.looping}
-                         progressInterval={50}
-                         height="0px"
-                         width="0px"
-                         volume={this.state.volume}
-                         muted={this.state.muted}
-                         onProgress={this.handleProgress}
-                         onDuration={this.setDuration}
-                         onStart={this.handleTrackStart}
-                         onEnded={this.handleTrackEnded}
-                         onReady={this.handleReady}
-                         onBuffer={this.handleBuffering}
-                         config={ { file: { forceAudio: true } }}
-             />
+            <audio ref={this.ref}
+                   src={this.props.currentTrack.audioURL}
+                   controls={false}
+                   loop={this.props.player.looping}
+                   autoPlay={false}
+                   volume={this.state.volume}
+                   muted={this.state.muted}
+              />
            <div className="player-buttons">
              <div className="prev-track-btn" onClick={this.handlePrevTrackClick}></div>
              <PlayButton styleType="simple" trackId={this.props.currentTrack.id}></PlayButton>

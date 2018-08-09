@@ -110,7 +110,7 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
 };
 
 const getCurrentProgress = (player) => {
-  return player.getCurrentTime() / player.getDuration();
+  return player.currentTime / player.duration;
 };
 
 
