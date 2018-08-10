@@ -38,7 +38,7 @@ export default class Player extends React.Component {
   }
 
   calculateInitElapsed() {
-    return (this.props.player.tracksProgress[this.props.currentTrack.id] * this.props.duration) || 0;
+    return this.props.player.tracksProgress[this.props.currentTrack.id] || 0;
   }
 
   ref(player) {
@@ -113,32 +113,6 @@ export default class Player extends React.Component {
     this.props.toggleLoop();
   }
 
-  renderLoopButton() {
-    if (this.props.player.looping) {
-      return (
-        <div className="loop-btn" onClick={this.handleLoop}>
-          <div className="loop-selected_div"></div>
-        </div>
-      );
-    } else {
-      return <div className="loop-btn" onClick={this.handleLoop}></div>;
-    }
-  }
-
-  renderSeekInput() {
-    if (this.state.progressHover) {
-      return (
-        <input className="seek-input"
-               type="range"
-               min="0"
-               max="1"
-               onChange={this.handleSeek}
-               step="any"
-               value={String(this.state.elapsed)}></input>
-      );
-    }
-  }
-
   handleSeek(event) {
     const newTrackPos = parseFloat(event.target.value);
     this.reactPlayer.currentTime = newTrackPos * this.props.duration;
@@ -148,35 +122,6 @@ export default class Player extends React.Component {
 
   toggleMuted() {
     this.setState( { muted: !this.state.muted });
-  }
-
-  renderVolumeControl() {
-    if (this.state.muted) {
-      return (
-        <div className="player-volume-muted" onClick={this.toggleMuted}></div>
-      );
-    } else {
-      return (
-        <div className="player-volume-active" onClick={this.toggleMuted}></div>
-      );
-    }
-  }
-
-  renderTrackImage() {
-    if (this.props.currentTrack.imageURL) {
-      return (
-        <div className="player-track-cover-art">
-          <img src={this.props.currentTrack.imageURL}/>
-        </div>
-      );
-    } else {
-      const divStyle = {
-        backgroundImage: generateRandomGradient()
-      };
-      return (
-        <div className="player-track-cover-art" style={divStyle}></div>
-      );
-    }
   }
 
   handleTrackEnded() {
@@ -208,8 +153,63 @@ export default class Player extends React.Component {
     if (this.reactPlayer && prevProps.player.currentTrackId !== this.props.player.currentTrackId) {
       const elapsed = this.calculateInitElapsed();
       this.setState( { elapsed }, () => {
-        this.reactPlayer.currentTime = elapsed;
+        this.reactPlayer.currentTime = (elapsed * this.props.duration) || 0;
       });
+    }
+  }
+
+  renderSeekInput() {
+    if (this.state.progressHover) {
+      return (
+        <input className="seek-input"
+          type="range"
+          min="0"
+          max="1"
+          onChange={this.handleSeek}
+          step="any"
+          value={String(this.state.elapsed)}></input>
+      );
+    }
+  }
+
+  renderLoopButton() {
+    if (this.props.player.looping) {
+      return (
+        <div className="loop-btn" onClick={this.handleLoop}>
+          <div className="loop-selected_div"></div>
+        </div>
+      );
+    } else {
+      return <div className="loop-btn" onClick={this.handleLoop}></div>;
+    }
+  }
+
+  renderVolumeControl() {
+    if (this.state.muted) {
+      return (
+        <div className="player-volume-muted" onClick={this.toggleMuted}></div>
+      );
+    } else {
+      return (
+        <div className="player-volume-active" onClick={this.toggleMuted}></div>
+      );
+    }
+  }
+
+  renderTrackImage() {
+    if (this.props.currentTrack.imageURL) {
+      return (
+        <div className="player-track-cover-art">
+          <img src={this.props.currentTrack.imageURL}/>
+        </div>
+      );
+    } else {
+      const divStyle = {
+        backgroundImage: generateRandomGradient()
+      };
+      return (
+        <div className="player-track-cover-art" style={divStyle}></div>
+      );
     }
   }
 
