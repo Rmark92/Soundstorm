@@ -50,6 +50,11 @@ export default class WaveForm extends React.Component {
     this.wavesurfer.on('ready', () => {
       this.setState( {loaded: true });
       this.wavesurfer.setMute();
+
+      if (!this.props.duration) {    
+        this.props.setTrackDuration(this.props.track.id, this.wavesurfer.getDuration());
+      }
+
       if (this.props.isCurrentTrack && this.currentPlayerTime()) {
         this.wavesurfer.seekTo(this.currentPlayerTime());
         if (this.props.playing && !this.props.buffering) { this.wavesurfer.play(); }

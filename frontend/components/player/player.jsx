@@ -19,28 +19,24 @@ export default class Player extends React.Component {
     };
 
     this.ref = this.ref.bind(this);
-    this.handleLoop = this.handleLoop.bind(this);
-    this.handleProgress = this.handleProgress.bind(this);
-    this.setDuration = this.setDuration.bind(this);
-    this.setProgressHover = this.setProgressHover.bind(this);
-    this.unsetProgressHover = this.unsetProgressHover.bind(this);
-    this.handleSeek = this.handleSeek.bind(this);
-    this.toggleMuted = this.toggleMuted.bind(this);
-    this.handleTrackEnded = this.handleTrackEnded.bind(this);
-    this.handleTrackStart = this.handleTrackStart.bind(this);
-    this.handleNextTrackClick = this.handleNextTrackClick.bind(this);
-    this.handlePrevTrackClick = this.handlePrevTrackClick.bind(this);
-
     this.handleReady = this.handleReady.bind(this);
     this.handlePlaying = this.handlePlaying.bind(this);
     this.handlePlayProgress = this.handlePlayProgress.bind(this);
     this.handlePause = this.handlePause.bind(this);
     this.handleBuffer = this.handleBuffer.bind(this);
-    this.handleResume = this.handleResume.bind(this);
+    this.setDuration = this.setDuration.bind(this);
+    this.setProgressHover = this.setProgressHover.bind(this);
+    this.unsetProgressHover = this.unsetProgressHover.bind(this);
+    this.handleSeek = this.handleSeek.bind(this);
+    this.handleLoop = this.handleLoop.bind(this);
+    this.toggleMuted = this.toggleMuted.bind(this);
+    this.handleNextTrackClick = this.handleNextTrackClick.bind(this);
+    this.handlePrevTrackClick = this.handlePrevTrackClick.bind(this);
+    this.handleTrackEnded = this.handleTrackEnded.bind(this);
   }
 
   calculateInitElapsed() {
-    return this.props.player.tracksProgress[this.props.currentTrack.id] || 0;
+    return (this.props.player.tracksProgress[this.props.currentTrack.id] * this.props.duration) || 0;
   }
 
   ref(player) {
@@ -50,8 +46,8 @@ export default class Player extends React.Component {
     this.reactPlayer.addEventListener('canplay', this.handleReady);
     this.reactPlayer.addEventListener('play', this.handlePlaying);
     this.reactPlayer.addEventListener('pause', this.handlePause);
+    this.reactPlayer.addEventListener('ended', this.handleTrackEnded);
     this.reactPlayer.addEventListener('stalled', this.handleBuffer);
-    this.reactPlayer.addEventListener('playing', this.handleResume);
     this.props.setReactPlayer(player);
   }
 
@@ -63,6 +59,10 @@ export default class Player extends React.Component {
 
   handlePlaying() {
     console.log('playing');
+    if (this.state.elapsed === 0 && this.props.loggedIn) {
+      this.props.createTrackPlay(this.props.currentTrack.id);
+    }
+
     if (!this.playProgressInterval) {
       this.playProgressInterval = setInterval( this.handlePlayProgress, 20);
     }
@@ -92,32 +92,9 @@ export default class Player extends React.Component {
     }
   }
 
-  handleResume() {
-    // console.log('resuming');
-    // if (this.props.player.buffering) {
-    //   this.props.updateBufferStatus(false);
-    // }
-  }
-
-  setDuration(duration) {
-    this.duration = this.reactPlayer.duration;
-    const elapsed = this.calculateInitElapsed();
-    this.setState( { elapsed }, () => {
-      this.reactPlayer.currentTime = (elapsed * this.reactPlayer.duration);
-    });
-  }
-
-  // setDuration(duration) {
-  //   this.duration = duration;
-  //   const elapsed = this.calculateInitElapsed();
-  //   this.setState( { elapsed }, () => {
-  //     this.reactPlayer.seekTo(elapsed);
-  //   });
-  // }
-
-  handleTrackStart() {
-    if (this.props.loggedIn && !this.calculateInitElapsed()) {
-      this.props.createTrackPlay(this.props.currentTrack.id);
+  setDuration() {
+    if (!this.props.duration) {
+      this.props.setTrackDuration(this.props.player.currentTrackId, this.reactPlayer.duration);
     }
   }
 
@@ -146,7 +123,6 @@ export default class Player extends React.Component {
   }
 
   renderSeekInput() {
-    const duration = this.duration || 0;
     if (this.state.progressHover) {
       return (
         <input className="seek-input"
@@ -162,7 +138,7 @@ export default class Player extends React.Component {
 
   handleSeek(event) {
     const newTrackPos = parseFloat(event.target.value);
-    this.reactPlayer.currentTime = newTrackPos * this.duration;
+    this.reactPlayer.currentTime = newTrackPos * this.props.duration;
     this.setState( { elapsed: newTrackPos });
     this.props.playerSeek();
   }
@@ -200,16 +176,6 @@ export default class Player extends React.Component {
     }
   }
 
-  handleProgress(progress) {
-    this.setState({ elapsed: progress.played }, () => {
-      if (Math.round(progress.playedSeconds) >= Math.round(progress.loadedSeconds)) {
-        this.props.updateBufferStatus(true);
-      } else if (this.props.player.buffering) {
-        this.props.updateBufferStatus(false);
-      }
-    });
-  }
-
   handleTrackEnded() {
     this.props.continueThroughQueue();
   }
@@ -224,13 +190,23 @@ export default class Player extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.player.lastWaveFormSeek !== this.props.player.lastWaveFormSeek) {
-      this.reactPlayer.currentTime = (nextProps.player.lastWaveFormSeek * this.reactPlayer.duration);
+      this.reactPlayer.currentTime = (nextProps.player.lastWaveFormSeek * this.props.duration);
+      this.setState( {elapsed: this.reactPlayer.currentTime / this.props.duration });
     }
 
     if (nextProps.player.playing && this.reactPlayer && this.reactPlayer.paused) {
       this.reactPlayer.play();
     } else if (!nextProps.player.playing && this.reactPlayer && !this.reactPlayer.paused) {
       this.reactPlayer.pause();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.reactPlayer && prevProps.player.currentTrackId !== this.props.player.currentTrackId) {
+      const elapsed = this.calculateInitElapsed();
+      this.setState( { elapsed }, () => {
+        this.reactPlayer.currentTime = elapsed;
+      });
     }
   }
 
@@ -275,7 +251,7 @@ export default class Player extends React.Component {
            </div>
            <div className="progress-bar-container" onMouseEnter={this.setProgressHover} onMouseLeave={this.unsetProgressHover}>
              <div className="player-bar-progress-time">
-               {formatTime(this.state.elapsed * this.duration)}
+               {formatTime(this.state.elapsed * this.props.duration)}
              </div>
              <div className="progress-bar">
                <div className="progress-bar-elapsed" style={ {width: `${Math.floor(this.state.elapsed * 640)}px`} }>
@@ -283,7 +259,7 @@ export default class Player extends React.Component {
                {this.renderSeekInput()}
              </div>
              <div className="player-bar-duration-time">
-               {formatTime(this.duration)}
+               {formatTime(this.props.duration)}
              </div>
            </div>
            {this.renderVolumeControl()}

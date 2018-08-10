@@ -2,6 +2,7 @@ export const SET_CURRENT_TRACK = 'SET_CURRENT_TRACK';
 export const TOGGLE_PLAYER_STATUS = 'TOGGLE_PLAYER_STATUS';
 export const SET_REACT_PLAYER = 'SET_REACT_PLAYER';
 export const TOGGLE_PLAYER_LOOP = 'TOGGLE_PLAYER_LOOP';
+export const SET_TRACK_DURATION = 'SET_TRACK_DURATION';
 export const PLAYER_SEEK = 'PLAYER_SEEK';
 export const WAVE_FORM_SEEK = 'WAVE_FORM_SEEK';
 export const ADD_TO_QUEUE = 'ADD_TO_QUEUE';
@@ -81,6 +82,14 @@ export const waveFormSeek = (progress) => {
   return {
     type: WAVE_FORM_SEEK,
     progress
+  };
+};
+
+export const setTrackDuration = (trackId, duration) => {
+  return {
+    type: SET_TRACK_DURATION,
+    trackId: trackId,
+    duration
   };
 };
 

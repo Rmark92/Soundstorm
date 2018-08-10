@@ -6,7 +6,8 @@ import { togglePlayerStatus,
          continueThroughQueue,
          moveToNextTrack,
          moveToPrevTrack,
-         updateBufferStatus } from '../../actions/player_actions';
+         updateBufferStatus,
+         setTrackDuration } from '../../actions/player_actions';
 import { createTrackPlay } from '../../actions/track_play_actions.js';
 import { selectTrackArtist } from '../../util/selectors';
 import Player from './player';
@@ -18,7 +19,8 @@ const mapStateToProps = (state, ownProps) => {
     player,
     currentTrack,
     artist: selectTrackArtist(state, currentTrack),
-    loggedIn: !!state.session.id
+    loggedIn: !!state.session.id,
+    duration: state.ui.player.tracksDuration[player.currentTrackId]
   };
 };
 
@@ -32,7 +34,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     continueThroughQueue: () => dispatch(continueThroughQueue()),
     moveToNextTrack: () => dispatch(moveToNextTrack()),
     moveToPrevTrack: () => dispatch(moveToPrevTrack()),
-    updateBufferStatus: (isBuffering) => dispatch(updateBufferStatus(isBuffering))
+    updateBufferStatus: (isBuffering) => dispatch(updateBufferStatus(isBuffering)),
+    setTrackDuration: (trackId, duration) => dispatch(setTrackDuration(trackId, duration))
   };
 };
 

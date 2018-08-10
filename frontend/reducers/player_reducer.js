@@ -3,6 +3,7 @@ import { SET_CURRENT_TRACK,
          TOGGLE_PLAYER_STATUS,
          SET_REACT_PLAYER,
          TOGGLE_PLAYER_LOOP,
+         SET_TRACK_DURATION,
          PLAYER_SEEK,
          WAVE_FORM_SEEK,
          ADD_TO_QUEUE,
@@ -13,7 +14,7 @@ import { SET_CURRENT_TRACK,
          UPDATE_BUFFER_STATUS } from '../actions/player_actions.js';
 import { RECEIVE_TRACK, RECEIVE_TRACKS } from '../actions/track_actions.js';
 
-export default (state = { playing: false, looping: false, tracksProgress: {}, trackQueue: [] }, action) => {
+export default (state = { playing: false, looping: false, tracksProgress: {}, tracksDuration: {}, trackQueue: [] }, action) => {
   let newState;
   let currentTrackQueueIdx;
   let includedInTrackQueue;
@@ -102,6 +103,8 @@ export default (state = { playing: false, looping: false, tracksProgress: {}, tr
       return _.merge({}, state, { lastPlayerSeek: getCurrentProgress(state.reactPlayer) });
     case WAVE_FORM_SEEK:
       return _.merge({}, state, { lastWaveFormSeek: action.progress, playing: true });
+    case SET_TRACK_DURATION:
+      return _.merge({}, state, { tracksDuration: { [action.trackId]: action.duration } });
     case UPDATE_BUFFER_STATUS:
       return _.merge({}, state, { buffering: action.isBuffering })
     default:
