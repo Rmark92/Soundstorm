@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 import PlayButton from './play_button_container';
 import LikeButton from '../tracks/like_button_container';
+import TrackLoader from './loader';
 import { formatTime } from '../../util/format_time';
 import { generateRandomGradient } from '../../util/generate_random_gradient';
 import { sliceText } from '../../util/slice_text';
@@ -15,7 +16,8 @@ export default class Player extends React.Component {
       volume: 1,
       muted: false,
       elapsed: 0,
-      progressHover: false
+      progressHover: false,
+      loaded: false
     };
 
     this.ref = this.ref.bind(this);
@@ -52,13 +54,14 @@ export default class Player extends React.Component {
   }
 
   handleReady() {
-    if (this.props.player.playing) {
-      this.reactPlayer.play();
-    }
+    this.setState( { loaded: true }, () => {
+      if (this.props.player.playing) {
+        this.reactPlayer.play();
+      }
+    });
   }
 
   handlePlaying() {
-    console.log('playing');
     if (this.state.elapsed === 0 && this.props.loggedIn) {
       this.props.createTrackPlay(this.props.currentTrack.id);
     }
@@ -70,11 +73,12 @@ export default class Player extends React.Component {
 
   handlePlayProgress() {
     if (this.reactPlayer.readyState <= 2 && !this.props.player.buffering) {
-      console.log('update from progress tracking');
-      this.props.updateBufferStatus(true);
+      this.setState( { loaded: false }, () => {
+        this.props.updateBufferStatus(true);
+      });
     } else if (this.reactPlayer.readyState > 2 ){
       const currentElapsed = this.reactPlayer.currentTime / this.reactPlayer.duration;
-      this.setState( { elapsed: currentElapsed }, () => {
+      this.setState( { elapsed: currentElapsed, loaded: true }, () => {
         if (this.props.player.buffering) { this.props.updateBufferStatus(false); }
       } );
     }
@@ -86,7 +90,6 @@ export default class Player extends React.Component {
   }
 
   handleBuffer() {
-    console.log('stalled');
     if (!this.props.player.buffering) {
       this.props.updateBufferStatus(true);
     }
@@ -210,23 +213,27 @@ export default class Player extends React.Component {
     }
   }
 
-  //
-  // <ReactPlayer ref={this.ref}
-  //              url={this.props.currentTrack.audioURL}
-  //              playing={this.props.player.playing}
-  //              loop={this.props.player.looping}
-  //              progressInterval={50}
-  //              height="0px"
-  //              width="0px"
-  //              volume={this.state.volume}
-  //              muted={this.state.muted}
-  //              onProgress={this.handleProgress}
-  //              onDuration={this.setDuration}
-  //              onStart={this.handleTrackStart}
-  //              onEnded={this.handleTrackEnded}
-  //              onReady={this.handleReady}
-  //              onBuffer={this.handleBuffering}
-  //              config={ { file: { forceAudio: true } }}
+  renderProgress() {
+    if (!this.state.loaded) {
+      return <TrackLoader width={716}></TrackLoader>;
+    } else {
+      return (
+        <div className="progress-data" onMouseEnter={this.setProgressHover} onMouseLeave={this.unsetProgressHover}>
+          <div className="player-bar-progress-time">
+            {formatTime(this.state.elapsed * this.props.duration)}
+          </div>
+          <div className="progress-bar">
+            <div className="progress-bar-elapsed" style={ {width: `${Math.floor(this.state.elapsed * 640)}px`} }>
+            </div>
+            {this.renderSeekInput()}
+          </div>
+          <div className="player-bar-duration-time">
+            {formatTime(this.props.duration)}
+          </div>
+        </div>
+      );
+    }
+  }
 
   render() {
     if (!this.props.currentTrack) {
@@ -249,18 +256,8 @@ export default class Player extends React.Component {
              <div className="next-track-btn" onClick={this.handleNextTrackClick}></div>
              {this.renderLoopButton()}
            </div>
-           <div className="progress-bar-container" onMouseEnter={this.setProgressHover} onMouseLeave={this.unsetProgressHover}>
-             <div className="player-bar-progress-time">
-               {formatTime(this.state.elapsed * this.props.duration)}
-             </div>
-             <div className="progress-bar">
-               <div className="progress-bar-elapsed" style={ {width: `${Math.floor(this.state.elapsed * 640)}px`} }>
-               </div>
-               {this.renderSeekInput()}
-             </div>
-             <div className="player-bar-duration-time">
-               {formatTime(this.props.duration)}
-             </div>
+           <div className="progress-container">
+             {this.renderProgress()}
            </div>
            {this.renderVolumeControl()}
            <div className="player-right">

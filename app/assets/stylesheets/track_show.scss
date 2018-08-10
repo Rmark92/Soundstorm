@@ -159,6 +159,10 @@
   position: relative;
 }
 
+.waveform-track-show:hover {
+  cursor: pointer;
+}
+
 .show-image-left {
   display: flex;
   flex-direction: column;
