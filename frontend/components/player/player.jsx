@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 import PlayButton from './play_button_container';
 import LikeButton from '../tracks/like_button_container';
@@ -152,7 +151,7 @@ export default class Player extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.reactPlayer && prevProps.player.currentTrackId !== this.props.player.currentTrackId) {
       const elapsed = this.calculateInitElapsed();
-      this.setState( { elapsed }, () => {
+      this.setState( { elapsed, loaded: false }, () => {
         this.reactPlayer.currentTime = (elapsed * this.props.duration) || 0;
       });
     }
