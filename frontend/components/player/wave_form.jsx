@@ -94,7 +94,7 @@ export default class WaveForm extends React.Component {
   }
 
   currentPlayerTime() {
-    return (this.props.reactPlayer.currentTime / this.props.reactPlayer.duration);
+    return (this.props.playerRef.currentTime / this.props.playerRef.duration);
   }
 
   renderLoader() {

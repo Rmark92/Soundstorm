@@ -41,21 +41,21 @@ export default class Player extends React.Component {
   }
 
   ref(player) {
-    this.props.setReactPlayer(player);
-    this.reactPlayer = player;
-    this.reactPlayer.addEventListener('loadstart', this.handleBuffer);
-    this.reactPlayer.addEventListener('durationchange', this.setTrackDuration);
-    this.reactPlayer.addEventListener('canplay', this.handleReady);
-    this.reactPlayer.addEventListener('play', this.handlePlaying);
-    this.reactPlayer.addEventListener('pause', this.handlePause);
-    this.reactPlayer.addEventListener('ended', this.handleTrackEnded);
-    this.reactPlayer.addEventListener('stalled', this.handleBuffer);
+    this.props.setplayerRef(player);
+    this.playerRef = player;
+    this.playerRef.addEventListener('loadstart', this.handleBuffer);
+    this.playerRef.addEventListener('durationchange', this.setTrackDuration);
+    this.playerRef.addEventListener('canplay', this.handleReady);
+    this.playerRef.addEventListener('play', this.handlePlaying);
+    this.playerRef.addEventListener('pause', this.handlePause);
+    this.playerRef.addEventListener('ended', this.handleTrackEnded);
+    this.playerRef.addEventListener('stalled', this.handleBuffer);
   }
 
   handleReady() {
     this.setState( { loaded: true }, () => {
       if (this.props.controls.playing) {
-        this.reactPlayer.play();
+        this.playerRef.play();
       }
     });
   }
@@ -71,12 +71,12 @@ export default class Player extends React.Component {
   }
 
   handlePlayProgress() {
-    if (this.reactPlayer.readyState <= 2 && !this.props.controls.buffering) {
+    if (this.playerRef.readyState <= 2 && !this.props.controls.buffering) {
       this.setState( { loaded: false }, () => {
         this.props.updateBufferStatus(true);
       });
-    } else if (this.reactPlayer.readyState > 2 ){
-      const currentElapsed = this.reactPlayer.currentTime / this.reactPlayer.duration;
+    } else if (this.playerRef.readyState > 2 ){
+      const currentElapsed = this.playerRef.currentTime / this.playerRef.duration;
       this.setState( { elapsed: currentElapsed, loaded: true }, () => {
         if (this.props.controls.buffering) { this.props.updateBufferStatus(false); }
       } );
@@ -96,7 +96,7 @@ export default class Player extends React.Component {
 
   setTrackDuration() {
     if (!this.props.duration) {
-      this.props.setTrackDuration(this.props.currentTrack.id, this.reactPlayer.duration);
+      this.props.setTrackDuration(this.props.currentTrack.id, this.playerRef.duration);
     }
   }
 
@@ -114,7 +114,7 @@ export default class Player extends React.Component {
 
   handleSeek(event) {
     const newTrackPos = parseFloat(event.target.value);
-    this.reactPlayer.currentTime = newTrackPos * this.props.duration;
+    this.playerRef.currentTime = newTrackPos * this.props.duration;
     this.setState( { elapsed: newTrackPos }, () => {
       this.props.playerSeek(newTrackPos);
     });
@@ -126,8 +126,8 @@ export default class Player extends React.Component {
 
   handleTrackEnded() {
     this.setState( {elapsed: 0}, () => {
-      this.reactPlayer.pause();
-      this.reactPlayer.currentTime = 0;
+      this.playerRef.pause();
+      this.playerRef.currentTime = 0;
       this.props.trackEnded();
     });
   }
@@ -137,12 +137,11 @@ export default class Player extends React.Component {
   }
 
   handlePrevTrackClick() {
-    if (!this.reactPlayer.currentTime || this.reactPlayer.currentTime <= 5) {
+    if (!this.playerRef.currentTime || this.playerRef.currentTime <= 5) {
       this.props.moveToPrevTrack();
     } else {
-      this.reactPlayer.currentTime = 0;
       this.setState( { elapsed: 0 }, () => {
-        this.reactPlayer.currentTime = 0;
+        this.playerRef.currentTime = 0;
         this.props.playerSeek(0);
       });
     }
@@ -152,14 +151,14 @@ export default class Player extends React.Component {
     if (nextProps.controls.lastWaveFormSeek !== this.props.controls.lastWaveFormSeek) {
       const elapsed = nextProps.lastProgressStamp;
       this.setState( { elapsed }, () => {
-        this.reactPlayer.currentTime = elapsed * this.props.duration;
+        this.playerRef.currentTime = elapsed * this.props.duration;
       });
     }
 
-    if (nextProps.controls.playing && this.reactPlayer && this.reactPlayer.paused) {
-      this.reactPlayer.play();
-    } else if (!nextProps.controls.playing && this.reactPlayer && !this.reactPlayer.paused) {
-      this.reactPlayer.pause();
+    if (nextProps.controls.playing && this.playerRef && this.playerRef.paused) {
+      this.playerRef.play();
+    } else if (!nextProps.controls.playing && this.playerRef && !this.playerRef.paused) {
+      this.playerRef.pause();
     }
   }
 
@@ -167,7 +166,7 @@ export default class Player extends React.Component {
     if (prevProps.currentTrack && prevProps.currentTrack.id !== this.props.currentTrack.id) {
       const elapsed = this.calculateInitElapsed();
       this.setState( { elapsed, loaded: false }, () => {
-        this.reactPlayer.currentTime = (elapsed * this.props.duration) || 0;
+        this.playerRef.currentTime = (elapsed * this.props.duration) || 0;
       });
     }
   }

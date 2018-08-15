@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
   const trackPlayData = player.trackPlayData;
   const controls = player.controls;
   return {
-    reactPlayer: controls.reactPlayer,
+    playerRef: controls.playerRef,
     isCurrentTrack: currentTrackId === ownProps.track.id,
     playing: controls.playing,
     buffering: controls.buffering,

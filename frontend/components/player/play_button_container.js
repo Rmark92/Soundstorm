@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     isCurrentTrack,
     inputType: isCurrentTrack && controls.playing ? 'pause' : 'play',
-    reactPlayer: controls.reactPlayer
+    playerRef: controls.playerRef
   };
 };
 

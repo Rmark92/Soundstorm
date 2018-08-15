@@ -13,7 +13,7 @@ import { TOGGLE_PLAYER_STATUS,
 export default (state = { playing: false, looping: false, buffering: false }, action) => {
   switch (action.type) {
     case SET_REACT_PLAYER:
-      return _.merge({}, state, { reactPlayer: action.reactPlayer });
+      return _.merge({}, state, { playerRef: action.playerRef });
     case SET_CURRENT_TRACK:
       return _.merge({}, state, { playing: true, buffering: true } );
     case TOGGLE_PLAYER_STATUS:

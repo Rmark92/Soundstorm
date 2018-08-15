@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { togglePlayerStatus,
-         setReactPlayer,
+         setplayerRef,
          toggleLoop,
          playerSeek,
          trackEnded,
@@ -33,7 +33,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     togglePlayerStatus: () => dispatch(togglePlayerStatus()),
-    setReactPlayer: playerRef => dispatch(setReactPlayer(playerRef)),
+    setplayerRef: playerRef => dispatch(setplayerRef(playerRef)),
     toggleLoop: () => dispatch(toggleLoop()),
     createTrackPlay: (trackId) => dispatch(createTrackPlay(trackId)),
     playerSeek: (progress) => dispatch(playerSeek(progress)),
