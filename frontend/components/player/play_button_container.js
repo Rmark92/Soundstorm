@@ -3,11 +3,14 @@ import { setCurrentTrack, togglePlayerStatus } from '../../actions/player_action
 import PlayButton from './play_button';
 
 const mapStateToProps = (state, ownProps) => {
-  const isCurrentTrack = state.ui.player.currentTrackId === ownProps.trackId;
+  const trackQueue = state.ui.player.trackQueue;
+  const controls = state.ui.player.controls;
+  const currentTrackId = trackQueue.queue[trackQueue.currentQueueIdx];
+  const isCurrentTrack = currentTrackId === ownProps.trackId;
   return {
     isCurrentTrack,
-    inputType: isCurrentTrack && state.ui.player.playing ? 'pause' : 'play',
-    reactPlayer: state.ui.player.reactPlayer
+    inputType: isCurrentTrack && controls.playing ? 'pause' : 'play',
+    reactPlayer: controls.reactPlayer
   };
 };
 

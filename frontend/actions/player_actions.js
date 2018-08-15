@@ -8,22 +8,56 @@ export const WAVE_FORM_SEEK = 'WAVE_FORM_SEEK';
 export const ADD_TO_QUEUE = 'ADD_TO_QUEUE';
 export const REMOVE_FROM_QUEUE = 'REMOVE_FROM_QUEUE';
 export const CONTINUE_QUEUE = 'CONTINUE_QUEUE';
+export const TRACK_ENDED = 'TRACK_ENDED';
 export const MOVE_TO_NEXT_TRACK = 'MOVE_TO_NEXT_TRACK';
 export const MOVE_TO_PREV_TRACK = 'MOVE_TO_PREV_TRACK';
 export const UPDATE_BUFFER_STATUS = 'UPDATE_BUFFER_STATUS';
+export const UPDATE_PROGRESS_STAMP = 'UPDATE_PROGRESS_STAMP';
+
+const getCurrentTrackDetails = (state) => {
+  const player = state.ui.player.controls.reactPlayer;
+  const trackQueueArr = state.ui.player.trackQueue.queue;
+  const currentQueueIdx = state.ui.player.trackQueue.currentQueueIdx;
+  const currentTrackId = trackQueueArr[currentQueueIdx];
+  return {
+    currentTrackId,
+    currentTrackTimeStamp: (player && player.currentTime) ? (player.currentTime / player.duration) : 0,
+    nextTrackId: trackQueueArr[currentQueueIdx + 1],
+    prevTrackId: trackQueueArr[currentQueueIdx - 1]
+  };
+};
 
 export const setCurrentTrack = (trackId, progress) => {
+  return (dispatch, getState) => {
+    const currentTrackDetails = getCurrentTrackDetails(getState());
+    const setTrackAction =  {
+      type: SET_CURRENT_TRACK,
+      trackId,
+      progress
+    };
+    const mergedAction = Object.assign(setTrackAction, currentTrackDetails);
+    return dispatch(mergedAction);
+  };
+};
+
+
+export const updateProgressStamp = (trackId, progress) => {
   return {
-    type: SET_CURRENT_TRACK,
+    type: UPDATE_PROGRESS_STAMP,
     trackId,
     progress
   };
 };
 
 export const togglePlayerStatus = (trackId) => {
-  return {
-    type: TOGGLE_PLAYER_STATUS,
-    trackId
+  return (dispatch, getState) => {
+    const currentTrackDetails = getCurrentTrackDetails(getState());
+    const toggleAction =  {
+      type: TOGGLE_PLAYER_STATUS,
+      trackId
+    };
+    const mergedAction = Object.assign(toggleAction, currentTrackDetails);
+    return dispatch(mergedAction);
   };
 };
 
@@ -54,27 +88,39 @@ export const removeFromQueue = (trackId) => {
   };
 };
 
-export const continueThroughQueue = () => {
-  return {
-    type: CONTINUE_QUEUE
+export const trackEnded = () => {
+  return (dispatch, getState) => {
+    const currentTrackDetails = getCurrentTrackDetails(getState());
+    const trackEndedAction = {
+      type: TRACK_ENDED
+    };
+    const mergedAction = Object.assign(trackEndedAction, currentTrackDetails);
+    return dispatch(mergedAction);
   };
 };
 
 export const moveToNextTrack = () => {
-  return {
-    type: MOVE_TO_NEXT_TRACK
+  return (dispatch, getState) => {
+    const currentTrackDetails = getCurrentTrackDetails(getState());
+    const nextTrackAction = { type: MOVE_TO_NEXT_TRACK };
+    const mergedAction = Object.assign(nextTrackAction, currentTrackDetails);
+    return dispatch(mergedAction);
   };
 };
 
 export const moveToPrevTrack = () => {
-  return {
-    type: MOVE_TO_PREV_TRACK
+  return (dispatch, getState) => {
+    const currentTrackDetails = getCurrentTrackDetails(getState());
+    const prevTrackAction = { type: MOVE_TO_PREV_TRACK };
+    const mergedAction = Object.assign(prevTrackAction, currentTrackDetails);
+    return dispatch(mergedAction);
   };
 };
 
-export const playerSeek = () => {
+export const playerSeek = (progress) => {
   return {
-    type: PLAYER_SEEK
+    type: PLAYER_SEEK,
+    progress
   };
 };
 

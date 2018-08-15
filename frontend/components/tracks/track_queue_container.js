@@ -4,7 +4,8 @@ import { selectTracksById } from '../../util/selectors';
 import TrackQueue from './track_queue';
 
 const mapStateToProps = (state, ownProps) => {
-  const trackIds = state.ui.player.trackQueue;
+  const trackQueue = state.ui.player.trackQueue;
+  const trackIds = trackQueue.queue;
   return {
     tracks: selectTracksById(state, trackIds)
   };

@@ -53,7 +53,7 @@ export default class WaveForm extends React.Component {
     if (this.props.isCurrentTrack && this.currentPlayerTime()) {
       this.wavesurfer.seekTo(this.currentPlayerTime());
       if (this.props.playing && !this.props.buffering) { this.wavesurfer.play(); }
-    } else if (this.props.lastProgressStamp){
+    } else if (this.props.lastProgressStamp) {
       this.wavesurfer.seekTo(this.props.lastProgressStamp);
     }
   }
@@ -68,6 +68,14 @@ export default class WaveForm extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.lastProgressStamp !== this.props.lastProgressStamp ||
+        (prevProps.isCurrentTrack && !this.props.isCurrentTrack && 
+         this.props.lastProgressStamp === 0)) {
+      this.wavesurfer.seekTo(this.props.lastProgressStamp);
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.playing && !nextProps.buffering && nextProps.isCurrentTrack) {
       this.wavesurfer.play();
@@ -79,6 +87,10 @@ export default class WaveForm extends React.Component {
         this.props.lastPlayerSeek !== nextProps.lastPlayerSeek) {
       this.wavesurfer.seekTo(nextProps.lastPlayerSeek);
     }
+  }
+
+  componentWillUnmount() {
+    this.wavesurfer.destroy();
   }
 
   currentPlayerTime() {

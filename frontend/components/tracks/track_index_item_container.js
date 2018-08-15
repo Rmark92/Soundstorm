@@ -5,8 +5,9 @@ import TrackIndexItem from './track_index_item';
 
 const mapStateToProps = (state, ownProps) => {
   const track = ownProps.track;
-  const isCurrentTrack = state.ui.player.currentTrackId === track.id;
-  const inQueue = state.ui.player.trackQueue.includes(track.id);
+  const trackQueue = state.ui.player.trackQueue;
+  const inQueue = trackQueue.queue.includes(track.id);
+  const isCurrentTrack = trackQueue.queue[trackQueue.currentQueueIdx] === track.id;
   return {
     track,
     artist: selectTrackArtist(state, track),

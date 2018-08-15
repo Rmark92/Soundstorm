@@ -3,7 +3,7 @@ import { togglePlayerStatus,
          setReactPlayer,
          toggleLoop,
          playerSeek,
-         continueThroughQueue,
+         trackEnded,
          moveToNextTrack,
          moveToPrevTrack,
          updateBufferStatus,
@@ -14,13 +14,19 @@ import Player from './player';
 
 const mapStateToProps = (state, ownProps) => {
   const player = state.ui.player;
-  const currentTrack = state.entities.tracks[player.currentTrackId];
+  const controls = player.controls;
+  const trackQueueArr = player.trackQueue.queue;
+  const currentQueueIdx = player.trackQueue.currentQueueIdx;
+  const currentTrackId = trackQueueArr[currentQueueIdx];
+  const currentTrack = state.entities.tracks[currentTrackId];
+  const trackPlayData = player.trackPlayData;
   return {
-    player,
+    controls,
     currentTrack,
     artist: selectTrackArtist(state, currentTrack),
     loggedIn: !!state.session.id,
-    duration: state.ui.player.tracksDuration[player.currentTrackId]
+    duration: trackPlayData.duration[currentTrackId],
+    lastProgressStamp: trackPlayData.progress[currentTrackId]
   };
 };
 
@@ -30,8 +36,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     setReactPlayer: playerRef => dispatch(setReactPlayer(playerRef)),
     toggleLoop: () => dispatch(toggleLoop()),
     createTrackPlay: (trackId) => dispatch(createTrackPlay(trackId)),
-    playerSeek: () => dispatch(playerSeek()),
-    continueThroughQueue: () => dispatch(continueThroughQueue()),
+    playerSeek: (progress) => dispatch(playerSeek(progress)),
+    trackEnded: () => dispatch(trackEnded()),
     moveToNextTrack: () => dispatch(moveToNextTrack()),
     moveToPrevTrack: () => dispatch(moveToPrevTrack()),
     updateBufferStatus: (isBuffering) => dispatch(updateBufferStatus(isBuffering)),

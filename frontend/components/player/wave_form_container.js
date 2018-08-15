@@ -6,15 +6,20 @@ import { createTrackPlay } from '../../actions/track_play_actions';
 import WaveForm from './wave_form';
 
 const mapStateToProps = (state, ownProps) => {
+  const player = state.ui.player;
+  const trackQueue = player.trackQueue;
+  const currentTrackId = trackQueue.queue[trackQueue.currentQueueIdx];
+  const trackPlayData = player.trackPlayData;
+  const controls = player.controls;
   return {
-    lastProgressStamp: state.ui.player.tracksProgress[ownProps.track.id],
-    reactPlayer: state.ui.player.reactPlayer,
-    isCurrentTrack: state.ui.player.currentTrackId === ownProps.track.id,
-    playing: state.ui.player.playing,
-    buffering: state.ui.player.buffering,
-    lastPlayerSeek: state.ui.player.lastPlayerSeek,
+    reactPlayer: controls.reactPlayer,
+    isCurrentTrack: currentTrackId === ownProps.track.id,
+    playing: controls.playing,
+    buffering: controls.buffering,
+    lastPlayerSeek: controls.lastPlayerSeek,
     loggedIn: !!state.session.id,
-    duration: state.ui.player.tracksDuration[ownProps.track.id]
+    duration: trackPlayData.duration[ownProps.track.id],
+    lastProgressStamp: trackPlayData.progress[ownProps.track.id]
   };
 };
 

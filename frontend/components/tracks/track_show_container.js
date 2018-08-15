@@ -7,7 +7,7 @@ import TrackShow from './track_show.jsx';
 const mapStateToProps = (state, ownProps) => {
   const trackId = ownProps.match.params.trackId;
   const track = state.entities.tracks[trackId] || {};
-  const inQueue = state.ui.player.trackQueue.includes(track.id);
+  const inQueue = state.ui.player.trackQueue.queue.includes(track.id);
   return {
     trackId,
     track,

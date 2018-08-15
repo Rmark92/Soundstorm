@@ -112,7 +112,9 @@ class TrackShow extends React.Component {
   }
 
   renderDeleteButton() {
-    if (this.props.track.id && this.props.currentUserId === this.props.artist.id) {
+    if (this.props.track.id &&
+        this.props.currentUserId === this.props.artist.id &&
+        !this.props.isCurrentTrack) {
       return (
         <IoIosTrash style={{ fill: "white", height: "20px", width: "20px" }}
                   onClick={this.handleDeleteClick}></IoIosTrash>
