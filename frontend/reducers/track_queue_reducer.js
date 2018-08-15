@@ -30,11 +30,13 @@ export default (state = { queue: [], currentQueueIdx: -1 }, action) => {
     case REMOVE_FROM_QUEUE:
     case REMOVE_TRACK:
       trackIdIdx = state.queue.indexOf(action.trackId);
-      newQueue = state.queue.slice(0);
+      if (trackIdIdx === -1) { return state; }
+      const newState = _.merge({}, state);
+      newQueue = newState.queue;
       newQueue.splice(trackIdIdx, 1);
       newQueueIdx = state.currentQueueIdx > trackIdIdx ? state.currentQueueIdx - 1 : state.currentQueueIdx;
-      return _.merge({}, state, { queue: state.queue.slice(0).splice(trackIdIdx, 1),
-                                  currentQueueIdx: newQueueIdx });
+      newState.currentQueueIdx = newQueueIdx;
+      return newState;
     case RECEIVE_TRACK:
       if (!state.queue[state.currentQueueIdx]) {
         return _.merge({}, state, { queue: [action.track.id], currentQueueIdx: 0 });
@@ -48,8 +50,15 @@ export default (state = { queue: [], currentQueueIdx: -1 }, action) => {
         return state;
       }
     case TRACK_ENDED:
+      if (action.looping) {
+        return state;
+      } else if (!action.nextTrackId) {
+        return _.merge({}, state, { currentQueueIdx: 0 });
+      } else {
+        return _.merge({}, state, { currentQueueIdx: state.currentQueueIdx + 1 });
+      }
     case MOVE_TO_NEXT_TRACK:
-      newQueueIdx = state.queue[state.currentQueueIdx + 1] ? state.currentQueueIdx + 1 : 0
+      newQueueIdx = action.nextTrackId ? state.currentQueueIdx + 1 : 0;
       return _.merge({}, state, { currentQueueIdx: newQueueIdx });
     case MOVE_TO_PREV_TRACK:
       newQueueIdx = state.currentQueueIdx <= 0 ? state.currentQueueIdx : state.currentQueueIdx - 1;

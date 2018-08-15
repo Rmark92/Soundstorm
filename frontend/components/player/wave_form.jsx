@@ -69,9 +69,7 @@ export default class WaveForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.isCurrentTrack &&
-        !this.props.isCurrentTrack &&
-        this.props.lastProgressStamp === 0) {
+    if (prevProps.lastProgressStamp !== this.props.lastProgressStamp) {
       this.wavesurfer.seekTo(this.props.lastProgressStamp);
     }
   }

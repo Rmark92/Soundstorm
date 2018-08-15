@@ -115,8 +115,9 @@ export default class Player extends React.Component {
   handleSeek(event) {
     const newTrackPos = parseFloat(event.target.value);
     this.reactPlayer.currentTime = newTrackPos * this.props.duration;
-    this.setState( { elapsed: newTrackPos });
-    this.props.playerSeek(parseFloat(event.target.value));
+    this.setState( { elapsed: newTrackPos }, () => {
+      this.props.playerSeek(newTrackPos);
+    });
   }
 
   toggleMuted() {
@@ -124,7 +125,11 @@ export default class Player extends React.Component {
   }
 
   handleTrackEnded() {
-    this.props.trackEnded();
+    this.setState( {elapsed: 0}, () => {
+      this.reactPlayer.pause();
+      this.reactPlayer.currentTime = 0;
+      this.props.trackEnded();
+    });
   }
 
   handleNextTrackClick() {
