@@ -60,8 +60,8 @@ export default class WaveForm extends React.Component {
 
   handleSeek(pos) {
     if (!this.props.isCurrentTrack && this.props.lastProgressStamp !== pos) {
+      if (this.props.lastProgressStamp === 0) { this.props.createTrackPlay(this.props.track.id); }
       this.props.setCurrentTrack(this.props.track.id, pos);
-      if (!this.props.lastProgressStamp) { this.props.createTrackPlay(); }
     } else if (this.props.isCurrentTrack &&
                Math.round(pos * 100) !== Math.round(this.currentPlayerTime() * 100)) {
       this.props.waveFormSeek(pos);
@@ -69,9 +69,9 @@ export default class WaveForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.lastProgressStamp !== this.props.lastProgressStamp ||
-        (prevProps.isCurrentTrack && !this.props.isCurrentTrack && 
-         this.props.lastProgressStamp === 0)) {
+    if (prevProps.isCurrentTrack &&
+        !this.props.isCurrentTrack &&
+        this.props.lastProgressStamp === 0) {
       this.wavesurfer.seekTo(this.props.lastProgressStamp);
     }
   }
@@ -85,7 +85,9 @@ export default class WaveForm extends React.Component {
 
     if (this.props.isCurrentTrack &&
         this.props.lastPlayerSeek !== nextProps.lastPlayerSeek) {
-      this.wavesurfer.seekTo(nextProps.lastPlayerSeek);
+      this.wavesurfer.seekTo(nextProps.lastProgressStamp);
+    } else if (!this.props.isCurrentTrack && nextProps.isCurrentTrack) {
+      this.wavesurfer.seekTo(nextProps.lastProgressStamp);
     }
   }
 

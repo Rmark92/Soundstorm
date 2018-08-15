@@ -132,13 +132,23 @@ export default class Player extends React.Component {
   }
 
   handlePrevTrackClick() {
-    this.props.moveToPrevTrack();
+    if (!this.reactPlayer.currentTime || this.reactPlayer.currentTime <= 5) {
+      this.props.moveToPrevTrack();
+    } else {
+      this.reactPlayer.currentTime = 0;
+      this.setState( { elapsed: 0 }, () => {
+        this.reactPlayer.currentTime = 0;
+        this.props.playerSeek(0);
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.controls.lastWaveFormSeek !== this.props.controls.lastWaveFormSeek) {
-      this.reactPlayer.currentTime = (nextProps.controls.lastWaveFormSeek * this.props.duration);
-      this.setState( {elapsed: this.reactPlayer.currentTime / this.props.duration });
+      const elapsed = nextProps.lastProgressStamp;
+      this.setState( { elapsed }, () => {
+        this.reactPlayer.currentTime = elapsed * this.props.duration;
+      });
     }
 
     if (nextProps.controls.playing && this.reactPlayer && this.reactPlayer.paused) {
@@ -151,7 +161,6 @@ export default class Player extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.currentTrack && prevProps.currentTrack.id !== this.props.currentTrack.id) {
       const elapsed = this.calculateInitElapsed();
-      console.log(elapsed, this.props.lastProgressStamp)
       this.setState( { elapsed, loaded: false }, () => {
         this.reactPlayer.currentTime = (elapsed * this.props.duration) || 0;
       });

@@ -21,11 +21,11 @@ export default (state = { playing: false, looping: false, buffering: false }, ac
       return _.merge({}, state, { looping: !state.looping });
     case MOVE_TO_NEXT_TRACK:
     case MOVE_TO_PREV_TRACK:
-      return _.merge({}, state, { playing: true });
+      return _.merge({}, state, { playing: true, buffering: true });
     case PLAYER_SEEK:
-      return _.merge({}, state, { lastPlayerSeek: action.progress });
+      return _.merge({}, state, { lastPlayerSeek: action.seekTimeStamp });
     case WAVE_FORM_SEEK:
-      return _.merge({}, state, { lastWaveFormSeek: action.progress, playing: true });
+      return _.merge({}, state, { lastWaveFormSeek: action.seekTimeStamp, playing: true });
     case UPDATE_BUFFER_STATUS:
       return _.merge({}, state, { buffering: action.isBuffering })
     default:

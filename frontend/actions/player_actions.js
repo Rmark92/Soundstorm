@@ -118,16 +118,30 @@ export const moveToPrevTrack = () => {
 };
 
 export const playerSeek = (progress) => {
-  return {
-    type: PLAYER_SEEK,
-    progress
+  return (dispatch, getState) => {
+    const seekTimeStamp = Date.now();
+    const currentTrackDetails = getCurrentTrackDetails(getState());
+    const seekAction =  {
+      type: PLAYER_SEEK,
+      seekTimeStamp,
+      progress
+    };
+    const mergedAction = Object.assign(seekAction, currentTrackDetails);
+    return dispatch(mergedAction);
   };
 };
 
 export const waveFormSeek = (progress) => {
-  return {
-    type: WAVE_FORM_SEEK,
-    progress
+  return (dispatch, getState) =>{
+    const seekTimeStamp = Date.now();
+    const currentTrackDetails = getCurrentTrackDetails(getState());
+    const seekAction = {
+      type: WAVE_FORM_SEEK,
+      seekTimeStamp,
+      progress
+    };
+    const mergedAction = Object.assign(seekAction, currentTrackDetails);
+    return dispatch(mergedAction);
   };
 };
 

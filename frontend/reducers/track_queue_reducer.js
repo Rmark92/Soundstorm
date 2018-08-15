@@ -36,13 +36,13 @@ export default (state = { queue: [], currentQueueIdx: -1 }, action) => {
       return _.merge({}, state, { queue: state.queue.slice(0).splice(trackIdIdx, 1),
                                   currentQueueIdx: newQueueIdx });
     case RECEIVE_TRACK:
-      if (!state.queue.length) {
+      if (!state.queue[state.currentQueueIdx]) {
         return _.merge({}, state, { queue: [action.track.id], currentQueueIdx: 0 });
       } else {
         return state;
       }
     case RECEIVE_TRACKS:
-      if (!state.queue.length) {
+      if (!state.queue[state.currentQueueIdx]) {
         return _.merge({}, state, { queue: [selectRandomTrackId(action.tracks)], currentQueueIdx: 0 });
       } else {
         return state;
